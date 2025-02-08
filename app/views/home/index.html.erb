@@ -1,0 +1,36 @@
+<div class="flex-cols w-full">
+
+<div class="text-lg font-K2D mb-4">
+  <% @users.each do |users| %>
+    <div>
+    Username : <span class="bg-[#DF633B] shadow-100 px-3 py-1 rounded-md font-bold"> <%= users.username %>
+    </div>
+  <% end %>
+</div >
+
+<table class="w-full border-collapse rounded-xl overflow-hidden">
+  <thead>
+    <tr class="bg-[#DF633B] text-white ">
+      <th class = "p-3 text-left">Date</th>
+      <th class = "p-3 text-left">Work Time</th>
+      <th class = "p-3 text-left">Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @dailytask.each do |dailytask| %>
+      <tr class="p-3">
+        <td class="p-3"><%= dailytask.date.strftime("%d/%m/%Y") %></td>
+        <td class="p-3">
+          <%= dailytask.hours %> hour<%= "s" if dailytask.hours > 1 %>
+          <% if dailytask.mins > 0 %>
+            <%= dailytask.mins %> minutes
+          <% end %>
+        </td class="p-3 border-b text-center">
+        <td>
+          <a href="#" class="text-primary hover:text-primary-dark">✏️</a> <!-- Placeholder for edit -->
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
