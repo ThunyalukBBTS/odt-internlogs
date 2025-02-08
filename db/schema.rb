@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema[8.0].define(version: 2025_02_08_073531) do
   create_table "daily_tasks", force: :cascade do |t|
-    t.integere "user_id"
+    t.integer "user_id"
     t.date "date"
     t.integer "hours"
     t.integer "mins"
