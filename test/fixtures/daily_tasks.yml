@@ -1,14 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_id: 1
   date: 2025-02-08
   hours: 1
   mins: 1
   detail: MyString
 
 two:
-  user_id: 1
   date: 2025-02-08
   hours: 1
   mins: 1
