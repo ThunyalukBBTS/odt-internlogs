@@ -1,17 +1,14 @@
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=edit_square" />
 
-
-
-
-
+<%= render "layouts/navbar"%>
+  <div calss= 'my-40'>
     <% if @user.present? %>
-    <p class="text-center mt-4 text-xl text-red-500"> Username : <%= @user.username %></p>
+    <p class="text-center mt-4 text-xl text-red-500 "> Username : <%= @user.username %></p>
     <% else %>
     <p class="text-center mt-4">User not found</p>
     <% end %>
-
- <!-- Table -->
-  <div class="flex justify-center mt-6 ">
+  <div class="flex justify-center mt-6  ">
     <table class="w-[80%] bg-white shadow-lg rounded-lg overflow-hidden   ">
       <thead >
         <tr class="bg-[#DF633B] text-white text-left  text-left rounded-tr-lg h-13">
@@ -28,13 +25,12 @@
               <%= task.hours %> hours <%= task.mins > 0 ? "#{task.mins} minutes" : "" %>
             </td>
            <td class="px-4 py-2 flex justify-between items-center">
-  <span><%= task.detail %></span>
-  <button class="bg-orange-200 hover:bg-orange-300 text-orange-700 px-2 py-1 rounded">
-    
-   <span class="material-symbols-outlined">
-edit_square
-</span>
-  </button>
+   <span><%= task.detail %></span>
+    <button class="bg-orange-200 hover:bg-orange-300 text-orange-700 px-2 py-1 rounded">
+     <span class="material-symbols-outlined">
+      edit_square
+      </span>
+    </button>
 </td>
 
             </td>
@@ -46,8 +42,13 @@ edit_square
 
   <!-- Floating Button -->
   <div class="fixed bottom-4 right-4">
-    <button class="bg-orange-500 hover:bg-orange-600 text-white text-2xl p-4 rounded-full shadow-lg">
-      ➕
-    </button>
+    <%= link_to "daily_task", class: "inline-block" do %>
+  <button class="bg-orange-500 hover:bg-orange-600 text-white text-2xl p-4 rounded-full shadow-lg">
+    ➕
+  </button >
+<% end %>
+
   </div>
+</div>
+
 </div>
