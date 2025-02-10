@@ -2,16 +2,16 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=edit_square" />
 
 <%= render "layouts/navbar"%>
-  <div calss= 'my-40'>
+  <div class= 'mt-32'>
     <% if @user.present? %>
-    <p class="text-center mt-4 text-xl text-red-500 "> Username : <%= @user.username %></p>
+    <p class="text-center mt-4 text-xl text-[#DF633B] "> Username : <%= @user.username %></p>
     <% else %>
-    <p class="text-center mt-4">User not found</p>
+    <p class="text-center mt-4 text-red-500 font-bold text-xl">User not found</p>
     <% end %>
   <div class="flex justify-center mt-6  ">
     <table class="w-[80%] bg-white shadow-lg rounded-lg overflow-hidden   ">
       <thead >
-        <tr class="bg-[#DF633B] text-white text-left  text-left rounded-tr-lg h-13">
+        <tr class="bg-[#DF633B] text-white text-left rounded-tr-lg h-13">
           <th class="px-4 py-2 w-2/6 text-xl">Date</th>
           <th class="px-4 py-2 w-2/6 text-xl">Worktime</th>
           <th class="px-4 py-2 w-3/6 text-xl">Details</th>
