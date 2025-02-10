@@ -26,11 +26,12 @@
             </td>
            <td class="px-4 py-2 flex justify-between items-center">
    <span><%= task.detail %></span>
-    <button class="bg-orange-200 hover:bg-orange-300 text-orange-700 px-2 py-1 rounded">
-     <span class="material-symbols-outlined">
-      edit_square
-      </span>
-    </button>
+   <%= link_to edit_home_path(task), class: "btn btn-warning" do %>
+  <button class="bg-orange-200 hover:bg-orange-300 text-orange-700 px-2 py-1 rounded">
+    <span class="material-symbols-outlined">edit_square</span>
+  </button>
+<% end %>
+
 </td>
 
             </td>

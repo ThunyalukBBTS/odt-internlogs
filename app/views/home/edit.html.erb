@@ -1,0 +1,38 @@
+<!-- Modal for Editing Task -->
+<div id="editTaskModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-5">
+    <h2 class="text-2xl font-bold text-center mb-4">แก้ไขงาน</h2>
+    
+    <%= form_with model: @task, url: home_update_path(@task), method: :patch, id: "editTaskForm" do |f| %>
+      <!-- วันที่ -->
+      <div class="mb-4">
+        <%= f.label :date, "วันที่", class: "block font-semibold mb-1" %>
+        <%= f.date_field :date, class: "border rounded p-2 w-full", id: "edit_date" %>
+      </div>
+
+      <!-- ชั่วโมง -->
+      <div class="mb-4">
+        <%= f.label :hours, "ชั่วโมง", class: "block font-semibold mb-1" %>
+        <%= f.number_field :hours, min: 0, class: "border rounded p-2 w-full", id: "edit_hours" %>
+      </div>
+
+      <!-- นาที -->
+      <div class="mb-4">
+        <%= f.label :mins, "นาที", class: "block font-semibold mb-1" %>
+        <%= f.number_field :mins, min: 0, max: 59, class: "border rounded p-2 w-full", id: "edit_minutes" %>
+      </div>
+
+      <!-- รายละเอียด -->
+      <div class="mb-4">
+        <%= f.label :detail, "รายละเอียด", class: "block font-semibold mb-1" %>
+        <%= f.text_area :detail, class: "border rounded p-2 w-full h-24", id: "edit_detail" %>
+      </div>
+
+      <!-- ปุ่มกด -->
+      <div class="flex justify-end space-x-4">
+        <%= link_to "ยกเลิก", root_path, class: "bg-red-500 text-white px-4 py-2 rounded" %>
+        <%= f.submit "บันทึกการเปลี่ยนแปลง", class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -7,10 +7,13 @@ Rails.application.routes.draw do
   get "/my_daily_task", to: "tasks#index", as: "my_daily_task"
   get "/odt_member", to: "members#index", as: "odt_member"
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-  root "home#index"
+    # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
+    # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+    # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+    root "home#index"
+    get "home/:id/edit", to: "home#edit", as: "edit_home"
+    patch "home/:id", to: "home#update", as: "home_update"
+    resources :home, only: [ :edit, :update ]
 
   # # Defines the root path route ("/")
   # root "daily_task#index"
