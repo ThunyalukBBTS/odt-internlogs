@@ -58,7 +58,7 @@
       <!-- Floating Button -->
       <div class="fixed bottom-4 right-4">
         <%= link_to root_path(show_new_modal: "true" ), class: "inline-block" do %>
-          <button class="bg-orange-500 hover:bg-orange-600 text-white text-2xl p-4 rounded-full shadow-lg">
+          <button class="bg-orange-500 hover:bg-orange-600 text-white text-2xl p-4 rounded-full shadow-lg <%= @show_new_modal ? 'hidden' : '' %>">
             ➕
           </button>
           <% end %>

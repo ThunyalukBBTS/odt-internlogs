@@ -22,11 +22,15 @@ class HomeController < ApplicationController
 
   def new_modal
     redirect_to root_path(show_new_modal: "true")
-
   end
 
   def close_modal
     redirect_to root_path(show_new_modal: "false")
+  end
+
+
+  def comfirm_modal
+    redirect_to root_path(show_confirm_modal: "false")
   end
 
   private
