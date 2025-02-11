@@ -4,6 +4,7 @@ class HomeController < ApplicationController
   def index
     @user = User.find_by(id: 1)
     @tasks = DailyTask.all
+    @show_new_modal = params[:show_new_modal] == "true"
   end
 
   def edit
@@ -17,6 +18,15 @@ class HomeController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def new_modal
+    redirect_to root_path(show_new_modal: "true")
+
+  end
+
+  def close_modal
+    redirect_to root_path(show_new_modal: "false")
   end
 
   private
