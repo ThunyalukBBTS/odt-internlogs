@@ -1,43 +1,69 @@
 <div id="editTaskModal" class="fixed inset-0 bg-white-900 bg-opacity-50 flex items-center justify-center hidden">
-  <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-5">
-    <h2 class="text-2xl font-bold text-center mb-4">แก้ไขงาน</h2>
-    <%= form_with scope: :daily_task, url: "root_path" , method: :patch, id: "editTaskForm" do |f| %>
+
+  <div class="bg-[#DF633B] rounded-lg shadow-lg max-w-lg w-full p-5">
+    <h2 class="text-2xl font-bold text-center mb-4 text-white">Edit</h2>
+    <%= form_with scope: :daily_task, url: "root_path", method: :patch, id: "editTaskForm" do |f| %>
       <input type="hidden" id="edit_task_id" name="daily_task[id]">
-      <div class="mb-4">
-        <%= f.label :date, "วันที่" , class: "block font-semibold mb-1" %>
-        <%= f.date_field :date, class: "border rounded p-2 w-full" , id: "edit_date" %>
+
+      <!-- white padding -->
+      <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-5">
+        <!-- Date -->
+        <div class="mb-4 flex items-center">
+          <%= f.label :date, "Date: ", class: "font-semibold w-24 text-right" %>
+          <%= f.date_field :date, class: "border rounded-lg p-2 w-40 ml-2", id: "edit_date" %>
+        </div>
+
+        <!-- worktime -->
+        <div class="mb-4 flex items-center">
+          <%= f.label :hours, "Worktime: ", class: "font-semibold w-24 text-right" %>
+          <div class="flex items-center gap-3">
+            <%= f.select :hours, options_for_select((0..8).map { |h| [h, h] }), {}, class: "border rounded-lg p-2 w-20 text-center ml-2", id: "edit_hours" %>
+            <span class="ml-2">hours</span>
+
+            <%= f.select :mins, options_for_select([["00", "00"], ["30", "30"]]), {}, class: "border rounded-lg p-2 w-20 text-center ml-2", id: "edit_minutes" %>
+            <span class="ml-2">mins</span>
+          </div>
+        </div>
+
+        <!-- details -->
+        <div class="mb-4 flex items-center">
+          <%= f.label :detail, "Details: ", class: "font-semibold w-24 text-right" %>
+          <%= f.text_area :detail, class: "border rounded p-2 w-full h-24 ml-2", id: "edit_detail" %>
+        </div>
+      
+        <!-- buttons -->
+        <div class="flex justify-end space-x-4">
+          <button type="button" id="closeModal" class="bg-red-500 text-white px-4 py-2 rounded">Cancle</button>
+          <button type="button" id="nextButton" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+        </div>
       </div>
-      <div class="mb-4">
-        <%= f.label :hours, "ชั่วโมง" , class: "block font-semibold mb-1" %>
-        <%= f.number_field :hours, min: 0, class: "border rounded p-2 w-full" , id: "edit_hours" %>
-      </div>
-      <div class="mb-4">
-        <%= f.label :mins, "นาที" , class: "block font-semibold mb-1" %>
-        <%= f.number_field :mins, min: 0, max: 59, class: "border rounded p-2 w-full" , id: "edit_minutes" %>
-      </div>
-      <div class="mb-4">
-        <%= f.label :detail, "รายละเอียด" , class: "block font-semibold mb-1" %>
-        <%= f.text_area :detail, class: "border rounded p-2 w-full h-24" , id: "edit_detail" %>
-      </div>
-      <div class="flex justify-end space-x-4">
-        <button type="button" id="closeModal" class="bg-red-500 text-white px-4 py-2 rounded">ยกเลิก</button>
-        <button type="button" id="nextButton" class="bg-blue-500 text-white px-4 py-2 rounded">ถัดไป</button>
-      </div>
+
     <% end %>
   </div>
 </div>
+
+
 <div id="confirmModal" class="fixed inset-0 bg-white-900 bg-opacity-50 flex items-center justify-center hidden">
-  <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-5">
-    <h2 class="text-2xl font-bold text-center mb-4">ยืนยันการแก้ไข</h2>
+  <div class="bg-[#DF633B] rounded-lg shadow-lg max-w-lg w-full p-5">
+    <h2 class="text-2xl font-bold text-center mb-4 text-white">Confirm</h2>
+
+    <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-5">
     <div class="mb-4">
-      <p><strong>วันที่:</strong> <span id="confirm_date"></span></p>
-      <p><strong>ชั่วโมง:</strong> <span id="confirm_hours"></span> ชั่วโมง</p>
-      <p><strong>นาที:</strong> <span id="confirm_minutes"></span> นาที</p>
-      <p><strong>รายละเอียด:</strong> <span id="confirm_detail"></span></p>
+      <p><strong>Date: </strong> <span id="confirm_date"></span></p>
+      
+      <div class="flex items-center gap-3">
+        <strong>Worktime: </strong>
+        <span id="confirm_hours"></span> ชั่วโมง
+        <span id="confirm_minutes"></span> นาที
+      </div>
+
+      <p><strong>Details: </strong> <span id="confirm_detail"></span></p>
     </div>
     <div class="flex justify-end space-x-4">
-      <button type="button" id="backButton" class="bg-gray-500 text-white px-4 py-2 rounded">ย้อนกลับ</button>
-      <button type="submit" id="confirmSave" class="bg-green-500 text-white px-4 py-2 rounded">ยืนยัน</button>
+      <button type="button" id="backButton" class="bg-red-500 text-white px-4 py-2 rounded">Back</button>
+      <button type="submit" id="confirmSave" class="bg-blue-500 text-white px-4 py-2 rounded">Confirm</button>
     </div>
   </div>
+    </div>
+    
 </div>
