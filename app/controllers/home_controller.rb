@@ -5,6 +5,21 @@ class HomeController < ApplicationController
     @user = User.find_by(id: 1)
     @tasks = DailyTask.all
     @show_new_modal = params[:show_new_modal] == "true"
+    @task = DailyTask.new # Initialize new task for form
+  end
+
+  def create
+    @task = DailyTask.new(task_params)
+    @task.user_id = 1  # Assuming user_id is always 1
+
+    if @task.save
+      redirect_to root_path, notice: "Task created successfully!"
+    else
+      @user = User.find_by(id: 1)
+      @tasks = DailyTask.all  # Ensure @tasks is available
+      @show_new_modal = true
+      render :index  # Re-render index instead of redirecting
+    end
   end
 
   def edit
