@@ -5,21 +5,26 @@
     <div class='mt-32 <%= @show_new_modal ? ' blur-background' : '' %>'>
       <div class="flex justify-center mt-6 flex-col">
         <% if @user.present? %>
-          <p class="justify-start mt-4 text-md text-black ml-4 mb-4">
+          <p class="justify-start mt-4 text-xl text-black ml-4 mb-4 mx-4">
             Username :
-            <span class="bg-[#F4C7B8] px-6 py-1 rounded-lg text-black">
+            <span class="bg-[#F4C7B8] px-6 py-1 rounded-lg text-black text-xl">
               <%= @user.username %>
             </span>
           </p>
           <% else %>
-            <p class="text-center mt-4 text-red-500 font-bold text-md">User not found</p>
+            <p class="justify-start mt-4 text-xl text-black ml-4 mb-4">
+            Username :
+            <span class="bg-[#F4C7B8] px-6 py-1 rounded-lg text-black text-xl">
+              <%= "User not found" %>
+            </span>
+            </p>
             <% end %>
               <table class=" bg-white shadow-lg rounded-lg overflow-hidden   ">
                 <thead>
                   <tr class="bg-[#DF633B] text-white text-left rounded-tr-lg h-13">
-                    <th class="px-4 py-2 w-2/6 text-xl">Date</th>
-                    <th class="px-4 py-2 w-2/6 text-xl">Worktime</th>
-                    <th class="px-4 py-2 w-3/6 text-xl">Details</th>
+                    <th class="px-4 w-2/6 text-2xl font-medium">Date</th>
+                    <th class="px-4 w-2/6 text-2xl font-medium">Worktime</th>
+                    <th class="px-4 w-2/6 text-2xl font-medium">Details</th>
                   </tr>
                 </thead>
                 <tbody class="space-y-4">
