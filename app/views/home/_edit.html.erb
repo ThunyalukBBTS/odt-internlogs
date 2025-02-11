@@ -5,25 +5,41 @@
       <input type="hidden" id="edit_task_id" name="daily_task[id]">
       <div class="mb-4">
         <%= f.label :date, "วันที่" , class: "block font-semibold mb-1" %>
-          <%= f.date_field :date, class: "border rounded p-2 w-full" , id: "edit_date" %>
+        <%= f.date_field :date, class: "border rounded p-2 w-full" , id: "edit_date" %>
       </div>
       <div class="mb-4">
         <%= f.label :hours, "ชั่วโมง" , class: "block font-semibold mb-1" %>
-          <%= f.number_field :hours, min: 0, class: "border rounded p-2 w-full" , id: "edit_hours" %>
+        <%= f.number_field :hours, min: 0, class: "border rounded p-2 w-full" , id: "edit_hours" %>
       </div>
       <div class="mb-4">
         <%= f.label :mins, "นาที" , class: "block font-semibold mb-1" %>
-          <%= f.number_field :mins, min: 0, max: 59, class: "border rounded p-2 w-full" , id: "edit_minutes" %>
+        <%= f.number_field :mins, min: 0, max: 59, class: "border rounded p-2 w-full" , id: "edit_minutes" %>
       </div>
       <div class="mb-4">
         <%= f.label :detail, "รายละเอียด" , class: "block font-semibold mb-1" %>
-          <%= f.text_area :detail, class: "border rounded p-2 w-full h-24" , id: "edit_detail" %>
+        <%= f.text_area :detail, class: "border rounded p-2 w-full h-24" , id: "edit_detail" %>
       </div>
       <div class="flex justify-end space-x-4">
         <button type="button" id="closeModal" class="bg-red-500 text-white px-4 py-2 rounded">ยกเลิก</button>
         <%= f.submit "บันทึกการเปลี่ยนแปลง", class: "bg-blue-500 text-white px-4 py-2 rounded", id: "closeModal",
         onclick: "setTimeout(function(){ window.location.reload(); }, 500);" %>
+        <button type="button" id="nextButton" class="bg-blue-500 text-white px-4 py-2 rounded">ถัดไป</button>
       </div>
-      <% end %>
+    <% end %>
+  </div>
+</div>
+<div id="confirmModal" class="fixed inset-0 bg-white-900 bg-opacity-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-5">
+    <h2 class="text-2xl font-bold text-center mb-4">ยืนยันการแก้ไข</h2>
+    <div class="mb-4">
+      <p><strong>วันที่:</strong> <span id="confirm_date"></span></p>
+      <p><strong>ชั่วโมง:</strong> <span id="confirm_hours"></span> ชั่วโมง</p>
+      <p><strong>นาที:</strong> <span id="confirm_minutes"></span> นาที</p>
+      <p><strong>รายละเอียด:</strong> <span id="confirm_detail"></span></p>
+    </div>
+    <div class="flex justify-end space-x-4">
+      <button type="button" id="backButton" class="bg-gray-500 text-white px-4 py-2 rounded">ย้อนกลับ</button>
+      <button type="submit" id="confirmSave" class="bg-green-500 text-white px-4 py-2 rounded">ยืนยัน</button>
+    </div>
   </div>
 </div>
