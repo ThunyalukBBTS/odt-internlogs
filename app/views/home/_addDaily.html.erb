@@ -2,19 +2,17 @@
   <div class="bg-[#7D58BF] rounded-lg shadow-lg w-[calc(90vw)] max-w-3xl max-h-[calc(80vh)] p-2 text-center">
     <h1 class="text-2xl sm:text-3xl font-bold text-white mb-1 mt-3 sm:mb-2 sm:mt-5">New Daily Task</h1>
     <div class="bg-white rounded-lg w-full p-5 mt-5 text-xl">
-      <%= form_with model: @task, url: home_create_task_path, local: true , data: { controller: "form-validator" }  do |f| %>
-
+      <%= form_with model: @task, url: home_create_task_path, local: true , data: { controller: "form-validator", "newdailymodal-target":"form" }  do |f| %>
         <div class="grid grid-cols-10 gap-4 mb-4">
-          <label class="col-span-2 text-right">Date:</label>
+          <label class="col-span-2 text-right font-semibold">Date:</label>
           <%= f.date_field :date, value: (@task.date || Date.today).strftime('%Y-%m-%d'), 
             max:Date.today.strftime('%Y-%m-%d'),
             class: "col-span-7 border border-neutral-400 rounded focus:outline-none focus:ring-2 focus:border-[#7d58bf] focus:ring-[#7d58bf]",
-            data: { "form-validator-target": "date", action: "input->form-validator#validateForm" } %>
+            data: { "form-validator-target": "date", action: "input->form-validator#validateForm", "newdailymodal-target":"input_date" } %>
         </div>
-
         <div class="grid grid-cols-10 gap-4 mb-4" data-controller="worktime">
           <label class="block col-span-2 text-right text-md sm:hidden">Wt:</label>
-          <label class="col-span-2 text-right hidden sm:block">Worktime:</label>
+          <label class="col-span-2 text-right hidden sm:block font-semibold">Worktime:</label>
           <div class="flex space-x-2 col-span-8">
             <!-- ✅ Hours Select -->
             <%= f.select :hours, 
@@ -22,7 +20,8 @@
                   class: "border rounded border-neutral-400 pl-1 bg-white focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]",
                   data: { 
                     "form-validator-target": "hours", 
-                    action: "form-validator#validateForm change->worktime#updateMinutes" 
+                    action: "form-validator#validateForm change->worktime#updateMinutes",
+                    "newdailymodal-target":"input_hours"
                   }
                 %>
             <span>hours</span>
@@ -32,22 +31,20 @@
                   id: "worktime-minutes",
                   data: { 
                     "form-validator-target": "mins", 
-                    action: "change->form-validator#validateForm" 
+                    action: "change->form-validator#validateForm" ,
+                    "newdailymodal-target":"input_mins"
                   }
             %>
             <span>minutes</span>
           </div>
         </div>
-        
-
         <div class="grid grid-cols-10 gap-4">
-          <label class="block col-span-2 text-right">Detail:</label>
+          <label class="block col-span-2 text-right font-semibold">Detail:</label>
           <%= f.text_area :detail,placeholder: "(Optional)",
             :maxlength => 255,
             class: "border rounded min-h-32 border-neutral-400 sm:min-h-48 w-full px-2 col-span-8 focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]",
-            data: { "form-validator-target": "detail", action: "input->form-validator#validateForm" } %>
+            data: { "form-validator-target": "detail", action: "input->form-validator#validateForm","newdailymodal-target":"input_detail" } %>
         </div>
-
         <% if @task.errors.any? %>
           <div class="text-red-500">
             <h3>
@@ -58,28 +55,27 @@
                 <li>
                   <%= msg %>
                 </li>
-                <% end %>
+              <% end %>
             </ul>
           </div>
-          <% end %>
-
-
-             <div class="flex justify-end space-x-4 mt-5">
-                            <button data-action="click->newdailymodal#close_modal"
-                                class="bg-red-400 text-white px-4 py-2 rounded">Cancel</button>
-                                <%= button_tag "Continue",
+        <% end %>
+        <div class="flex justify-end space-x-4 mt-5">
+          <button data-action="click->newdailymodal#close_modal"
+            class="bg-red-400 text-white px-4 py-2 rounded"
+            onclick="event.preventDefault();">Cancel</button>
+          <%= button_tag "Continue",
                                     class: "bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed",
                                     id: "continue-button",
                                     disabled: true,
                                     data: {
                                       action: "click->newdailymodal#confirm",
                                       "form-validator-target": "continueButton"
-                                    }
+                                    },
+                                    onclick:"event.preventDefault();"
                                 %>
-                      <!-- <%= f.submit "Continue" , class: "bg-blue-400 text-white px-4 py-2 rounded" %> --->
-                        </div>
-            <% end %>
-
+          <!-- <%= f.submit "Continue" , class: "bg-blue-400 text-white px-4 py-2 rounded" %> --->
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
