@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="newdailymodal"
 export default class extends Controller {
-  static targets = ["background", "add_button", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_hours", "output_mins", "output_detail", "form"]
+  static targets = ["background", "add_button", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time", "output_detail", "form"]
 
   connect() {
   }
@@ -32,8 +32,26 @@ export default class extends Controller {
     let month = objectDate.getMonth() + 1
     let year = objectDate.getFullYear()
     this.output_dateTarget.textContent = `${date}/${month}/${year}`
-    this.output_hoursTarget.textContent = `${this.input_hoursTarget.value}`
-    this.output_minsTarget.textContent = `${this.input_minsTarget.value}`
+    let out_str = ""
+    // format work hours
+    let minutes = parseInt(this.input_minsTarget.value)
+    let hours = parseInt(this.input_hoursTarget.value)
+    if (hours === 0 && minutes === 0) {
+      out_str = ""
+    }
+    else if (hours === 0) {
+      out_str = `${this.input_minsTarget.value} minutes`
+    }
+    else if (hours === 1 && minutes === 0) {
+      out_str = `${this.input_hoursTarget.value} hour`
+    } else if (hours === 1) {
+      out_str = `${this.input_hoursTarget.value} hour ${this.input_minsTarget.value} minutes`
+    } else if (hours >= 2 && minutes === 0) {
+      out_str = `${this.input_hoursTarget.value} hours`
+    } else {
+      out_str = `${this.input_hoursTarget.value} hours ${this.input_minsTarget.value} minutes`
+    }
+    this.output_timeTarget.textContent = out_str
     this.output_detailTarget.textContent = `${this.input_detailTarget.value}`
     // show confirm modal
     this.confirm_modalTarget.classList.remove("hidden")
