@@ -1,23 +1,22 @@
-Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  Rails.application.routes.draw do
+    # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
-  get "/my_daily_task", to: "tasks#index", as: "my_daily_task"
-  get "/odt_member", to: "members#index", as: "odt_member"
+    # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
+    # Can be used by load balancers and uptime monitors to verify that the app is live.
+    get "up" => "rails/health#show", as: :rails_health_check
+    get "/my_daily_task", to: "tasks#index", as: "my_daily_task"
+    get "/odt_member", to: "members#index", as: "odt_member"
 
     # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
     # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
     # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-  root "home#index"
-  get "home/:id/edit", to: "home#edit", as: "edit_home"
-  patch "home/:id", to: "home#update", as: "home_update"
-  resources :home, only: [ :edit, :update ]
-  resources :daily_tasks, only: [:create, :update, :edit]
-  post 'home/create_task', to: 'home#create', as: 'home_create_task'
+    root "home#index"
+    get "home/:id/edit", to: "home#edit", as: "edit_home"
+    patch "home/:id", to: "home#update", as: "home_update"
+    resources :home, only: [ :edit, :update ]
+    resources :daily_tasks, only: [ :create, :update, :edit ]
+    post "home/create_task", to: "home#create", as: "home_create_task"
 
-  # # Defines the root path route ("/")
-  # root "daily_task#index"
-  
-end
+    # # Defines the root path route ("/")
+    # root "daily_task#index"
+  end

@@ -10,7 +10,12 @@
         <!-- Date -->
         <div class="mb-4 flex items-center">
           <%= f.label :date, "Date: ", class: "font-semibold w-24 text-right" %>
-          <%= f.date_field :date, class: "border rounded-lg p-2 w-40 ml-2", id: "edit_date" %>
+          <%= f.date_field :date, 
+      value: (@task.date || Date.today).strftime('%Y-%m-%d'), 
+      max: Date.today.strftime('%Y-%m-%d'), 
+      class: "border rounded-lg p-2 w-40 ml-2", 
+      id: "edit_date" %>
+
         </div>
 
         <!-- worktime -->
