@@ -23,7 +23,16 @@
         <thead>
           <tr class="bg-[#DF633B] text-white text-left rounded-tr-lg h-13">
             <th class="px-4 w-2/6 text-2xl font-medium">
-      <%= link_to "Date", root_path(sort: "date", direction: toggle_direction(params[:direction])) %>
+      <%= link_to root_path(sort: "date", direction: toggle_direction(params[:direction])) do %>
+        Date
+        <% if params[:sort] == "date" %>
+          <% if params[:direction] == "asc" %>
+            <%= image_tag("arrow_drop_up.svg", alt: "Ascending", class: "inline-block w-5 h-5") %>
+          <% else %>
+            <%= image_tag("arrow_drop_down.svg", alt: "Descending", class: "inline-block w-5 h-5") %>
+          <% end %>
+        <% end %>
+      <% end %>
     </th>
 
             <th class="px-4 w-2/6 text-2xl font-medium">Worktime</th>
