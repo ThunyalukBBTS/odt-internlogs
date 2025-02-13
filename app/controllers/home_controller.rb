@@ -4,6 +4,7 @@ class HomeController < ApplicationController
   def index
     @user = User.find_by(id: 1)
     @tasks = DailyTask.all
+    @tasks = DailyTask.order(date: :asc) # เรียงวันที่จากเก่าไปใหม่ (Ascending)
     @show_new_modal = params[:show_new_modal] == "true"
     @task = DailyTask.new # Initialize new task for form
   end
