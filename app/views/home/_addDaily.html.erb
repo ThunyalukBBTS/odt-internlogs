@@ -12,19 +12,30 @@
             %>
         </div>
 
-        <div class="grid grid-cols-10 gap-4 mb-4">
+        <div class="grid grid-cols-10 gap-4 mb-4" data-controller="worktime">
           <label class="col-span-2 text-right">Worktime:</label>
           <div class="flex space-x-2 col-span-8">
-            <%= f.select :hours, (0..8).to_a, {},
-              class: "border rounded border-neutral-400 pl-1 bg-white focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]"
-              %>
-              <span>hours</span>
-              <%= f.select :mins, [0, 30], {},
-                class: "border rounded pl-1 border-neutral-400 bg-white focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]"
+        
+            <!-- ✅ Hours Select -->
+            <%= f.select :hours, 
+                  options_for_select((0..8).map { |h| ["#{h.to_s.rjust(2, "0")}", h] }, f.object.hours),
+                  {},
+                  class: "border rounded border-neutral-400 pl-1 bg-white focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]",
+                  data: { action: "change->worktime#updateMinutes" }
                 %>
-                <span>minutes</span>
+            <span>hours</span>
+        
+            <!-- ✅ Minutes Select -->
+            <%= f.select :mins, 
+                  options_for_select([[0, "00"], [30, "30"]], f.object.mins),
+                  {},
+                  class: "border rounded pl-1 border-neutral-400 bg-white focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]",
+                  id: "worktime-minutes"
+                %>
+            <span>minutes</span>
           </div>
         </div>
+        
 
         <div class="grid grid-cols-10 gap-4">
           <label class="block col-span-2 text-right">Detail:</label>
