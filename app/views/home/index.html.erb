@@ -22,7 +22,10 @@
       <table class=" bg-white shadow-lg rounded-lg overflow-hidden" >
         <thead>
           <tr class="bg-[#DF633B] text-white text-left rounded-tr-lg h-13">
-            <th class="px-4 w-2/6 text-2xl font-medium">Date</th>
+            <th class="px-4 w-2/6 text-2xl font-medium">
+      <%= link_to "Date", root_path(sort: "date", direction: toggle_direction(params[:direction])) %>
+    </th>
+
             <th class="px-4 w-2/6 text-2xl font-medium">Worktime</th>
             <th class="px-4 w-2/6 text-2xl font-medium">Details</th>
           </tr>
