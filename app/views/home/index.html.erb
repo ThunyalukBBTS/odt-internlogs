@@ -23,7 +23,7 @@
         <table class="bg-white shadow-lg rounded-lg overflow-hidden">
           <thead>
             <tr class="bg-[#DF633B] text-white text-left rounded-tr-lg h-13">
-              <th class="px-4 w-2/6 text-2xl font-medium">
+              <th class="px-4 w-1/4 text-2xl font-medium">
                 <%= link_to root_path(sort: "date", direction: toggle_direction(params[:direction])) do %>
                   Date
                   <% if params[:sort] == "date" || params[:sort].blank? %>
@@ -35,8 +35,8 @@
                   <% end %>
                 <% end %>
               </th>
-              <th class="px-4 w-2/6 text-2xl font-medium">Worktime</th>
-              <th class="px-4 w-2/6 text-2xl font-medium">Details</th>
+              <th class="px-4 w-1/4 text-2xl font-medium">Worktime</th>
+              <th class="px-4 w-2/4 text-2xl font-medium">Details</th>
             </tr>
           </thead>
           <tbody class="space-y-4">
@@ -49,7 +49,7 @@
                   <%= task.hours %> hours <%= task.mins > 0 ? "#{task.mins} minutes" : "" %>
                 </td>
                 <td class="px-4 py-2 flex justify-between items-center">
-                  <span class="w-[30ch] break-words">
+                  <span class="w-[60ch] break-words">
                     <%= task.detail %>
                   </span>
                   <button class="bg-orange-200 hover:bg-orange-300 text-orange-700 px-2 py-1 rounded edit-task-btn cursor-pointer"

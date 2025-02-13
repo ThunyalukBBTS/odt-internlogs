@@ -25,7 +25,7 @@
           </div>
         </div>
         <!-- details -->
-        <div class="mb-4 flex items-center">
+        <div class="mb-4 flex items-center w-full break-words">
           <%= f.label :detail, "Details: ", class: "font-semibold w-24 text-right" %>
           <%= f.text_area :detail, class: "border rounded p-2 w-full h-24 ml-2", id: "edit_detail" , maxlength: 255 %>
         </div>
@@ -49,7 +49,7 @@
           <span id="confirm_hours"></span> ชั่วโมง
           <span id="confirm_minutes"></span> นาที
         </div>
-        <p><strong>Details: </strong> <span id="confirm_detail" class="w-[30] break-words"></span></p>
+        <p><strong>Details: </strong> <span id="confirm_detail" class="w-full break-words"></span></p>
       </div>
       <div class="flex justify-end space-x-4">
         <button type="button" id="backButton" class="bg-red-500 text-white px-4 py-2 rounded">Back</button>
