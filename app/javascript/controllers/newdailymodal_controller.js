@@ -15,17 +15,23 @@ export default class extends Controller {
   }
 
   close_modal() {
+    this.input_detailTarget.value = ""
     this.add_buttonTarget.classList.remove("hidden")
     this.modalTarget.classList.remove("flex")
     this.modalTarget.classList.add("hidden")
     this.backgroundTarget.classList.remove("blur-background")
+
   }
 
   confirm() {
     // close new modal
     this.modalTarget.classList.remove("flex")
     this.modalTarget.classList.add("hidden")
-    this.output_dateTarget.textContent = `${this.input_dateTarget.value}`
+    let objectDate = new Date(this.input_dateTarget.value)
+    let date = objectDate.getDate()
+    let month = objectDate.getMonth() + 1
+    let year = objectDate.getFullYear()
+    this.output_dateTarget.textContent = `${date}/${month}/${year}`
     this.output_hoursTarget.textContent = `${this.input_hoursTarget.value}`
     this.output_minsTarget.textContent = `${this.input_minsTarget.value}`
     this.output_detailTarget.textContent = `${this.input_detailTarget.value}`
