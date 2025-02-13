@@ -27,7 +27,7 @@
         
             <!-- ✅ Minutes Select -->
             <%= f.select :mins, 
-                  options_for_select([[0, "00"], [30, "30"]], f.object.mins),
+                  options_for_select([["00", 0], ["30", 30]], f.object.mins),
                   {},
                   class: "border rounded pl-1 border-neutral-400 bg-white focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]",
                   id: "worktime-minutes"
