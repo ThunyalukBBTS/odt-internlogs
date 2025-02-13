@@ -1,4 +1,4 @@
-<div class="fixed inset-0 bg-opacity-100 items-center justify-center <%= @show_new_modal ? 'flex' : 'hidden' %>">
+<div data-newdailymodal-target="modal" class="fixed inset-0 bg-opacity-100 items-center justify-center hidden">
   <div class="bg-[#7D58BF] rounded-lg shadow-lg w-[calc(90vw)] max-w-3xl max-h-[calc(80vh)] p-2 text-center">
     <h1 class="text-2xl sm:text-3xl font-bold text-white mb-1 mt-3 sm:mb-2 sm:mt-5">New Daily Task</h1>
     <div class="bg-white rounded-lg w-full p-5 mt-5 text-xl">
@@ -60,12 +60,13 @@
           <% end %>
 
 
-            <div class="flex justify-end space-x-4 mt-5">
-              <%= link_to root_path, class: "bg-red-400 text-white px-4 py-2 rounded" do %>
-                Cancel
-                <% end %>
-                  <%= f.submit "Save" , class: "bg-blue-400 text-white px-4 py-2 rounded" %>
-            </div>
+             <div class="flex justify-end space-x-4 mt-5">
+                            <button data-action="click->newdailymodal#close_modal"
+                                class="bg-red-400 text-white px-4 py-2 rounded">Cancel</button>
+                            <button data-action="click->newdailymodal#confirm"
+                                class="bg-blue-400 text-white px-4 py-2 rounded">Continue</button>
+                      <!-- <%= f.submit "Continue" , class: "bg-blue-400 text-white px-4 py-2 rounded" %> --->
+                        </div>
             <% end %>
 
     </div>

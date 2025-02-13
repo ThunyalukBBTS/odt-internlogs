@@ -1,0 +1,68 @@
+<div data-newdailymodal-target="modal" class="fixed inset-0 bg-opacity-100 items-center justify-center hidden">
+    <div class="bg-[#7D58BF] rounded-lg shadow-lg w-[calc(90vw)] max-w-3xl max-h-[calc(80vh)] p-2 text-center">
+        <h1 class="text-2xl sm:text-3xl font-bold text-white mb-1 mt-3 sm:mb-2 sm:mt-5">New Daily Task</h1>
+        <div class="bg-white rounded-lg w-full p-5 mt-5 text-xl">
+            <%= form_with model: @task, url: home_create_task_path, local: true do |f| %>
+
+                <div class="grid grid-cols-10 gap-4 mb-4">
+                    <label class="col-span-2 text-right">Date:</label>
+                    <%= f.date_field :date, value: (@task.date || Date.today).strftime('%Y-%m-%d'), max:
+                        Date.today.strftime('%Y-%m-%d'),
+                        class: "col-span-7 border border-neutral-400 rounded focus:outline-none focus:ring-2 focus:border-[#7d58bf] focus:ring-[#7d58bf]"
+                        %>
+                </div>
+
+                <div class="grid grid-cols-10 gap-4 mb-4" data-controller="worktime">
+                    <label class="col-span-2 text-right">Worktime:</label>
+                    <div class="flex space-x-2 col-span-8">
+
+                        <%= f.select:hours, options_for_select((0..8).map { |h| [h.to_s.rjust(2, "0" ), h] },
+                            f.object.hours),
+                            class: "border rounded border-neutral-400 pl-1 bg-white focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]"
+                            , data: { action: "change->worktime#updateMinutes" } %>
+
+                            <%= f.select:mins, options_for_select(minutes_options, f.object.mins), # Use the helper
+                                method
+                                class: "border rounded pl-1 border-neutral-400 bg-white focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]"
+                                , id: "worktime-minutes" %>
+
+                    </div>
+                </div>
+
+
+                <div class="grid grid-cols-10 gap-4">
+                    <label class="block col-span-2 text-right">Detail:</label>
+                    <%= f.text_area :detail,
+                        class: "border rounded min-h-32 border-neutral-400 sm:min-h-48 w-full px-2 col-span-8 focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]"
+                        %>
+                </div>
+
+                <% if @task.errors.any? %>
+                    <div class="text-red-500">
+                        <h3>
+                            <%= pluralize(@task.errors.count, "error" ) %> prevented saving:
+                        </h3>
+                        <ul>
+                            <% @task.errors.full_messages.each do |msg| %>
+                                <li>
+                                    <%= msg %>
+                                </li>
+                                <% end %>
+                        </ul>
+                    </div>
+                    <% end %>
+
+
+                        <div class="flex justify-end space-x-4 mt-5">
+                            <button data-action="click->newdailymodal#close_modal"
+                                class="bg-red-400 text-white px-4 py-2 rounded">Cancel</button>
+                            <button data-action="click->newdailymodal#confirm"
+                                class="bg-blue-400 text-white px-4 py-2 rounded">Continue</button>
+
+                            <%= f.submit "Continue" , class: "bg-blue-400 text-white px-4 py-2 rounded" %>
+                        </div>
+                        <% end %>
+
+        </div>
+    </div>
+</div>
