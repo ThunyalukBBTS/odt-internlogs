@@ -53,14 +53,14 @@
                   <%= task.detail %>
                 </span>
                 <button
-  class="bg-orange-200 hover:bg-orange-300 text-orange-700 px-2 py-1 rounded edit-task-btn"
+  class="bg-orange-200 hover:bg-orange-300 text-orange-700 px-2 py-1 rounded edit-task-btn cursor-pointer"
   data-id="<%= task.id %>"
   data-date="<%= task.date %>"
   data-hours="<%= task.hours %>"
   data-mins="<%= task.mins %>"
   data-detail="<%= task.detail %>"
   data-turbo="false">
-                  <span class="material-symbols-outlined">edit_square</span>
+                  <%= image_tag 'edit.svg', width: 30, height: 30 %>
                 </button>
               </td>
             </td>
@@ -72,8 +72,8 @@
   <!-- Floating Button -->
   <div class="fixed bottom-4 right-4">
     <button data-action="click->newdailymodal#show_modal"
-      class="bg-orange-500 hover:bg-orange-600 text-white text-2xl p-4 rounded-full shadow-lg">
-      ➕
+      class="bg-[#7D58BF] cursor-pointer text-2xl p-4 rounded-full shadow-lg">
+      <%= image_tag 'add.svg', width: 30, height: 30 %>
     </button>
   </div>
 </div>
