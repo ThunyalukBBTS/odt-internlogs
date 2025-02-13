@@ -5,9 +5,11 @@ class HomeController < ApplicationController
     @user = User.find_by(id: 1)
     @tasks = DailyTask.all
 
-    sort_column = params[:sort] || "date"
-    sort_direction = params[:direction] || "asc"
-    @tasks = DailyTask.order("#{sort_column} #{sort_direction}")
+  # ถ้าไม่มีการส่งพารามิเตอร์ sort หรือ direction ให้ใช้ค่าเริ่มต้น
+  sort_column = params[:sort] || "date"
+  sort_direction = params[:direction] || "asc"
+
+  @tasks = DailyTask.order("#{sort_column} #{sort_direction}")
 
     @show_new_modal = params[:show_new_modal] == "true"
     @task = DailyTask.new # Initialize new task for form

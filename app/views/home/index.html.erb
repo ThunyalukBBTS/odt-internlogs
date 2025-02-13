@@ -19,55 +19,54 @@
           </span>
         </p>
       <% end %>
-      <table class=" bg-white shadow-lg rounded-lg overflow-hidden" >
+      <table class="bg-white shadow-lg rounded-lg overflow-hidden">
         <thead>
-          <tr class="bg-[#DF633B] text-white text-left rounded-tr-lg h-13">
-            <th class="px-4 w-2/6 text-2xl font-medium">
+  <tr class="bg-[#DF633B] text-white text-left rounded-tr-lg h-13">
+    <th class="px-4 w-2/6 text-2xl font-medium">
       <%= link_to root_path(sort: "date", direction: toggle_direction(params[:direction])) do %>
         Date
-        <% if params[:sort] == "date" %>
-          <% if params[:direction] == "asc" %>
-            <%= image_tag("arrow_drop_up.svg", alt: "Ascending", class: "inline-block w-5 h-5") %>
+        <% if params[:sort] == "date" || params[:sort].blank? %>
+          <% if params[:direction] == "asc" || params[:direction].blank? %>
+            <%= image_tag("arrow_drop_up.svg", alt: "Ascending", class: "inline-block w-8 h-8") %>
           <% else %>
-            <%= image_tag("arrow_drop_down.svg", alt: "Descending", class: "inline-block w-5 h-5") %>
+            <%= image_tag("arrow_drop_down.svg", alt: "Descending", class: "inline-block w-8 h-8") %>
           <% end %>
         <% end %>
       <% end %>
     </th>
+    <th class="px-4 w-2/6 text-2xl font-medium">Worktime</th>
+    <th class="px-4 w-2/6 text-2xl font-medium">Details</th>
+  </tr>
+</thead>
 
-            <th class="px-4 w-2/6 text-2xl font-medium">Worktime</th>
-            <th class="px-4 w-2/6 text-2xl font-medium">Details</th>
-          </tr>
-        </thead>
         <tbody class="space-y-4">
           <% @tasks.each do |task| %>
-            <tr class="bg-gray-100  border-t-6 border-white ">
-              <td class="px-4 py-2 ">
+            <tr class="bg-gray-100 border-t-6 border-white">
+              <td class="px-4 py-2">
                 <%= task.date.strftime("%d/%m/%Y") %>
               </td>
-              <td class="px-4 py-2 ">
-                <%= task.hours %> hours <%= task.mins> 0 ? "#{task.mins} minutes" : "" %>
+              <td class="px-4 py-2">
+                <%= task.hours %> hours <%= task.mins > 0 ? "#{task.mins} minutes" : "" %>
               </td>
               <td class="px-4 py-2 flex justify-between items-center">
                 <span class="w-[30ch] break-words">
                   <%= task.detail %>
                 </span>
-                <button
-  class="bg-orange-200 hover:bg-orange-300 text-orange-700 px-2 py-1 rounded edit-task-btn cursor-pointer"
-  data-id="<%= task.id %>"
-  data-date="<%= task.date %>"
-  data-hours="<%= task.hours %>"
-  data-mins="<%= task.mins %>"
-  data-detail="<%= task.detail %>"
-  data-turbo="false">
+                <button class="bg-orange-200 hover:bg-orange-300 text-orange-700 px-2 py-1 rounded edit-task-btn cursor-pointer"
+                  data-id="<%= task.id %>"
+                  data-date="<%= task.date %>"
+                  data-hours="<%= task.hours %>"
+                  data-mins="<%= task.mins %>"
+                  data-detail="<%= task.detail %>"
+                  data-turbo="false">
                   <%= image_tag 'edit.svg', width: 30, height: 30 %>
                 </button>
               </td>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
   <!-- Floating Button -->
   <div class="fixed bottom-4 right-4">
@@ -79,5 +78,4 @@
 </div>
 <%= render "addDaily" %>
 <%= render "confirmDaily" %>
-</div>
 <%= render "edit" %>
