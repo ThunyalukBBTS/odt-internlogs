@@ -69,19 +69,40 @@ document.addEventListener("turbo:load", function () {
 
     // กด "Next" เพื่อไป Confirm Modal
     nextButton.addEventListener("click", function () {
-        // ตรวจสอบค่าก่อนแสดง Modal
-        validateMinutes();
+        let selectedDate = document.getElementById("edit_date").value;
+        let taskId = document.getElementById("edit_task_id").value; // ID ของ Task ที่กำลังแก้ไข
+        let duplicateModal = document.getElementById("duplicateDateModal");
 
-        // ดึงค่าจากฟอร์ม
-        document.getElementById("confirm_date").innerText = document.getElementById("edit_date").value;
-        document.getElementById("confirm_hours").innerText = document.getElementById("edit_hours").value;
-        document.getElementById("confirm_minutes").innerText = document.getElementById("edit_minutes").value;
-        document.getElementById("confirm_detail").innerText = document.getElementById("edit_detail").value;
+        // ตรวจสอบว่ามีวันที่ซ้ำ **แต่ต้องไม่ใช่ Task ที่เรากำลังแก้ไข**
+        let isDuplicate = Array.from(document.querySelectorAll(".task-date")).some(td => {
+            let rowTaskId = td.closest("tr").querySelector(".edit-task-btn").dataset.id; // ดึง ID ของ Task ในแถว
+            // ✅ แปลง "DD/MM/YYYY" เป็น "YYYY-MM-DD"
+            let parts = td.innerText.split("/");
+            let formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`; // YYYY-MM-DD
+            return formattedDate === selectedDate && rowTaskId !== taskId; // เช็คว่ามี Task ที่ซ้ำ และไม่ใช่ Task เดิม
+        });
 
-        // ปิด Edit Modal และเปิด Confirm Modal
-        editModal.classList.add("hidden");
-        confirmModal.classList.remove("hidden");
+        if (isDuplicate) {
+            duplicateModal.classList.remove("hidden"); // แสดง Modal แจ้งเตือน
+        } else {
+            // ดึงค่าจากฟอร์มไปแสดงใน Confirm Modal
+            document.getElementById("confirm_date").innerText = selectedDate;
+            document.getElementById("confirm_hours").innerText = document.getElementById("edit_hours").value;
+            document.getElementById("confirm_minutes").innerText = document.getElementById("edit_minutes").value;
+            document.getElementById("confirm_detail").innerText = document.getElementById("edit_detail").value;
+
+            // ปิด Edit Modal และเปิด Confirm Modal
+            editModal.classList.add("hidden");
+            confirmModal.classList.remove("hidden");
+        }
     });
+
+    // ปิด Modal แจ้งเตือนวันที่ซ้ำ
+    document.getElementById("closeDuplicateModal").addEventListener("click", function () {
+        document.getElementById("duplicateDateModal").classList.add("hidden");
+    });
+
+
 
     // กดปุ่มย้อนกลับ (Back) เพื่อกลับไปหน้าแก้ไข
     backButton.addEventListener("click", function () {
