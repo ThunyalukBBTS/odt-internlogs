@@ -2,7 +2,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("turbo:load", function () {
     const editModal = document.getElementById("editTaskModal");
     const confirmModal = document.getElementById("confirmModal");
     const form = document.getElementById("editTaskForm");
@@ -12,44 +12,41 @@ document.addEventListener("DOMContentLoaded", function () {
     const backButton = document.getElementById("backButton");
     const confirmSave = document.getElementById("confirmSave");
 
-    // เมื่อกดปุ่มแก้ไข
+    // ลบ Event Listener เก่าก่อน แล้วเพิ่มใหม่
     document.querySelectorAll(".edit-task-btn").forEach((button) => {
-        button.addEventListener("click", function () {
-            // ดึงข้อมูลจาก data-* attributes
-            const taskId = this.dataset.id;
-            const taskDate = this.dataset.date;
-            const taskHours = this.dataset.hours;
-            const taskMins = this.dataset.mins;
-            const taskDetail = this.dataset.detail;
-
-            // ใส่ข้อมูลลงในฟอร์ม
-            document.getElementById("edit_task_id").value = taskId;
-            document.getElementById("edit_date").value = taskDate;
-            document.getElementById("edit_hours").value = taskHours;
-            document.getElementById("edit_minutes").value = taskMins;
-            document.getElementById("edit_detail").value = taskDetail;
-
-            // ตั้ง URL ของฟอร์ม
-            form.action = `/home/${taskId}`;
-
-            // แสดง Edit Modal
-            editModal.classList.remove("hidden");
-        });
+        button.removeEventListener("click", openEditModal); // ลบตัวเก่า
+        button.addEventListener("click", openEditModal); // เพิ่มใหม่
     });
+
+    function openEditModal(event) {
+        // ดึงข้อมูลจาก data-* attributes
+        const taskId = this.dataset.id;
+        const taskDate = this.dataset.date;
+        const taskHours = this.dataset.hours;
+        const taskMins = this.dataset.mins;
+        const taskDetail = this.dataset.detail;
+
+        // ใส่ข้อมูลลงในฟอร์ม
+        document.getElementById("edit_task_id").value = taskId;
+        document.getElementById("edit_date").value = taskDate;
+        document.getElementById("edit_hours").value = taskHours;
+        document.getElementById("edit_minutes").value = taskMins;
+        document.getElementById("edit_detail").value = taskDetail;
+
+        // ตั้ง URL ของฟอร์ม
+        form.action = `/home/${taskId}`;
+
+        // แสดง Edit Modal
+        editModal.classList.remove("hidden");
+    }
 
     // กด "Next" เพื่อไป Confirm Modal
     nextButton.addEventListener("click", function () {
         // ดึงค่าจากฟอร์ม
-        const taskDate = document.getElementById("edit_date").value;
-        const taskHours = document.getElementById("edit_hours").value;
-        const taskMins = document.getElementById("edit_minutes").value;
-        const taskDetail = document.getElementById("edit_detail").value;
-
-        // แสดงค่าที่กรอกใน Confirm Modal
-        document.getElementById("confirm_date").innerText = taskDate;
-        document.getElementById("confirm_hours").innerText = taskHours;
-        document.getElementById("confirm_minutes").innerText = taskMins;
-        document.getElementById("confirm_detail").innerText = taskDetail;
+        document.getElementById("confirm_date").innerText = document.getElementById("edit_date").value;
+        document.getElementById("confirm_hours").innerText = document.getElementById("edit_hours").value;
+        document.getElementById("confirm_minutes").innerText = document.getElementById("edit_minutes").value;
+        document.getElementById("confirm_detail").innerText = document.getElementById("edit_detail").value;
 
         // ปิด Edit Modal และเปิด Confirm Modal
         editModal.classList.add("hidden");
