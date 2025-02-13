@@ -1,81 +1,82 @@
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=edit_square" />
 <%= render "layouts/navbar" %>
-<div data-controller="newdailymodal" class="mt-4 mx-auto w-[80%]">
-  <div data-newdailymodal-target="background" class='mt-32'>
-    <div class="flex justify-center mt-6 flex-col">
-      <% if @user.present? %>
-        <p class="justify-start mt-4 text-xl text-black ml-4 mb-4 mx-4">
-          Username :
-          <span class="bg-[#F4C7B8] px-6 py-1 rounded-lg text-black text-xl">
-            <%= @user.username %>
-          </span>
-        </p>
-      <% else %>
-        <p class="justify-start mt-4 text-xl text-black ml-4 mb-4">
-          Username :
-          <span class="bg-[#F4C7B8] px-6 py-1 rounded-lg text-black text-xl">
-            <%= "User not found" %>
-          </span>
-        </p>
-      <% end %>
-      <table class="bg-white shadow-lg rounded-lg overflow-hidden">
-        <thead>
-  <tr class="bg-[#DF633B] text-white text-left rounded-tr-lg h-13">
-    <th class="px-4 w-2/6 text-2xl font-medium">
-      <%= link_to root_path(sort: "date", direction: toggle_direction(params[:direction])) do %>
-        Date
-        <% if params[:sort] == "date" || params[:sort].blank? %>
-          <% if params[:direction] == "asc" || params[:direction].blank? %>
-            <%= image_tag("arrow_drop_up.svg", alt: "Ascending", class: "inline-block w-8 h-8") %>
-          <% else %>
-            <%= image_tag("arrow_drop_down.svg", alt: "Descending", class: "inline-block w-8 h-8") %>
-          <% end %>
+<div data-controller="newdailymodal" >
+  <div class="mt-4 mx-auto w-[80%]">
+    <div data-newdailymodal-target="background" class='mt-32'>
+      <div class="flex justify-center mt-6 flex-col">
+        <% if @user.present? %>
+          <p class="justify-start mt-4 text-xl text-black ml-4 mb-4 mx-4">
+            Username :
+            <span class="bg-[#F4C7B8] px-6 py-1 rounded-lg text-black text-xl">
+              <%= @user.username %>
+            </span>
+          </p>
+        <% else %>
+          <p class="justify-start mt-4 text-xl text-black ml-4 mb-4">
+            Username :
+            <span class="bg-[#F4C7B8] px-6 py-1 rounded-lg text-black text-xl">
+              <%= "User not found" %>
+            </span>
+          </p>
         <% end %>
-      <% end %>
-    </th>
-    <th class="px-4 w-2/6 text-2xl font-medium">Worktime</th>
-    <th class="px-4 w-2/6 text-2xl font-medium">Details</th>
-  </tr>
-</thead>
-
-        <tbody class="space-y-4">
-          <% @tasks.each do |task| %>
-            <tr class="bg-gray-100 border-t-6 border-white">
-              <td class="px-4 py-2">
-                <%= task.date.strftime("%d/%m/%Y") %>
-              </td>
-              <td class="px-4 py-2">
-                <%= task.hours %> hours <%= task.mins > 0 ? "#{task.mins} minutes" : "" %>
-              </td>
-              <td class="px-4 py-2 flex justify-between items-center">
-                <span class="w-[30ch] break-words">
-                  <%= task.detail %>
-                </span>
-                <button class="bg-orange-200 hover:bg-orange-300 text-orange-700 px-2 py-1 rounded edit-task-btn cursor-pointer"
+        <table class="bg-white shadow-lg rounded-lg overflow-hidden">
+          <thead>
+            <tr class="bg-[#DF633B] text-white text-left rounded-tr-lg h-13">
+              <th class="px-4 w-2/6 text-2xl font-medium">
+                <%= link_to root_path(sort: "date", direction: toggle_direction(params[:direction])) do %>
+                  Date
+                  <% if params[:sort] == "date" || params[:sort].blank? %>
+                    <% if params[:direction] == "asc" || params[:direction].blank? %>
+                      <%= image_tag("arrow_drop_up.svg", alt: "Ascending", class: "inline-block w-8 h-8") %>
+                    <% else %>
+                      <%= image_tag("arrow_drop_down.svg", alt: "Descending", class: "inline-block w-8 h-8") %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </th>
+              <th class="px-4 w-2/6 text-2xl font-medium">Worktime</th>
+              <th class="px-4 w-2/6 text-2xl font-medium">Details</th>
+            </tr>
+          </thead>
+          <tbody class="space-y-4">
+            <% @tasks.each do |task| %>
+              <tr class="bg-gray-100 border-t-6 border-white">
+                <td class="px-4 py-2">
+                  <%= task.date.strftime("%d/%m/%Y") %>
+                </td>
+                <td class="px-4 py-2">
+                  <%= task.hours %> hours <%= task.mins > 0 ? "#{task.mins} minutes" : "" %>
+                </td>
+                <td class="px-4 py-2 flex justify-between items-center">
+                  <span class="w-[30ch] break-words">
+                    <%= task.detail %>
+                  </span>
+                  <button class="bg-orange-200 hover:bg-orange-300 text-orange-700 px-2 py-1 rounded edit-task-btn cursor-pointer"
                   data-id="<%= task.id %>"
                   data-date="<%= task.date %>"
                   data-hours="<%= task.hours %>"
                   data-mins="<%= task.mins %>"
                   data-detail="<%= task.detail %>"
                   data-turbo="false">
-                  <%= image_tag 'edit.svg', width: 30, height: 30 %>
-                </button>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+                    <%= image_tag 'edit.svg', width: 30, height: 30 %>
+                  </button>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Floating Button -->
+    <div class="fixed bottom-4 right-4">
+      <button data-action="click->newdailymodal#show_modal"
+        class="bg-[#7D58BF] cursor-pointer text-2xl p-4 rounded-full shadow-lg">
+        <%= image_tag 'add.svg', width: 30, height: 30 %>
+      </button>
     </div>
   </div>
-  <!-- Floating Button -->
-  <div class="fixed bottom-4 right-4">
-    <button data-action="click->newdailymodal#show_modal"
-      class="bg-[#7D58BF] cursor-pointer text-2xl p-4 rounded-full shadow-lg">
-      <%= image_tag 'add.svg', width: 30, height: 30 %>
-    </button>
-  </div>
+  <%= render "addDaily" %>
+  <%= render "confirmDaily" %>
+  <%= render "edit" %>
 </div>
-<%= render "addDaily" %>
-<%= render "confirmDaily" %>
-<%= render "edit" %>
