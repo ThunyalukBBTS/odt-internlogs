@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="newdailymodal"
 export default class extends Controller {
-  static targets = ["background", "add_button", "modal", "modal_content", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time", "output_detail", "form"]
+  static targets = ["background", "add_button", "modal_content", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time", "output_detail", "form", "success"]
 
   connect() {
   }
@@ -27,8 +27,8 @@ export default class extends Controller {
     this.backgroundTarget.classList.remove("blur-background")
     this.modal_contentTarget.classList.add('translate-y-full')
     setTimeout(() => {
-        this.modal_contentTarget.classList.add('opacity-0')
-        // this.modal_contentTarget.classList.add('scale-150')
+      this.modal_contentTarget.classList.add('opacity-0')
+      // this.modal_contentTarget.classList.add('scale-150')
     }, 100);
     setTimeout(() => this.modalTarget.classList.add('hidden'), 300);
   }
@@ -77,8 +77,22 @@ export default class extends Controller {
     this.modalTarget.classList.add("flex")
   }
 
-  submit() {
+  close_confirm_modal() {
+    this.confirm_modalTarget.classList.remove("flex")
+    this.confirm_modalTarget.classList.add("hidden")
     this.add_buttonTarget.classList.remove("hidden")
-    this.formTarget.submit()
+    this.backgroundTarget.classList.remove("blur-background")
+  }
+
+  submit() {
+    this.close_confirm_modal()
+    this.successTarget.classList.remove("translate-x-full", "opacity-0")
+    setTimeout(() => {
+      this.successTarget.classList.add("translate-x-full", "opacity-0")
+    }, 2500)
+    setTimeout(() => {
+      this.successTarget.classList.add("hidden")
+      this.formTarget.submit()
+    }, 3000)
   }
 }
