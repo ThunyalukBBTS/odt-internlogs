@@ -63,6 +63,13 @@ document.addEventListener("turbo:load", function () {
             }
         }
     }
+    function formatHourText(hours) {
+        return hours == 1 ? "1 Hour" : `${hours} Hours`;
+    }
+
+    function formatMinuteText(minutes) {
+        return minutes == 1 ? "1 minute" : `${minutes} minutes`;
+    }
 
     // เรียก validateMinutes ทุกครั้งที่เปลี่ยนค่าของ hours
     hoursSelect.addEventListener("change", validateMinutes);
@@ -85,10 +92,14 @@ document.addEventListener("turbo:load", function () {
         if (isDuplicate) {
             duplicateModal.classList.remove("hidden"); // แสดง Modal แจ้งเตือน
         } else {
+            let hours = parseInt(document.getElementById("edit_hours").value, 10) || 0;
+            let minutes = parseInt(document.getElementById("edit_minutes").value, 10) || 0;
+            let parts = selectedDate.split("-");
+            let formatDate = `${parts[2]}/${parts[1]}/${parts[0]}`; // DD/MM/YYYY
             // ดึงค่าจากฟอร์มไปแสดงใน Confirm Modal
-            document.getElementById("confirm_date").innerText = selectedDate;
-            document.getElementById("confirm_hours").innerText = document.getElementById("edit_hours").value;
-            document.getElementById("confirm_minutes").innerText = document.getElementById("edit_minutes").value;
+            document.getElementById("confirm_date").innerText = formatDate;
+            document.getElementById("confirm_hours").innerText = hours > 0 ? formatHourText(hours) : "";
+            document.getElementById("confirm_minutes").innerText = minutes > 0 ? formatMinuteText(minutes) : "";
             document.getElementById("confirm_detail").innerText = document.getElementById("edit_detail").value;
 
             // ปิด Edit Modal และเปิด Confirm Modal

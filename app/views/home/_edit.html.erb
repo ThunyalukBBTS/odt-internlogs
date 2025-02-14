@@ -19,9 +19,9 @@
           <%= f.label :hours, "Worktime: ", class: "font-semibold w-24 text-right" %>
           <div class="flex items-center gap-3">
             <%= f.select :hours, options_for_select((0..8).map { |h| [h, h] }), {}, class: "border rounded-lg p-2 w-20 text-center ml-2", id: "edit_hours" %>
-            <span class="ml-2">hours</span>
+            <span class="ml-2">Hours</span>
             <%= f.select :mins, options_for_select([["00", "00"], ["30", "30"]]), {}, class: "border rounded-lg p-2 w-20 text-center ml-2", id: "edit_minutes" %>
-            <span class="ml-2">mins</span>
+            <span class="ml-2">minutes</span>
           </div>
         </div>
         <!-- details -->
@@ -46,8 +46,8 @@
         <p><strong>Date: </strong> <span id="confirm_date"></span></p>
         <div class="flex items-center gap-3">
           <strong>Worktime: </strong>
-          <span id="confirm_hours"></span> ชั่วโมง
-          <span id="confirm_minutes"></span> นาที
+          <span id="confirm_hours"></span> 
+          <span id="confirm_minutes"></span>
         </div>
         <p><strong>Details: </strong> <span id="confirm_detail" class="w-full break-words"></span></p>
       </div>

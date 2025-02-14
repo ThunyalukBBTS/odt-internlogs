@@ -15,5 +15,5 @@ export default class extends Controller {
       minutesSelect.innerHTML += `<option value="0">00</option>`;
       minutesSelect.innerHTML += `<option value="30">30</option>`;
     }
-  }
+  }  
 }
