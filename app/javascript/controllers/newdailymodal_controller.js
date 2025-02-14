@@ -2,14 +2,21 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="newdailymodal"
 export default class extends Controller {
-  static targets = ["background", "add_button", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time", "output_detail", "form"]
+  static targets = ["background", "add_button", "modal", "modal_content", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time", "output_detail", "form"]
 
   connect() {
   }
   //  <%= @show_new_modal ? 'flex' : 'hidden' %>
   show_modal() {
+    this.modal_contentTarget.classList.remove('translate-y-full')
+    this.modal_contentTarget.classList.add('translate-y-full')
     this.add_buttonTarget.classList.add("hidden")
     this.modalTarget.classList.remove("hidden")
+    setTimeout(() => {
+      this.modal_contentTarget.classList.remove('opacity-0')
+      this.modal_contentTarget.classList.remove('translate-y-full')
+      this.modal_contentTarget.classList.remove('scale-150')
+    }, 100);
     this.modalTarget.classList.add("flex")
     this.backgroundTarget.classList.add("blur-background")
   }
@@ -17,10 +24,13 @@ export default class extends Controller {
   close_modal() {
     this.input_detailTarget.value = ""
     this.add_buttonTarget.classList.remove("hidden")
-    this.modalTarget.classList.remove("flex")
-    this.modalTarget.classList.add("hidden")
     this.backgroundTarget.classList.remove("blur-background")
-
+    this.modal_contentTarget.classList.add('translate-y-full')
+    setTimeout(() => {
+        this.modal_contentTarget.classList.add('opacity-0')
+        // this.modal_contentTarget.classList.add('scale-150')
+    }, 100);
+    setTimeout(() => this.modalTarget.classList.add('hidden'), 300);
   }
 
   confirm() {
