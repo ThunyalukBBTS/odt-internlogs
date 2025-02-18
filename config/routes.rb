@@ -15,7 +15,7 @@
     patch "home/:id", to: "home#update", as: "home_update"
     resources :home, only: [ :edit, :update ]
     resources :daily_tasks, only: [ :create, :update, :edit ]
-    post "home/create_task", to: "home#create", as: "home_create_task"
+    post "/", to: "home#create", as: "home_create_task"
 
     # # Defines the root path route ("/")
     # root "daily_task#index"

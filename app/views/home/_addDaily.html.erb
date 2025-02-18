@@ -2,13 +2,20 @@
   <div data-newdailymodal-target="modal_content" class="bg-[#7D58BF] opacity-0 translate-y-full rounded-lg shadow-lg w-[calc(90vw)] max-w-3xl max-h-[calc(80vh)] p-2 text-center transform transition-all duration-300">
     <h1 class="text-2xl sm:text-3xl font-bold text-white mb-1 mt-3 sm:mb-2 sm:mt-5">New Daily Task</h1>
     <div class="bg-white rounded-lg w-full p-5 mt-5 text-xl">
-      <%= form_with model: @task, url: home_create_task_path, local: true , data: { controller: "form-validator", "newdailymodal-target":"form" }  do |f| %>
+      <%= form_with model: @task, url: home_create_task_path, local: true , data: { turbo_method: :post,controller: "form-validator", "newdailymodal-target":"form" }  do |f| %>
         <div class="grid grid-cols-10 gap-4 mb-4">
           <label class="col-span-2 text-right font-semibold">Date:</label>
           <%= f.date_field :date, value: (@task.date || Date.today).strftime('%Y-%m-%d'), 
             max:Date.today.strftime('%Y-%m-%d'),
-            class: "col-span-7 border border-neutral-400 rounded focus:outline-none focus:ring-2 focus:border-[#7d58bf] focus:ring-[#7d58bf]",
-            data: { "form-validator-target": "date", action: "input->form-validator#validateForm", "newdailymodal-target":"input_date" } %>
+            class: "col-span-8 border border-neutral-400 rounded focus:outline-none focus:ring-2 focus:border-[#7d58bf] focus:ring-[#7d58bf]",
+            data: { "form-validator-target": "date", action: "change->form-validator#validateForm", "newdailymodal-target":"input_date" } %>
+        </div>
+        <div data-form-validator-target="date_error" class="hidden grid-cols-10 gap-4 mb-4">
+          <div class="col-span-2"></div>
+          <div class="col-span-8 bg-red-200 items-center rounded-md text-center p-1 flex">
+            <%= image_tag 'error.svg', width: 30, height: 30 ,class:"min-w-[30px] me-2" %>
+            <h1 class="text-red-800 text-lg font-semibold">Error: This date already exists in daily tasks</h1>
+          </div>
         </div>
         <div class="grid grid-cols-10 gap-4 mb-4" data-controller="worktime">
           <label class="block col-span-2 text-right text-md sm:hidden">Wt:</label>
@@ -45,20 +52,6 @@
             class: "border rounded min-h-32 border-neutral-400 sm:min-h-48 w-full px-2 col-span-8 focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]",
             data: { "form-validator-target": "detail", action: "input->form-validator#validateForm","newdailymodal-target":"input_detail" } %>
         </div>
-        <% if @task.errors.any? %>
-          <div class="text-red-500">
-            <h3>
-              <%= pluralize(@task.errors.count, "error" ) %> prevented saving:
-            </h3>
-            <ul>
-              <% @task.errors.full_messages.each do |msg| %>
-                <li>
-                  <%= msg %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
         <div class="flex justify-end space-x-4 mt-5">
           <button data-action="click->newdailymodal#close_modal"
             class="bg-red-400 text-white px-4 py-2 rounded cursor-pointer"
