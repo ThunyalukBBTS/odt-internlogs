@@ -81,7 +81,8 @@ document.addEventListener("turbo:load", function () {
                     newOption.textContent = "00";
                     minutesSelect.appendChild(newOption);
                 }
-            });
+            }
+        });
     }
     function formatHourText(hours) {
         return hours == 1 ? "1 Hour" : `${hours} Hours`;
