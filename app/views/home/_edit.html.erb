@@ -1,68 +1,135 @@
-<div id="editTaskModal" class="fixed inset-0 bg-white-900 bg-opacity-50 flex items-center justify-center hidden backdrop-blur-md">
-  <div class="bg-[#DF633B] rounded-lg shadow-lg max-w-lg w-full p-5">
-    <h2 class="text-2xl font-bold text-center mb-4 text-white">Edit</h2>
+<!-- Edit Task Modal -->
+<div id="editTaskModal" class="fixed inset-0 bg-black/40 flex items-center justify-center hidden backdrop-blur-md">
+  <div class="bg-[#DF633B] rounded-xl shadow-xl max-w-xl w-full m-4">
+    <div class="p-3">
+      <h2 class="text-2xl font-bold text-center text-white">Edit Daily Task</h2>
+    </div>
+    
     <%= form_with scope: :daily_task, url: "root_path", method: :patch, id: "editTaskForm" do |f| %>
       <input type="hidden" id="edit_task_id" name="daily_task[id]">
-      <!-- white padding -->
-      <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-5">
-        <!-- Date -->
-        <div class="mb-4 flex items-center">
-          <%= f.label :date, "Date: ", class: "font-semibold w-24 text-right" %>
-          <%= f.date_field :date, 
-      value: (@task.date || Date.today).strftime('%Y-%m-%d'), 
-      max: Date.today.strftime('%Y-%m-%d'), 
-      class: "border rounded-lg p-2 w-40 ml-2", 
-      id: "edit_date" %>
-        </div>
-        <!-- worktime -->
-        <div class="mb-4 flex items-center">
-          <%= f.label :hours, "Worktime: ", class: "font-semibold w-24 text-right" %>
-          <div class="flex items-center gap-3">
-            <%= f.select :hours, options_for_select((0..8).map { |h| [h, h] }), {}, class: "border rounded-lg p-2 w-20 text-center ml-2", id: "edit_hours" %>
-            <span class="ml-2">Hours</span>
-            <%= f.select :mins, options_for_select([["00", "00"], ["30", "30"]]), {}, class: "border rounded-lg p-2 w-20 text-center ml-2", id: "edit_minutes" %>
-            <span class="ml-2">minutes</span>
+      
+      <div class="bg-white rounded-xl shadow-lg mx-4 mb-4">
+        <div class="p-6 space-y-6">
+          <!-- Date Input -->
+          <div class="flex items-center">
+            <%= f.label :date, "Date :", class: "font-semibold w-28 text-gray-700" %>
+            <%= f.date_field :date, 
+                value: (@task.date || Date.today).strftime('%Y-%m-%d'), 
+                max: Date.today.strftime('%Y-%m-%d'), 
+                class: "border-2 border-gray-200 rounded-lg p-2.5 w-48 focus:border-[#DF633B] focus:ring-2 focus:ring-[#DF633B]/20 outline-none", 
+                id: "edit_date" %>
           </div>
-        </div>
-        <!-- details -->
-        <div class="mb-4 flex items-center w-full break-words">
-          <%= f.label :detail, "Details: ", class: "font-semibold w-24 text-right" %>
-          <%= f.text_area :detail, class: "border rounded p-2 w-full h-24 ml-2", id: "edit_detail" , maxlength: 255 %>
-        </div>
-        <!-- buttons -->
-        <div class="flex justify-end space-x-4">
-          <button type="button" id="closeModal" class="bg-red-500 text-white px-4 py-2 rounded">Cancel</button>
-          <button type="button" id="nextButton" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
+
+          <!-- Worktime Input -->
+          <div class="flex items-center">
+            <%= f.label :hours, "Work Time :", class: "font-semibold w-28 text-gray-700" %>
+            <div class="flex items-center gap-4">
+              <%= f.select :hours, 
+                  options_for_select((0..8).map { |h| [h, h] }), 
+                  {}, 
+                  class: "border-2 border-gray-200 rounded-lg p-2.5 w-24 text-center focus:border-[#DF633B] focus:ring-2 focus:ring-[#DF633B]/20 outline-none", 
+                  id: "edit_hours" %>
+              <span class="text-gray-600">Hours</span>
+              <%= f.select :mins, 
+                  options_for_select([["00", "00"], ["30", "30"]]), 
+                  {}, 
+                  class: "border-2 border-gray-200 rounded-lg p-2.5 w-24 text-center focus:border-[#DF633B] focus:ring-2 focus:ring-[#DF633B]/20 outline-none", 
+                  id: "edit_minutes" %>
+              <span class="text-gray-600">Minutes</span>
+            </div>
+          </div>
+
+          <!-- Details Input -->
+          <div class="flex items-start">
+            <%= f.label :detail, "Details :", class: "font-semibold w-28 text-gray-700 pt-2" %>
+            <%= f.text_area :detail, 
+                class: "border-2 border-gray-200 rounded-lg p-3 w-full h-32 focus:border-[#DF633B] focus:ring-2 focus:ring-[#DF633B]/20 outline-none resize-none", 
+                id: "edit_detail",
+                maxlength: 255,
+                placeholder: "Enter task details..." %>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex justify-end gap-3 pt-4">
+            <button type="button" id="closeModal" 
+              class="px-6 py-2.5 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium">
+              Cancel
+            </button>
+            <button type="button" id="nextButton" 
+              class="px-6 py-2.5 rounded-lg bg-[#DF633B] text-white hover:bg-[#c5582f] font-medium">
+              Next
+            </button>
+          </div>
         </div>
       </div>
     <% end %>
   </div>
 </div>
-<div id="confirmModal" class="fixed inset-0 bg-white-900 bg-opacity-50 flex items-center justify-center hidden backdrop-blur-md">
-  <div class="bg-[#DF633B] rounded-lg shadow-lg max-w-lg w-full p-5">
-    <h2 class="text-2xl font-bold text-center mb-4 text-white">Confirm</h2>
-    <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-5">
-      <div class="mb-4">
-        <p><strong>Date: </strong> <span id="confirm_date"></span></p>
-        <div class="flex items-center gap-3">
-          <strong>Worktime: </strong>
-          <span id="confirm_hours"></span> 
-          <span id="confirm_minutes"></span>
+
+<!-- Confirm Modal -->
+<div id="confirmModal" class="fixed inset-0 bg-black/40 flex items-center justify-center hidden backdrop-blur-md text-lg">
+  <div class="bg-[#DF633B] rounded-xl shadow-xl max-w-xl w-full m-2">
+    <div class="p-3">
+      <h2 class="text-2xl font-bold text-center text-white">Confirm Task Details</h2>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-lg mx-4 mb-4">
+      <div class="p-6 space-y-6">
+        <div class="space-y-4">
+          <div class="flex">
+            <span class="font-semibold w-28 text-gray-700">Date :</span>
+            <span id="confirm_date" class="text-gray-600"></span>
+          </div>
+          
+          <div class="flex">
+            <span class="font-semibold w-28 text-gray-700">Work Time :</span>
+            <div class="flex items-center gap-2 text-gray-600">
+              <span id="confirm_hours"></span>
+              <span id="confirm_minutes"></span>
+            </div>
+          </div>
+          
+          <div class="flex">
+            <span class="font-semibold w-28 text-gray-700">Details :</span>
+            <span id="confirm_detail" class="text-gray-600 break-words"></span>
+          </div>
         </div>
-        <p><strong>Details: </strong> <span id="confirm_detail" class="w-full break-words"></span></p>
-      </div>
-      <div class="flex justify-end space-x-4">
-        <button type="button" id="backButton" class="bg-red-500 text-white px-4 py-2 rounded">Back</button>
-        <button type="submit" id="confirmSave" class="bg-blue-500 text-white px-4 py-2 rounded">Confirm</button>
+
+        <div class="flex justify-end gap-3 pt-4">
+          <button type="button" id="backButton" 
+            class="px-6 py-2.5 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium">
+            Back
+          </button>
+          <button type="submit" id="confirmSave" 
+            class="px-6 py-2.5 rounded-lg bg-[#DF633B] text-white hover:bg-[#c5582f] font-medium">
+            Confirm
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<!-- Modal แจ้งเตือนวันที่ซ้ำ -->
-<div id="duplicateDateModal" class="fixed inset-0 bg-white-900 bg-opacity-50 flex items-center justify-center hidden backdrop-blur-md">
-  <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-5 text-center">
-    <h2 class="text-xl font-bold text-red-600 mb-4">Warning!!</h2>
-    <p class="text-black">The selected date already exists! Please choose a new date.</p>
-    <button id="closeDuplicateModal" class="bg-red-500 text-white px-4 py-2 mt-4 rounded">Confirm</button>
+
+<!-- Duplicate Date Warning Modal -->
+<div id="duplicateDateModal" class="fixed inset-0 bg-black/40 flex items-center justify-center hidden backdrop-blur-md">
+  <div class="bg-white rounded-xl shadow-xl max-w-md w-full m-4">
+    <div class="p-6">
+      <div class="text-center space-y-4">
+        <!-- Warning Icon -->
+        <div class="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        
+        <h2 class="text-xl font-bold text-gray-800">Warning</h2>
+        <p class="text-gray-600">This date already exists in the system.<br>Please select a different date.</p>
+        
+        <button id="closeDuplicateModal" 
+          class="w-full px-6 py-2.5 rounded-lg bg-red-500 text-white hover:bg-red-600 font-medium">
+          Understand
+        </button>
+      </div>
+    </div>
   </div>
 </div>
