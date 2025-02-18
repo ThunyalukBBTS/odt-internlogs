@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="newdailymodal"
 export default class extends Controller {
-  static targets = ["background", "add_button", "modal_content", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time", "output_detail", "form", "success"]
+  static targets = ["background", "add_button", "modal_content", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time", "output_detail", "form", "success", "success_child"]
 
   connect() {
   }
@@ -86,6 +86,8 @@ export default class extends Controller {
 
   submit() {
     this.close_confirm_modal()
+    this.success_childTarget.classList.remove("hidden")
+    this.success_childTarget.classList.add("flex")
     this.successTarget.classList.remove("translate-x-full", "opacity-0")
     setTimeout(() => {
       this.successTarget.classList.add("translate-x-full", "opacity-0")
@@ -93,6 +95,8 @@ export default class extends Controller {
     setTimeout(() => {
       this.successTarget.classList.add("hidden")
       this.formTarget.submit()
+      this.success_childTarget.classList.remove("flex")
+      this.success_childTarget.classList.add("hidden")
     }, 3000)
   }
 }
