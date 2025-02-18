@@ -62,25 +62,17 @@ document.addEventListener("turbo:load", function () {
             option30.textContent = "30";
 
             if (hoursSelect.value === "8") {
-                minutesSelect.value = "00"; // ล็อคให้เป็น 00
-                if (option30) option30.remove(); // ลบตัวเลือก 30 ออกจาก dropdown
-                // } else if (hoursSelect.value === "0") {
-                //     minutesSelect.value = "30"; // ล็อคให้เป็น 30
-                //     if (option00) option00.remove(); // ลบตัวเลือก 00 ออกจาก dropdown
+                // ถ้าเลือก 8 ชั่วโมง ล็อคให้เป็น 00 และไม่ให้มีตัวเลือก 30
+                minutesSelect.appendChild(option00);
+                minutesSelect.value = "00";
+            } else if (hoursSelect.value === "0") {
+                // ถ้าเลือก 0 ชั่วโมง ล็อคให้เป็น 30 และไม่ให้มีตัวเลือก 00
+                minutesSelect.appendChild(option30);
+                minutesSelect.value = "30";
             } else {
-                if (!option30) {
-                    // ถ้าไม่มีตัวเลือก 30 แล้ว ให้เพิ่มกลับมา
-                    const newOption = document.createElement("option");
-                    newOption.value = "30";
-                    newOption.textContent = "30";
-                    minutesSelect.appendChild(newOption);
-                } if (!option00) {
-                    // ถ้าไม่มีตัวเลือก 30 แล้ว ให้เพิ่มกลับมา
-                    const newOption = document.createElement("option");
-                    newOption.value = "00";
-                    newOption.textContent = "00";
-                    minutesSelect.appendChild(newOption);
-                }
+                // ถ้าเลือกค่าปกติ ให้เพิ่มทั้ง 00 และ 30 กลับมา
+                minutesSelect.appendChild(option00);
+                minutesSelect.appendChild(option30);
             }
         });
     }
