@@ -49,32 +49,39 @@ document.addEventListener("turbo:load", function () {
     // ตรวจสอบค่าของ minutes ตามค่าของ hours
     function validateMinutes() {
         hoursSelect.addEventListener("change", function () {
-        // เคลียร์ค่าทั้งหมดก่อนเพื่อป้องกันค่าหายไป
-        minutesSelect.innerHTML = ""; 
-        
-        // สร้างตัวเลือกใหม่
-        const option00 = document.createElement("option");
-        option00.value = "00";
-        option00.textContent = "00";
+            // เคลียร์ค่าทั้งหมดก่อนเพื่อป้องกันค่าหายไป
+            minutesSelect.innerHTML = "";
 
-        const option30 = document.createElement("option");
-        option30.value = "30";
-        option30.textContent = "30";
+            // สร้างตัวเลือกใหม่
+            const option00 = document.createElement("option");
+            option00.value = "00";
+            option00.textContent = "00";
 
-        if (hoursSelect.value === "8") {
-            // ถ้าเลือก 8 ชั่วโมง ล็อคให้เป็น 00 และไม่ให้มีตัวเลือก 30
-            minutesSelect.appendChild(option00);
-            minutesSelect.value = "00";
-        } else if (hoursSelect.value === "0") {
-            // ถ้าเลือก 0 ชั่วโมง ล็อคให้เป็น 30 และไม่ให้มีตัวเลือก 00
-            minutesSelect.appendChild(option30);
-            minutesSelect.value = "30";
-        } else {
-            // ถ้าเลือกค่าปกติ ให้เพิ่มทั้ง 00 และ 30 กลับมา
-            minutesSelect.appendChild(option00);
-            minutesSelect.appendChild(option30);
-            }
-        });
+            const option30 = document.createElement("option");
+            option30.value = "30";
+            option30.textContent = "30";
+
+            if (hoursSelect.value === "8") {
+                minutesSelect.value = "00"; // ล็อคให้เป็น 00
+                if (option30) option30.remove(); // ลบตัวเลือก 30 ออกจาก dropdown
+                // } else if (hoursSelect.value === "0") {
+                //     minutesSelect.value = "30"; // ล็อคให้เป็น 30
+                //     if (option00) option00.remove(); // ลบตัวเลือก 00 ออกจาก dropdown
+            } else {
+                if (!option30) {
+                    // ถ้าไม่มีตัวเลือก 30 แล้ว ให้เพิ่มกลับมา
+                    const newOption = document.createElement("option");
+                    newOption.value = "30";
+                    newOption.textContent = "30";
+                    minutesSelect.appendChild(newOption);
+                } if (!option00) {
+                    // ถ้าไม่มีตัวเลือก 30 แล้ว ให้เพิ่มกลับมา
+                    const newOption = document.createElement("option");
+                    newOption.value = "00";
+                    newOption.textContent = "00";
+                    minutesSelect.appendChild(newOption);
+                }
+            });
     }
     function formatHourText(hours) {
         return hours == 1 ? "1 Hour" : `${hours} Hours`;

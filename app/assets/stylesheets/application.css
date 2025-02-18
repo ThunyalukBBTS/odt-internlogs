@@ -9,13 +9,17 @@
  * Consider organizing styles into separate files for maintainability.
  */
 @font-face {
-    font-family: 'K2D';
-    src: url('/assets/fonts/K2D-Medium.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "K2D";
+  src: url("assets/fonts/K2D-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 .blur-background {
-    filter: blur(8px);
-    transition: filter 0.3s ease;
+  filter: blur(8px);
+  transition: filter 0.3s ease;
+}
+
+body {
+  font-family: "K2D", sans-serif;
 }
