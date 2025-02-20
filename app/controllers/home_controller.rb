@@ -5,13 +5,16 @@ class HomeController < ApplicationController
     @user = User.find_by(id: 1)
     @tasks = DailyTask.all
 
-  # ถ้าไม่มีการส่งพารามิเตอร์ sort หรือ direction ให้ใช้ค่าเริ่มต้น
-  sort_column = params[:sort] || "date"
-  sort_direction = params[:direction] || "asc"
+  # กำหนดคอลัมน์ที่อนุญาตให้ใช้เรียงลำดับได้
+  sortable_columns = [ "date", "title", "priority" ] # แก้ให้ตรงกับ Model
 
-  @tasks = DailyTask.order("#{sort_column} #{sort_direction}")
+  # กำหนดทิศทางที่อนุญาต (asc หรือ desc)
+  sort_column = sortable_columns.include?(params[:sort]) ? params[:sort] : "date"
+  sort_direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
 
-    @show_new_modal = params[:show_new_modal] == "true"
+  @tasks = DailyTask.order(Arel.sql("#{sort_column} #{sort_direction}"))
+
+  @show_new_modal = params[:show_new_modal] == "true"
     @task = DailyTask.new # Initialize new task for form
   end
 
