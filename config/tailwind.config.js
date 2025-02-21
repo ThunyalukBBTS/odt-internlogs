@@ -3,7 +3,9 @@ module.exports = {
         "./app/views/**/*.html.erb",
         "./app/helpers/**/*.rb",
         "./app/javascript/**/*.js",
-        "./app/assets/stylesheets/**/*.css"
+        "./app/assets/stylesheets/**/*.css",
+        "./app/assets/tailwind/**/*.css",
+         "./app/**/*.{html,erb,rb,js,css}"
     ],
     theme: {
         extend: {
@@ -12,8 +14,9 @@ module.exports = {
             },
             colors: {
                 primary: {
-                    DEFAULT: "7D58BF",
+                    DEFAULT: "#7D58BF",
                     dark: "#343436",
+                    light: "#9E80E5",
                 },
             },
         },

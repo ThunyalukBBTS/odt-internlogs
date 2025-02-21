@@ -1,0 +1,2 @@
+class DailyTaskController < ApplicationController
+end

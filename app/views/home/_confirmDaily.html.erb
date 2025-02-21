@@ -1,0 +1,47 @@
+<div data-newdailymodal-target="confirm_modal" class="fixed inset-0 bg-opacity-100 items-center justify-center hidden">
+  <div class="bg-[#7d58bf] rounded-lg shadow-lg w-[calc(90vw)] max-w-3xl max-h-[calc(80vh)] p-2 text-center">
+    <h1 class="text-2xl sm:text-3xl font-bold text-white mb-1 mt-3 sm:mb-2 sm:mt-5">Confirm Daily Task</h1>
+    <div class="bg-white rounded-lg w-full p-5 mt-5 text-xl">
+      <div class="grid grid-cols-10 gap-4 mb-4">
+        <label class="col-span-2 text-right font-semibold">Date:</label>
+        <div class="flex space-x-2 col-span-8">
+          <p data-newdailymodal-target="output_date"></p>
+        </div>
+      </div>
+      <div class="grid grid-cols-10 gap-4 mb-4">
+        <label class="col-span-2 text-right font-semibold break-words">Work time:</label>
+        <div class="flex space-x-2 col-span-8">
+          <p data-newdailymodal-target="output_time"></p>
+        </div>
+      </div>
+      <div class="grid grid-cols-10 gap-4">
+        <label class="block col-span-2 text-right font-semibold">Detail:</label>
+        <div class="col-span-8 text-left w-full break-words">
+          <p data-newdailymodal-target="output_detail" ></p>
+        </div>
+      </div>
+      <% if @task.errors.any? %>
+        <div class="text-red-500">
+          <h3>
+            <%= pluralize(@task.errors.count, "error" ) %> prevented saving:
+          </h3>
+          <ul>
+            <% @task.errors.full_messages.each do |msg| %>
+              <li>
+                <%= msg %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="flex justify-end space-x-4 mt-5">
+        <button data-action="click->newdailymodal#back_to_edit"
+          onclick="event.preventDefault();"
+          class="bg-white text-gray-700 outline outline-gray-700 px-4 py-2 rounded cursor-pointer">Back</button>
+        <button data-action="click->newdailymodal#submit"
+          onclick="event.preventDefault();"
+          class="bg-blue-400 text-white px-4 py-2 rounded cursor-pointer">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
