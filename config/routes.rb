@@ -16,6 +16,7 @@
     resources :home, only: [ :edit, :update ]
     resources :daily_tasks, only: [ :create, :update, :edit ]
     post "/", to: "home#create", as: "home_create_task"
+    get "/login", to: "login#index"
 
     # # Defines the root path route ("/")
     # root "daily_task#index"

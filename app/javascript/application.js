@@ -15,8 +15,6 @@ document.addEventListener("turbo:load", function () {
     const hoursSelect = document.getElementById("edit_hours");
     const minutesSelect = document.getElementById("edit_minutes");
 
-    const monthFilter = document.getElementById("monthFilter");
-
     // ลบ Event Listener เก่าก่อน แล้วเพิ่มใหม่
     document.querySelectorAll(".edit-task-btn").forEach((button) => {
         button.removeEventListener("click", openEditModal); // ลบตัวเก่า
