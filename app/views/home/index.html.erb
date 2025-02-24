@@ -26,7 +26,7 @@
             <div class="relative w-64">
               <select id="monthFilter" data-action="change->month-filter#filterByMonth"
                 class="appearance-none w-full bg-transparent h-[39] border-b-2 text-gray-700 py-2 px-4 pr-8 focus:outline-none focus:ring-0 focus:border-[#7D58BF] transition border-[#7D58BF]">
-                <option value="">Select a Month</option>
+                <option value="">All Months</option>
                 <% (1..12).each do |m| %>
                   <option value="<%= m %>"><%= Date::MONTHNAMES[m] %></option>
                 <% end %>
