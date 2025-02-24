@@ -15,6 +15,8 @@ document.addEventListener("turbo:load", function () {
     const hoursSelect = document.getElementById("edit_hours");
     const minutesSelect = document.getElementById("edit_minutes");
 
+    const monthFilter = document.getElementById("monthFilter");
+
     // ลบ Event Listener เก่าก่อน แล้วเพิ่มใหม่
     document.querySelectorAll(".edit-task-btn").forEach((button) => {
         button.removeEventListener("click", openEditModal); // ลบตัวเก่า
@@ -143,6 +145,29 @@ document.addEventListener("turbo:load", function () {
     closeModal.addEventListener("click", function () {
         editModal.classList.add("hidden");
     });
+
+    if (monthFilter) {
+        console.log("✅ Dropdown detected!"); // ตรวจสอบว่าปุ่ม dropdown มีอยู่จริง
+        monthFilter.addEventListener("change", function () {
+            let selectedMonth = this.value;
+            console.log("📅 Selected month:", selectedMonth); // แสดงค่าเดือนที่เลือก
+
+            let rows = document.querySelectorAll(".task-row");
+
+            rows.forEach(row => {
+                let dateText = row.querySelector(".task-date").innerText; // รูปแบบ DD/MM/YYYY
+                let rowMonth = parseInt(dateText.split("/")[1], 10); // ดึงค่าเดือนจากวันที่
+
+                if (selectedMonth === "" || rowMonth === parseInt(selectedMonth, 10)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+    } else {
+        console.error("❌ Dropdown not found!"); // ถ้าปุ่ม dropdown ไม่มีอยู่จริง
+    }
 
     // ตรวจสอบค่าทุกครั้งเมื่อโหลดหน้า
     validateMinutes();

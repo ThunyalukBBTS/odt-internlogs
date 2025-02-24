@@ -4,6 +4,16 @@
 <div data-controller="newdailymodal" class="mx-auto max-w-screen-md md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
   <div class="mt-4 mb-10">
     <div data-newdailymodal-target="background" class='mt-20 md:mt-24'>
+      <!-- Dropdown Filter (Centered) -->
+      <div class="flex flex-col items-center mb-4">
+        <h2 class="text-2xl font-bold mb-2">Worktime Records</h2>
+        <select id="monthFilter" class="border-2 border-gray-300 rounded-lg p-2">
+          <option value="">All Months</option>
+          <% (1..12).each do |m| %>
+            <option value="<%= m %>"><%= Date::MONTHNAMES[m] %></option>
+          <% end %>
+        </select>
+      </div>
       <%= render "successModal"%>
       <div class="flex justify-center mt-6 flex-col">
         <% if @user.present? %>
@@ -21,52 +31,52 @@
             </span>
           </p>
         <% end %>
-        <table class="bg-white shadow-lg rounded-lg overflow-hidden mx-3" data-controller="sort-date">
-  <thead>
-    <tr class="bg-[#DF633B] text-white text-left rounded-tr-lg h-13">
-      <th class="px-4 w-1/4 text-2xl font-medium cursor-pointer"
-          data-action="click->sort-date#sortTable"    data-sort-direction="desc">
-          
-        Date 
-        <img data-sort-date-target="icon" 
-             data-icon-up="<%= asset_path('arrow_drop_up.svg') %>"
-             data-icon-down="<%= asset_path('arrow_drop_down.svg') %>"
-             src="<%= asset_path('arrow_drop_up.svg') %>" 
-             alt="Sort Icon" class="inline-block w-6 h-6">
-      </th>
-
-      <th class="px-4 w-1/4 text-2xl font-medium">Work time</th>
-      <th class="px-4 w-2/4 text-2xl font-medium">Details</th>
-    </tr>
-  </thead>
-  <tbody data-sort-date-target="tbody">
-    <% @tasks.each do |task| %>
-      <tr class="bg-gray-100 border-t-6 border-white">
-        <td class="px-4 py-2 task-date">
-          <%= task.date.strftime("%d/%m/%Y") %>
-        </td>
-        <td class="px-4 py-2 break-words">
-          <%= [task.hours > 0 ? "#{task.hours} hours" : nil, task.mins > 0 ? "#{task.mins} minutes" : nil].compact.join(" ") %>
-        </td>
-        <td class="px-4 py-2 flex justify-between items-center">
-          <span class="w-[16ch] sm:w-[20ch] md:w-[40ch] lg:w-[60ch] break-words">
-            <%= task.detail %>
-          </span>
-          <button class="bg-orange-200 hover:bg-orange-300 text-orange-700 px-2 py-1 rounded edit-task-btn cursor-pointer"
+        <table class="bg-white shadow-lg rounded-lg overflow-hidden mx-3">
+          <thead>
+            <tr class="bg-[#DF633B] text-white text-left rounded-tr-lg h-13">
+              <th class="px-4 w-1/4 text-2xl font-medium">
+                <%= link_to root_path(sort: "date", direction: toggle_direction(params[:direction])) do %>
+                  Date
+                  <% if params[:sort] == "date" || params[:sort].blank? %>
+                    <% if params[:direction] == "asc" || params[:direction].blank? %>
+                      <%= image_tag("arrow_drop_up.svg", alt: "Ascending", class: "inline-block w-8 h-8") %>
+                    <% else %>
+                      <%= image_tag("arrow_drop_down.svg", alt: "Descending", class: "inline-block w-8 h-8") %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </th>
+              <th class="px-4 w-1/4 text-2xl font-medium">Work time</th>
+              <th class="px-4 w-2/4 text-2xl font-medium">Details</th>
+            </tr>
+          </thead>
+          <tbody class="space-y-4">
+            <% @tasks.each do |task| %>
+              <tr class="task-row bg-gray-100 border-t-6 border-white">
+                <td class="px-4 py-2 task-date">
+                  <%= task.date.strftime("%d/%m/%Y") %>
+                </td>
+                <td class="px-4 py-2 break-words">
+                  <%= [task.hours > 0 ? "#{task.hours} hours" : nil, task.mins > 0 ? "#{task.mins} minutes" : nil].compact.join(" ") %>
+                </td>
+                <td class="px-4 py-2 flex justify-between items-center">
+                  <span class="w-[16ch] sm:w-[20ch] md:w-[40ch] lg:w-[60ch] break-words">
+                    <%= task.detail %>
+                  </span>
+                  <button class="bg-orange-200 hover:bg-orange-300 text-orange-700 px-2 py-1 rounded edit-task-btn cursor-pointer"
                   data-id="<%= task.id %>"
                   data-date="<%= task.date %>"
                   data-hours="<%= task.hours %>"
                   data-mins="<%= task.mins %>"
                   data-detail="<%= task.detail %>"
                   data-turbo="false">
-            <%= image_tag 'edit.svg', width: 30, height: 30 ,class:"min-w-[30px]" %>
-          </button>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+                    <%= image_tag 'edit.svg', width: 30, height: 30 ,class:"min-w-[30px]" %>
+                  </button>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
     <!-- Floating Button -->
