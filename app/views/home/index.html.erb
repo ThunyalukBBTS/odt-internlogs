@@ -4,18 +4,29 @@
 <div data-controller="newdailymodal" class="mx-auto max-w-screen-md md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
   <div class="mt-4 mb-10">
     <div data-newdailymodal-target="background" class='mt-20 md:mt-24'>
-      <!-- Dropdown Filter (Centered) -->
-      <div class="flex flex-col items-center mb-4">
-        <h2 class="text-2xl font-bold mb-2">Worktime Records</h2>
-        <select id="monthFilter" class="border-2 border-gray-300 rounded-lg p-2">
-          <option value="">All Months</option>
-          <% (1..12).each do |m| %>
-            <option value="<%= m %>"><%= Date::MONTHNAMES[m] %></option>
-          <% end %>
-        </select>
+      <!-- Dropdown Filter (Minimal & In One Row) -->
+      <div class="flex justify-center items-center px-4 pt-6">
+        <h2 class="text-3xl font-semibold text-gray-800 pr-3">Select Month : </h2>
+        <div class="relative w-64">
+          <select id="monthFilter"
+      class="appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#7D58BF] focus:border-[#7D58BF] transition">
+            <option value="">All Months</option>
+            <% (1..12).each do |m| %>
+              <option value="<%= m %>"><%= Date::MONTHNAMES[m] %></option>
+            <% end %>
+          </select>
+          <!-- Dropdown Icon -->
+          <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+            <svg class="w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd"
+          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+          clip-rule="evenodd" />
+            </svg>
+          </div>
+        </div>
       </div>
       <%= render "successModal"%>
-      <div class="flex justify-center mt-6 flex-col">
+      <div class="flex justify-center flex-col">
         <% if @user.present? %>
           <p class="justify-start mt-4 text-xl text-black ml-4 mb-4 mx-4">
             Username :

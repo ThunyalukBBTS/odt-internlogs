@@ -168,7 +168,6 @@ document.addEventListener("turbo:load", function () {
     } else {
         console.error("❌ Dropdown not found!"); // ถ้าปุ่ม dropdown ไม่มีอยู่จริง
     }
-
     // ตรวจสอบค่าทุกครั้งเมื่อโหลดหน้า
     validateMinutes();
 });
