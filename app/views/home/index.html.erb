@@ -70,7 +70,7 @@
             </thead>
             <tbody data-sort-date-target="tbody">
               <% @tasks.each do |task| %>
-                <tr class="task-row bg-gray-100 border-t-6 border-white">
+                <tr class="task-row bg-gray-100 border-t-6 border-white even:bg-gray-200">
                   <td class="px-4 py-2 task-date">
                     <%= task.date.strftime("%d/%m/%Y") %>
                   </td>
