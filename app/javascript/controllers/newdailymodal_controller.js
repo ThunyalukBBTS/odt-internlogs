@@ -91,12 +91,12 @@ export default class extends Controller {
     this.successTarget.classList.remove("translate-x-full", "opacity-0")
     setTimeout(() => {
       this.successTarget.classList.add("translate-x-full", "opacity-0")
-    }, 2500)
+    }, 500)
     setTimeout(() => {
       this.successTarget.classList.add("hidden")
       this.formTarget.submit()
       this.success_childTarget.classList.remove("flex")
       this.success_childTarget.classList.add("hidden")
-    }, 3000)
+    }, 1000)
   }
 }
