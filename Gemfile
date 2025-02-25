@@ -67,3 +67,5 @@ gem "tailwindcss-rails", "~> 4.0"
 gem "tailwindcss-ruby", "~> 4.0"
 
 gem "pg", "~> 1.5", ">= 1.5.4"
+
+gem 'dotenv-rails', groups: [:development, :test]
