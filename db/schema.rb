@@ -10,13 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_10_113644) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_25_150305) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
+
   create_table "daily_tasks", force: :cascade do |t|
     t.integer "user_id"
     t.date "date"
     t.integer "hours"
     t.integer "mins"
     t.string "detail"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "registers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "password_digest"
+    t.string "bank_name"
+    t.string "account_name"
+    t.string "account_number_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
