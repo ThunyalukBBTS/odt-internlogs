@@ -20,8 +20,6 @@
     post "/", to: "home#create", as: "home_create_task"
     get "/login", to: "login#index"
     get "/register", to: "register#index"
-
-
     resources :member, only: [ :index, :show ]
     # # Defines the root path route ("/")
     # root "daily_task#index"

@@ -11,6 +11,8 @@
       <span class="text-white">|</span>
       <%= link_to 'ODT Member' , odt_member_path, class: "text-white font-medium" %>
     </nav>
-    <%= image_tag 'logout.svg' , class: "nav-link" , width: 30, height: 30 %>
+    <%= button_to session_path, method: :delete, class: "cursor-pointer" do %>
+      <%= image_tag 'logout.svg', width: 30, height: 30 %>
+    <% end %>
   </div>
 </header>
