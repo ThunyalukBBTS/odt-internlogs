@@ -2,9 +2,8 @@ class HomeController < ApplicationController
   before_action :set_task, only: [ :edit, :update ]
 
   def index
-    @user = User.find_by(id: 1)
     @tasks = DailyTask.all
-
+    @user = Current.session.user
   # # กำหนดคอลัมน์ที่อนุญาตให้ใช้เรียงลำดับได้
   sortable_columns = [ "date", "title", "priority" ] # แก้ให้ตรงกับ Model
 
