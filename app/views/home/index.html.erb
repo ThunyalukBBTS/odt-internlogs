@@ -8,8 +8,7 @@
       <div class="flex justify-center flex-col">
         <% if @user.present? %>
           <p class="justify-start mt-4 text-xl text-black ml-1.5 mb-4 mx-2">
-            <span class=" px-6 py-1 rounded-lg text-black text-xl">
-              <%= @user.username %>
+            <span class=" px-6 py-1 rounded-lg text-black text-xl">Hi <span class="text-[#4400bb] font-semibold"><%= @user.username %></span> ! It's your daily task 
             </span>
           </p>
         <% else %>
@@ -20,10 +19,10 @@
           </p>
         <% end %>
         <!-- Dropdown Filter (Minimal & In One Row) -->
-        <div class="flex items-center px-4 pb-3 justify-between">
+        <div class="flex items-center px-4 pb-3 justify-between pl-7 mb-6">
           <div class="relative w-64">
             <select id="monthFilter"
-            class="appearance-none w-full bg-transparent h-[39] border-b-2 text-gray-400 py-2 px-4 pr-8 focus:outline-none focus:ring-0 focus:border-[#7D58BF] transition border-[#7D58BF]">
+            class="appearance-none w-full bg-transparent h-[42] border rounded-xl border-2 text-gray-400 py-2 px-4 pr-8 focus:outline-none focus:ring-0 focus:border-[#7D58BF] transition border-[#906cd1]">
               <option value="">Select a Month</option>
               <% (1..12).each do |m| %>
                 <option value="<%= m %>"><%= Date::MONTHNAMES[m] %></option>
@@ -43,19 +42,18 @@
             <button 
               data-action="click->newdailymodal#show_modal" 
               data-newdailymodal-target="add_button"
-              class="bg-[#7D58BF] text-white text-xl flex items-center gap-3 px-4 py-2 rounded-full shadow-lg transition-transform duration-300 ease-in-out hover:scale-110 hover:bg-purple-800 hover:shadow-xl">
+              class="bg-[#7D58BF] text-white text-xl flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-[#6b38b8] cursor-pointer">
               <img src="<%= asset_path('add.svg') %>" alt="Add Icon" width="25" height="25" font="bold" />
               <span>Add</span>
             </button>
           </div>
         </div>
-        
         <!-- Table -->
         <div class="flex justify-center flex-col">
-          <table class="bg-white shadow-lg rounded-lg overflow-hidden mx-3" data-controller="sort-date">
+          <table class="rounded-lg overflow-hidden mx-3" data-controller="sort-date">
             <thead>
-              <tr class="bg-[#DF633B] text-white text-left rounded-tr-lg h-13">
-                <th class="px-4 w-1/4 text-2xl font-medium cursor-pointer"
+              <tr class="bg-white text-gray-700 text-left rounded-tr-lg h-13 border-b border-gray-400">
+                <th class="px-4 w-1/4 text-xl font-medium cursor-pointer"
           data-action="click->sort-date#sortTable"    data-sort-direction="desc">
                   Date 
                   <img data-sort-date-target="icon" 
@@ -64,31 +62,31 @@
              src="<%= asset_path('arrow_drop_up.svg') %>" 
              alt="Sort Icon" class="inline-block w-6 h-6">
                 </th>
-                <th class="px-4 w-1/4 text-2xl font-medium">Work time</th>
-                <th class="px-4 w-2/4 text-2xl font-medium">Details</th>
+                <th class="px-4 w-1/4 text-xl font-medium">Work time</th>
+                <th class="px-4 w-2/4 text-xl font-medium">Details</th>
               </tr>
             </thead>
             <tbody data-sort-date-target="tbody">
               <% @tasks.each do |task| %>
-                <tr class="task-row bg-gray-100 border-t-6 border-white even:bg-gray-200">
-                  <td class="px-4 py-2 task-date">
+                <tr class="task-row bg-white border-b border-gray-200 hover:bg-[#f8f7fb] transition duration-100 ease-in-out">
+                  <td class="px-4 py-2 task-date text-gray-600 ">
                     <%= task.date.strftime("%d/%m/%Y") %>
                   </td>
-                  <td class="px-4 py-2 break-words">
+                  <td class="px-4 py-2 break-words text-gray-600">
                     <%= [task.hours > 0 ? "#{task.hours} hours" : nil, task.mins > 0 ? "#{task.mins} minutes" : nil].compact.join(" ") %>
                   </td>
-                  <td class="px-4 py-2 flex justify-between items-center">
-                    <span class="w-[16ch] sm:w-[20ch] md:w-[40ch] lg:w-[60ch] break-words">
+                  <td class="px-4 py-2 flex justify-between items-center text-gray-600">
+                    <span class="w-[16ch] sm:w-[20ch] md:w-[40ch] lg:w-[60ch] break-words mr-10">
                       <%= task.detail %>
                     </span>
-                    <button class="bg-orange-200 hover:bg-orange-300 text-orange-700 px-2 py-1 rounded edit-task-btn cursor-pointer"
+                    <button class="hover:bg-[#ece6f5] px-2 py-1 rounded edit-task-btn cursor-pointer"
                   data-id="<%= task.id %>"
                   data-date="<%= task.date %>"
                   data-hours="<%= task.hours %>"
                   data-mins="<%= task.mins %>"
                   data-detail="<%= task.detail %>"
                   data-turbo="false">
-                      <%= image_tag 'edit.svg', width: 30, height: 30 ,class:"min-w-[30px]" %>
+                      <%= image_tag 'edit-3-svgrepo-com.svg', width: 10, height: 10 ,class:"min-w-[25px]" %>
                     </button>
                   </td>
                 </tr>
@@ -97,7 +95,6 @@
           </table>
         </div>
       </div>
-      
     </div>
     <%= render "successModal"%>
     <%= render "addDaily" %>
