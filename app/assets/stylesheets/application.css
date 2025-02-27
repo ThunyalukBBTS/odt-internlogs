@@ -10,7 +10,7 @@
  */
 @font-face {
   font-family: "K2D";
-  src: url("assets/fonts/K2D-Medium.ttf") format("truetype");
+  src: url("K2D-Medium.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
