@@ -1,0 +1,23 @@
+<%= render "layouts/navbar" %>
+
+|
+<h2 class="text-2xl font-bold"><%= @user.username %>'s Worktime</h2>
+
+<table class="bg-white shadow-lg rounded-lg overflow-hidden mx-3">
+  <thead>
+    <tr class="bg-[#DF633B] text-white text-left rounded-tr-lg h-13">
+      <th class="px-4 w-1/4 text-2xl font-medium">Date</th>
+      <th class="px-4 w-1/4 text-2xl font-medium">Work time</th>
+      <th class="px-4 w-2/4 text-2xl font-medium">Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr class="task-row bg-gray-100 border-t-6 border-white even:bg-gray-200">
+        <td class="px-4 py-2"><%= task.date.strftime("%d/%m/%Y") %></td>
+        <td class="px-4 py-2"><%= "#{task.hours} hours #{task.mins} minutes" %></td>
+        <td class="px-4 py-2"><%= task.detail %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,44 +1,31 @@
-
 <%= render "layouts/navbar" %>
+<div class="mt-30 mx-auto max-w-screen-md md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
 
-<div class=" mt-30">
-        <table class="bg-white shadow-lg rounded-lg overflow-hidden w-full">
-            <thead>
-                <tr class="bg-orange-500 text-white text-left">
-                    <th class="px-6 py-3 text-xl font-medium">Name</th>
-                    <th class="px-6 py-3 text-xl font-medium">Total Worktime</th>
-                    <th class="px-6 py-3 text-xl font-medium">View Data</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="bg-gray-100 border-b border-white hover:ring-2 hover:ring-blue-500">
-                    <td class="px-6 py-3">NN</td>
-                    <td class="px-6 py-3">7 hours 30 minutes</td>
-                    <td class="px-6 py-3">
-                        <button class="bg-purple-500 text-white px-4 py-1 rounded">open</button>
-                    </td>
-                </tr>
-                <tr class="bg-white border-b border-gray-200 hover:ring-2 hover:ring-blue-500">
-                    <td class="px-6 py-3">NN</td>
-                    <td class="px-6 py-3">7 hours 30 minutes</td>
-                    <td class="px-6 py-3">
-                        <button class="bg-purple-500 text-white px-4 py-1 rounded">open</button>
-                    </td>
-                </tr>
-                <tr class="bg-gray-100 border-b border-white hover:ring-2 hover:ring-blue-500">
-                    <td class="px-6 py-3">NN</td>
-                    <td class="px-6 py-3">7 hours 30 minutes</td>
-                    <td class="px-6 py-3">
-                        <button class="bg-purple-500 text-white px-4 py-1 rounded">open</button>
-                    </td>
-                </tr>
-                <tr class="bg-white border-b border-gray-200 hover:ring-2 hover:ring-blue-500">
-                    <td class="px-6 py-3">NN</td>
-                    <td class="px-6 py-3">7 hours 30 minutes</td>
-                    <td class="px-6 py-3">
-                        <button class="bg-purple-500 text-white px-4 py-1 rounded">open</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<table class="bg-white shadow-lg rounded-lg overflow-hidden w-full">
+  <thead>
+    <tr class="bg-white text-white text-left flex justify-between">
+      <th class="px-6 py-3 text-xl font-medium text-[#DF633B]">Name</th>
+      <th class="px-6 py-3 text-xl font-medium text-[#DF633B]">Total Worktime</th>
+      <th class="px-6 py-3 text-xl font-medium text-[#DF633B]">View Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @all_users.each do |user| %>
+      <tr class="bg-gray-100 border-b border-white hover:ring-2 hover:ring-blue-500 flex justify-between">
+        <td class="px-6 py-3"><%= user.username %></td>
+        <td class="px-6 py-3">
+          <% if user.total_minutes == 0 %>
+            <%= "#{user.total_hours} hours" %>
+          <% else %>
+            <%= "#{user.total_hours} hours #{user.total_minutes} minutes" %>
+          <% end %>
+        </td>
+        <td class="px-6 py-3">
+          <%= link_to "open", member_path(user.id), class: "bg-purple-500 text-white px-4 py-1 rounded" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
