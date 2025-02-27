@@ -1,7 +1,7 @@
 <div class="bg-[#FFFFFF] h-screen flex items-center justify-center">
-  <div class="w-screen h-screen grid grid-cols-4 gap-0 shadow-lg overflow-hidden">
+  <div class="w-screen h-screen grid grid-cols-6 gap-0 shadow-lg overflow-hidden">
     <!-- Left Column: Login Form -->
-    <div class="bg-[#FFFFFF] flex flex-col col-span-1 justify-start h-full px-18 pt-10">
+    <div class="bg-[#FFFFFF] flex flex-col col-span-2 justify-start h-full px-18 pt-10">
       <!-- Logo -->
       <div class="text-center pt-5 pb-10">
         <%= image_tag "logo_odt_login.svg", alt: "Logo", class: "mx-auto h-16 w-auto" %>
@@ -46,9 +46,17 @@
         <%= link_to "Register", "/register", class: "text-[#0056A9] hover:underline" %>
       </p>
     </div>
-    <!-- Right Column: Image Slider Placeholder -->
-    <div class="bg-gray-200 flex col-span-3 items-center justify-center">
-      <p class="text-[#929292] text-lg">Picture Slide</p>
+
+    <!-- Right Column: Image Slider -->
+    <div class="flex col-span-4 items-center justify-center">
+      <div data-controller="slideshow"
+          data-slideshow-images="<%= (1..8).map { |i| asset_path("login_slideshow/login_slideshow#{i}.png") }.to_json %>"
+          class="relative overflow-hidden shadow-lg">
+        <%= image_tag "login_slideshow/login_slideshow1.png", 
+          data: { slideshow_target: "image" }, 
+          class: "w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
+        %>
+      </div>
     </div>
   </div>
 </div>
