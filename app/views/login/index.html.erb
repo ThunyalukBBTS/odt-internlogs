@@ -1,8 +1,47 @@
-<div class="bg-white pt-22 h-screen text-black">
-  <div class="max-w-screen-xl mx-auto">
-    <div class="grid grid-cols-2 ">
-      <div class="col-span-1 bg-white">1</div>
-      <div class="col-span-1 ">1</div>
+<div class="bg-[#FFFFFF] h-screen flex items-center justify-center">
+  <div class="w-screen h-screen grid grid-cols-2 gap-0 shadow-lg overflow-hidden">
+
+    <!-- Left Column: Login Form -->
+    <div class="bg-[#FFFFFF] pt-0 pr-27 pl-27 flex flex-col justify-start h-full ">
+      <div class="text-center pt-25 pb-10">
+        <%= image_tag "logo_odt_login.svg", alt: "Logo", class: "mx-auto h-16 w-auto" %>
+      </div>
+      <div class="text-center pb-6"> 
+        <h3 class="text-5xl text-[#000000] ">Intern - Log</h3>
+      </div>
+      <div class="text-center pb-6"> 
+        <hr class="text-[#E2DEDE] mt-2">
+      </div>
+      <form action="/login" method="POST" class="space-y-4 pb-6">
+        <div class="pb-4">
+          <label for="email" class="block text-[#000000] pb-2">Email</label>
+          <input type="email" id="email" name="email" required 
+            class="w-full px-4 py-2 border-3 border-[#B0AEAE] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7D58BF] placeholder-[#929292]" placeholder="Example@gmail.com">
+        </div>
+        <div class="pb-6">
+          <label for="password" class="block text-[#000000] pb-2">Password</label>
+          <input type="password" id="password" name="password" required
+            class="w-full px-4 py-2 border-3 border-[#B0AEAE]  rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7D58BF] placeholder-[#929292]" placeholder="Password">
+        </div> 
+        <div class="pb-4">
+          <button type="submit"
+          class="w-full bg-[#7D58BF] text-[#FFFFFF]  py-0 rounded-lg hover:bg-[#0056A9] transition ">
+          <div class=" py-0 p grid grid-cols-2">
+            <p class="pt-5 pl-18">Login</p> <p class=""><%= image_tag "arrow_right_login.svg", alt: "arrow right", class: "mx-16 h-16 w-8" %></p>
+          </div>
+        </button>
+        </div>   
+      </form>
+      <hr class="text-[#E2DEDE] pb-2">
+      <p class="text-center mt-4 text-[#929292]">
+        Don’t have an account yet?
+        <a href="/register" class="text-[#0056A9] hover:underline">Register</a>
+      </p>
+    </div>
+    
+    <!-- Right Column: Image Slider -->
+    <div class="bg-gray-200 flex items-center justify-center">
+      <p class="text-[#929292] text-lg">Picture Slide</p>
     </div>
   </div>
 </div>
