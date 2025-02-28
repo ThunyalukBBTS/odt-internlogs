@@ -7,8 +7,8 @@
       <%= render "successModal"%>
       <div class="flex justify-center flex-col">
         <% if @user.present? %>
-          <p class="justify-start mt-4 text-xl text-black ml-1.5 mb-4 mx-2">
-            <span class=" px-6 py-1 rounded-lg text-black text-xl">Hi <span class="text-[#4400bb] font-semibold"><%= @user.username %></span> ! It's your daily task 
+          <p class="justify-start mt-4 text-xl text-black ml-1.5 mb-2 mx-2">
+            <span class=" px-6 py-1 rounded-lg text-black text-xl">Hi <span class="text-[#4400bb] font-bold"><%= @user.username %></span> ! It's your daily task 
             </span>
           </p>
         <% else %>
@@ -19,7 +19,7 @@
           </p>
         <% end %>
         <!-- Dropdown Filter (Minimal & In One Row) -->
-        <div class="flex items-center px-4 pb-3 justify-between pl-7 mb-6">
+        <div class="flex items-center px-4 pb-3 justify-between pl-7 mb-2 mt-4">
           <div class="relative w-64">
             <select id="monthFilter"
             class="appearance-none w-full bg-transparent h-[42] border rounded-lg border-2 text-gray-500 py-2 px-4 pr-8 focus:outline-none focus:ring-0 transition border-gray-300">
@@ -53,40 +53,40 @@
           <table class="rounded-lg overflow-hidden mx-3 min-w-[734px]" data-controller="sort-date">
             <thead>
               <tr class="bg-white text-gray-700 text-left rounded-tr-lg h-13 border-b border-gray-400">
-                <th class="px-4 w-1/4 text-xl font-medium cursor-pointer"
-          data-action="click->sort-date#sortTable"    data-sort-direction="desc">
+                <th class="px-4 w-1/7 text-lg font-bold cursor-pointer"
+                    data-action="click->sort-date#sortTable"    data-sort-direction="desc">
                   Date 
                   <img data-sort-date-target="icon" 
-             data-icon-up="<%= asset_path('arrow_drop_up.svg') %>"
-             data-icon-down="<%= asset_path('arrow_drop_down.svg') %>"
+                       data-icon-up="<%= asset_path('arrow_drop_up.svg') %>"
+                       data-icon-down="<%= asset_path('arrow_drop_down.svg') %>"
              src="<%= asset_path('arrow_drop_up.svg') %>" 
              alt="Sort Icon" class="inline-block w-6 h-6">
                 </th>
-                <th class="px-4 w-1/4 text-xl font-medium">Work time</th>
-                <th class="px-4 w-2/4 text-xl font-medium">Details</th>
+                <th class="px-4 w-1/4 text-lg font-bold">Work time</th>
+                <th class="px-4 w-2/4 text-lg font-bold">Details</th>
               </tr>
             </thead>
             <tbody data-sort-date-target="tbody">
               <% @tasks.each do |task| %>
-                <tr class="task-row bg-white border-b border-gray-200 hover:bg-[#f8f7fb] transition duration-100 ease-in-out">
-                  <td class="px-4 py-2 task-date text-gray-600 ">
+                <tr class="task-row bg-white border-b border-gray-200 hover:bg-[#f8f7fb] transition duration-100 ease-in-out ">
+                  <td class="px-4 py-1 task-date text-gray-600 w-max">
                     <%= task.date.strftime("%d/%m/%Y") %>
                   </td>
-                  <td class="px-4 py-2 break-words text-gray-600">
+                  <td class="px-4 py-1 break-words text-gray-600">
                     <%= [task.hours > 0 ? "#{task.hours} hours" : nil, task.mins > 0 ? "#{task.mins} minutes" : nil].compact.join(" ") %>
                   </td>
-                  <td class="px-4 py-2 flex justify-between items-center text-gray-600">
+                  <td class="px-4 py-1 flex justify-between items-center text-gray-600">
                     <span class="w-[16ch] sm:w-[20ch] md:w-[40ch] lg:w-[60ch] break-words mr-10">
                       <%= task.detail %>
                     </span>
-                    <button class="hover:bg-[#ece6f5] px-2 py-1 rounded edit-task-btn cursor-pointer"
+                    <button class="hover:bg-[#ece6f5] px-2 py-2 rounded edit-task-btn cursor-pointer"
                   data-id="<%= task.id %>"
                   data-date="<%= task.date %>"
                   data-hours="<%= task.hours %>"
                   data-mins="<%= task.mins %>"
                   data-detail="<%= task.detail %>"
                   data-turbo="false">
-                      <%= image_tag 'edit-3-svgrepo-com.svg', width: 10, height: 10 ,class:"min-w-[25px]" %>
+                      <%= image_tag 'edit-3-svgrepo-com-copy-5.svg', width: 10, height: 10 ,class:"min-w-[20px]" %>
                     </button>
                   </td>
                 </tr>

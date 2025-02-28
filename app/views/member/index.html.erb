@@ -1,35 +1,33 @@
 <%= render "layouts/navbar", user: @user %>
-
-
 <div class="mt-30 mx-auto max-w-screen-md md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
- <table class="bg-white  rounded-lg overflow-hidden w-full">
-  <thead>
-    <tr class="bg-white text-gray-700 text-left border-b border-gray-400 ">
-      <th class="px-6 py-3 text-xl font-medium">Name</th>
-      <th class="px-6 py-3 text-xl font-medium">Total Worktime</th>
-        <th class="px-6 py-3 text-xl font-medium">Work Days</th>
-      <th class="px-6 py-3 text-xl font-medium">View Data</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @all_users.each do |user| %>
-      <tr class="bg-white border-b border-gray-200 hover:bg-[#f8f7fb] transition duration-100 ease-in-out">
-        <td class="px-6 py-3 text-gray-600"><%= user.username %></td>
-        <td class="px-6 py-3 text-gray-600">
-          <% if user.total_minutes == 0 %>
-            <%= "#{user.total_hours.to_i} hours" %>
-          <% else %>
-            <%= "#{user.total_hours.to_i} hours #{user.total_minutes} minutes" %>
-          <% end %>
-        </td>
-        <td class="px-6 py-3 text-gray-600"><%= user.task_count %> days</td>
-        <td class="px-6 py-3">
-          <%= link_to "View", member_path(user.id), 
-                class: "hover:bg-[#ece6f5] px-4 py-1 rounded text-gray-700 border border-gray-400" %>
-        </td>
+  <h2 class="text-xl font-bold mb-6 ml-6"> Individual Total Work Hours</h2>
+  <table class="bg-white  rounded-lg overflow-hidden w-full">
+    <thead>
+      <tr class="bg-white text-gray-700 text-left border-b border-gray-400  ">
+        <th class="px-6 py-3 text-lg font-bold">Name</th>
+        <th class="px-6 py-3 text-lg font-bold">Total Worktime</th>
+        <th class="px-6 py-3 text-lg font-bold">Work Days</th>
+        <th class="px-6 py-3 text-lg font-bold text-end">View Data</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
+    </thead>
+    <tbody>
+      <% @all_users.each do |user| %>
+        <tr class="bg-white border-b border-gray-200 hover:bg-[#f8f7fb] transition duration-100 ease-in-out ">
+          <td class="px-6 py-3 text-gray-600 text-left"><%= user.username %></td>
+          <td class="px-6 py-3 text-gray-600 text-left">
+            <% if user.total_minutes == 0 %>
+              <%= "#{user.total_hours.to_i} hours" %>
+            <% else %>
+              <%= "#{user.total_hours.to_i} hours #{user.total_minutes} minutes" %>
+            <% end %>
+          </td>
+          <td class="px-6 py-3 text-gray-600 text-left"><%= user.task_count %> days</td>
+          <td class="px-6 py-3 text-end">
+            <%= link_to "View", member_path(user.id), 
+                class: "hover:bg-[#ece6f5] px-4 py-1 rounded text-gray-700 border border-gray-400" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
