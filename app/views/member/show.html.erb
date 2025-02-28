@@ -1,11 +1,11 @@
 <%= render "layouts/navbar" , user:@user%>
-<div class="mt-35 flex justify-center flex-col mx-auto max-w-screen-md md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mb-10">
-  <h2 class="text-2xl font-bold mb-10 "><span class="text-[#4400bb]"><%= @user.username %></span><span class="text-[#4400bb]">'s</span> Worktime</h2>
-  <!-- Dropdown Filter (Minimal & In One Row) -->
-  <div class="flex flex-col items-center px-4 pb-3 pl-7 mb-6">
-    <div class="relative w-64">
-      <select id="monthFilter"
-            class="appearance-none w-full bg-transparent h-[42] border rounded-lg border-2 text-gray-400 py-2 px-4 pr-8 focus:outline-none focus:ring-0 focus:border-[#7D58BF] transition border-[#906cd1]">
+<div class="mt-35 flex justify-center flex-col mx-auto max-w-screen-md md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mb-10" data-controller="filter">
+  <!-- Dropdown Filter -->
+  <div class="flex flex-col px-4 pb-3 pl-7 mb-6">
+    <h2 class="text-2xl font-bold mb-6 ml-6"><span class="text-[#4400bb]"><%= @user.username %></span><span class="text-[#4400bb]">'s</span> Worktime</h2>
+    <div class="relative w-64 mb-4 ml-6">
+      <select  data-filter-target="monthFilter" data-action="change->filter#filterTasks"
+        class="appearance-none w-full bg-transparent h-[42] border rounded-lg border-2 text-gray-400 py-2 px-4 pr-8 focus:outline-none focus:ring-0 focus:border-[#7D58BF] transition border-[#906cd1]">
         <option value="">Select a Month</option>
         <% (1..12).each do |m| %>
           <option value="<%= m %>"><%= Date::MONTHNAMES[m] %></option>
@@ -20,22 +20,27 @@
         </svg>
       </div>
     </div>
-    <table class="rounded-lg overflow-hidden mx-3">
-      <thead>
-        <tr class="bg-white text-gray-700 text-left rounded-tr-lg h-13 border-b border-gray-400">
-          <th class="px-4 w-1/4 text-xl font-medium ">Date</th>
-          <th class="px-4 w-1/4 text-xl font-medium ">Work time</th>
-          <th class="px-4 w-1/4 text-xl font-medium ">Details</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @tasks.each do |task| %>
-          <tr class="task-row bg-white border-b border-gray-200 hover:bg-[#f8f7fb] transition duration-100 ease-in-out">
-            <td class="px-4 py-2 task-date text-gray-600"><%= task.date.strftime("%d/%m/%Y") %></td>
-            <td class="px-4 py-2 task-date text-gray-600"><%= "#{task.hours} hours #{task.mins} minutes" %></td>
-            <td class="px-4 py-2 task-date text-gray-600"><%= task.detail %></td>
+    <!-- Table -->
+    <div class="flex justify-center w-full overflow-auto flex-col">
+      <table class="rounded-lg overflow-hidden mx-3">
+        <thead>
+          <tr class="bg-white text-gray-700 text-left rounded-tr-lg h-13 border-b border-gray-400">
+            <th class="px-4 w-1/4 text-xl font-medium">Date</th>
+            <th class="px-4 w-1/4 text-xl font-medium">Work time</th>
+            <th class="px-4 w-1/4 text-xl font-medium">Details</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @tasks.each do |task| %>
+            <tr class="task-row bg-white border-b border-gray-200 hover:bg-[#f8f7fb] transition duration-100 ease-in-out"
+              data-filter-target="taskRow" data-month="<%= task.date.month %>">
+              <td class="px-4 py-2 text-gray-600"><%= task.date.strftime("%d/%m/%Y") %></td>
+              <td class="px-4 py-2 text-gray-600"><%= "#{task.hours} hours #{task.mins} minutes" %></td>
+              <td class="px-4 py-2 text-gray-600"><%= task.detail %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
+</div>
