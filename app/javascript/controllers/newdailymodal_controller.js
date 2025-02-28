@@ -18,13 +18,12 @@ export default class extends Controller {
       this.modal_contentTarget.classList.remove('scale-150')
     }, 100);
     this.modalTarget.classList.add("flex")
-    this.backgroundTarget.classList.add("blur-background")
   }
 
   close_modal() {
     this.input_detailTarget.value = ""
     this.add_buttonTarget.classList.remove("hidden")
-    this.backgroundTarget.classList.remove("blur-background")
+
     this.modal_contentTarget.classList.add('translate-y-full')
     setTimeout(() => {
       this.modal_contentTarget.classList.add('opacity-0')

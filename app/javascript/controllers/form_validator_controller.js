@@ -18,11 +18,11 @@ export default class extends Controller {
     if (dateFilled && hoursFilled && minsFilled && !isZeroZero && !dateNotDuplicate) {
       this.continueButtonTarget.disabled = false;
       this.continueButtonTarget.classList.remove("bg-gray-400", "cursor-not-allowed");
-      this.continueButtonTarget.classList.add("bg-blue-400");
+      this.continueButtonTarget.classList.add("bg-[#7d58bf]");
       this.continueButtonTarget.classList.add("cursor-pointer");
     } else {
       this.continueButtonTarget.disabled = true;
-      this.continueButtonTarget.classList.remove("bg-blue-400");
+      this.continueButtonTarget.classList.remove("bg-[#7d58bf] cursor-pointer");
       this.continueButtonTarget.classList.add("bg-gray-400", "cursor-not-allowed");
     }
   }

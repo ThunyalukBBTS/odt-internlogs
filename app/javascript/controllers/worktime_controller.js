@@ -8,12 +8,12 @@ export default class extends Controller {
     // ✅ ล้างค่าปัจจุบัน
     minutesSelect.innerHTML = "";
 
-    // ✅ ถ้า hours = 8 ให้แสดงเฉพาะ 00 นาที
+    // ✅ ถ้า hours = 8 ให้แสดงเฉพาะ 00 นาที[["00 minute", 0], ["30 minutes", 30]]
     if (hours === 8) {
-      minutesSelect.innerHTML += `<option value="0">00</option>`;
+      minutesSelect.innerHTML += `<option value="0">00 minute</option>`;
     } else {
-      minutesSelect.innerHTML += `<option value="0">00</option>`;
-      minutesSelect.innerHTML += `<option value="30">30</option>`;
+      minutesSelect.innerHTML += `<option value="0">00 minute</option>`;
+      minutesSelect.innerHTML += `<option value="30">30 minutes</option>`;
     }
   }  
 }
