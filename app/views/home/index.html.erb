@@ -79,15 +79,18 @@
                     <span class="w-[16ch] sm:w-[20ch] md:w-[40ch] lg:w-[60ch] break-words mr-10">
                       <%= task.detail %>
                     </span>
+                    <span data-controller="tooltip">
                     <button class="hover:bg-[#ece6f5] px-2 py-2 rounded edit-task-btn cursor-pointer"
-                  data-id="<%= task.id %>"
-                  data-date="<%= task.date %>"
-                  data-hours="<%= task.hours %>"
-                  data-mins="<%= task.mins %>"
-                  data-detail="<%= task.detail %>"
-                  data-turbo="false">
+                      data-id="<%= task.id %>"
+                      data-date="<%= task.date %>"
+                      data-hours="<%= task.hours %>"
+                      data-mins="<%= task.mins %>"
+                      data-detail="<%= task.detail %>"
+                      data-turbo="false">
                       <%= image_tag 'edit-3-svgrepo-com-copy-5.svg', width: 10, height: 10 ,class:"min-w-[20px]" %>
                     </button>
+                    <span data-tooltip-target="editTooltip" class="hidden bg-black/70 text-white px-1.5 py-0.5 rounded text-xs absolute mt-1">edit</span>
+                    </span>
                   </td>
                 </tr>
               <% end %>
