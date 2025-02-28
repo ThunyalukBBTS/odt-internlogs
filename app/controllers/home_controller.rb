@@ -2,33 +2,36 @@ class HomeController < ApplicationController
   before_action :set_task, only: [ :edit, :update ]
 
   def index
-    @tasks = DailyTask.all
     @user = Current.session.user
-  # # กำหนดคอลัมน์ที่อนุญาตให้ใช้เรียงลำดับได้
+    @tasks = DailyTask.find_by(user_id: @user.id)
+  # กำหนดคอลัมน์ที่อนุญาตให้ใช้เรียงลำดับได้
   sortable_columns = [ "date", "title", "priority" ] # แก้ให้ตรงกับ Model
 
   # กำหนดทิศทางที่อนุญาต (asc หรือ desc)
   sort_column = sortable_columns.include?(params[:sort]) ? params[:sort] : "date"
   sort_direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-  @tasks = DailyTask.order(Arel.sql("#{sort_column} #{sort_direction}"))
+  @tasks = DailyTask.where(user_id: @user.id).order(Arel.sql("#{sort_column} #{sort_direction}"))
 
   @show_new_modal = params[:show_new_modal] == "true"
     @task = DailyTask.new # Initialize new task for form
   end
 
-  def create
-    @task = DailyTask.new(task_params)
-    @task.user_id = 1  # Assuming user_id is always 1
+def create
+  @user = Current.session.user
+  
+  @task = DailyTask.new(task_params)
+  
+  @task.user_id = @user.id  
 
-    if @task.save
-      redirect_to root_path, notice: "Task created successfully!"
-    else
-      @user = User.find_by(id: 1)
-      @tasks = DailyTask.all  # Ensure @tasks is available
-      @show_new_modal = true
+  if @task.save
+      @tasks = DailyTask.find_by(user_id: @user.id)
+      redirect_to root_path
+  else
+    @tasks = DailyTask.find_by(user_id: @user.id)  
+    @show_new_modal = true
       render :index  # Re-render index instead of redirecting
-    end
   end
+end
 
   def edit
     # ตรวจสอบว่ามีค่า @task หรือไม่
