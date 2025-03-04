@@ -2,9 +2,14 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="newdailymodal"
 export default class extends Controller {
-  static targets = ["background", "add_button", "modal_content", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time", "output_detail", "form", "success", "success_child"]
+  static targets = ["background", "length_output", "add_button", "modal_content", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time", "output_detail", "form", "success", "success_child"]
 
   connect() {
+    this.length_outputTarget.textContent = this.input_detailTarget.value.length
+  }
+
+  update_length() {
+    this.length_outputTarget.textContent = this.input_detailTarget.value.length
   }
   //  <%= @show_new_modal ? 'flex' : 'hidden' %>
   show_modal() {

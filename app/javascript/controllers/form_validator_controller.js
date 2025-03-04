@@ -22,7 +22,7 @@ export default class extends Controller {
       this.continueButtonTarget.classList.add("cursor-pointer");
     } else {
       this.continueButtonTarget.disabled = true;
-      this.continueButtonTarget.classList.remove("bg-[#7d58bf] cursor-pointer");
+      this.continueButtonTarget.classList.remove("bg-[#7d58bf]", "cursor-pointer");
       this.continueButtonTarget.classList.add("bg-gray-400", "cursor-not-allowed");
     }
   }

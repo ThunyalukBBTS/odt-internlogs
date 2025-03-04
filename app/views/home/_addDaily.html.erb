@@ -3,11 +3,9 @@
     <div class="relative flex  rounded-lg">
       <!-- Side Image -->
       <div class="w-2/6 flex flex-col justify-between z-10 bg-[#f7f4ff]  rounded-l-xl">
-        
         <div class="px-6 py-10">
           <div class="flex items-center mb-4">
             <%= image_tag "ODT-Logo.svg", class:"h-8 mr-2"%>
-            
           </div>
           <h1 class="text-sm mb-4 text-gray-500 ">Software Development should be joyful</h1>
           <div class="stepper">
@@ -16,15 +14,15 @@
               <span class="font-semibold text-base">Daily Information</span>
             </div>
             <div class="h-8 ml-[11px] w-[2px] mb-1 bg-gray-400"></div>
-            <div class="flex items-center"> 
+            <div class="flex items-center">
               <div class="w-6 h-6 mr-2 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-400">2</div>
               <span class="text-gray-400 text-base">Confirming</span>
             </div>
           </div>
         </div>
-          <div class="bottom-0 mt-8 rounded-bl-xl">
-            <%= image_tag "addwave.svg", class:"w-full rounded-bl-xl"%>
-          </div>
+        <div class="bottom-0 mt-8 rounded-bl-xl">
+          <%= image_tag "addwave.svg", class:"w-full rounded-bl-xl"%>
+        </div>
       </div>
       <!-- Form Area -->
       <div class="w-4/6 text-base pt-10 px-14 text-left">
@@ -33,20 +31,19 @@
           <%= form_with model: @task, url: home_create_task_path, local: true , data: { turbo_method: :post,controller: "form-validator", "newdailymodal-target":"form" }  do |f| %>
             <div class="mb-2 flex flex-col gap-2">
               <div class="flex flex-row gap-3 items-center align-middle">
-              <label class="">Date</label>
-              
-            </div>
+                <label class="">Date</label>
+              </div>
               <%= f.date_field :date, value: (@task.date || Date.today).strftime('%Y-%m-%d'), 
                 max:Date.today.strftime('%Y-%m-%d'),
                 class: "border border-neutral-400 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:border-[#7d58bf] focus:ring-[#7d58bf]",
                 data: { "form-validator-target": "date", action: "change->form-validator#validateForm", "newdailymodal-target":"input_date" } %>
-                <div data-form-validator-target="date_error" class="hidden">
-                  <div class=" items-center rounded-md text-center p-0 flex">
-                    <%= image_tag 'error.svg', width: 20, height: 20 ,class:"min-w-[16px] me-2" %>
-                    <h1 class="text-red-400 text-base "> This date already exists in daily tasks</h1>
-                  </div>
+              <div data-form-validator-target="date_error" class="hidden">
+                <div class=" items-center rounded-md text-center p-0 flex">
+                  <%= image_tag 'error.svg', width: 20, height: 20 ,class:"min-w-[16px] me-2" %>
+                  <h1 class="text-red-400 text-base "> This date already exists in daily tasks</h1>
                 </div>
               </div>
+            </div>
             <div class="mb-2 flex flex-col gap-2" data-controller="worktime">
               <label class="block text-base sm:hidden">Wt</label>
               <label class="hidden sm:block">Worktime</label>
@@ -75,10 +72,11 @@
             </div>
             <div class="mb-4 flex flex-col gap-2">
               <label class="block">Detail</label>
+              <p data-newdailymodal-target="length_output">0</p>
               <%= f.text_area :detail,placeholder: "Input your daily task detail",
                 :maxlength => 255,
                 class: "border rounded-lg px-3 py-2 min-h-28 border-neutral-400 sm:min-h-36 w-full px-2 col-span-8 focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]",
-                data: { "form-validator-target": "detail", action: "input->form-validator#validateForm","newdailymodal-target":"input_detail" } %>
+                data: { "form-validator-target": "detail", action: "input->form-validator#validateForm input->newdailymodal#update_length","newdailymodal-target":"input_detail" } %>
             </div>
             <div class="flex justify-end space-x-4 mt-3 mb-7">
               <button data-action="click->newdailymodal#close_modal"
@@ -96,10 +94,10 @@
                                     %>
               <!-- <%= f.submit "Continue" , class: "bg-blue-400 text-white px-4 py-2 rounded" %> --->
             </div>
-            <% end %>
-          </div>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
