@@ -77,8 +77,13 @@
               </div>
             </div>
             <div class="mb-4 flex flex-col gap-2">
-              <label class="block">Detail</label>
-              <p data-newdailymodal-target="length_output">0</p>
+              <div class="flex flex-row justify-between ">
+                <label class="">Detail</label>
+                <div class= "text-gray-500 text-sm content-end">
+                 <span data-newdailymodal-target="length_output">0</span>
+                 <span>/250</span>
+                </div>
+              </div>
               <%= f.text_area :detail,placeholder: "Input your daily task detail",
                 :maxlength => 255,
                 class: "border rounded-lg px-3 py-2 min-h-28 border-neutral-400 sm:min-h-36 w-full px-2 col-span-8 focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]",
