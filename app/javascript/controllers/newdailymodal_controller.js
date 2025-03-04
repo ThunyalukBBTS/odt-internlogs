@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="newdailymodal"
 export default class extends Controller {
-  static targets = ["background", "length_output", "add_button", "modal_content", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time", "output_detail", "form", "success", "success_child"]
+  static targets = ["background", "length_output", "add_button", "edit_button", "modal_content", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time", "output_detail", "form", "success", "success_child"]
 
   connect() {
     this.length_outputTarget.textContent = this.input_detailTarget.value.length
@@ -25,6 +25,31 @@ export default class extends Controller {
     this.modalTarget.classList.add("flex")
   }
 
+  show_edit_modal(event) {
+    const form = document.getElementById("form");
+    const button = event.currentTarget;
+    const taskId = button.dataset.id;
+    const taskDate = button.dataset.date;
+    const taskHours = button.dataset.hours;
+    const taskMins = button.dataset.mins;
+    const taskDetail = button.dataset.detail;
+
+    this.input_dateTarget.value = taskDate;
+    this.input_hoursTarget.value = taskHours;
+    this.input_minsTarget.value = taskMins;
+    this.input_detailTarget.value = taskDetail;
+    form.action = `/home/${taskId}`;
+    this.modal_contentTarget.classList.remove('translate-y-full')
+    this.modal_contentTarget.classList.add('translate-y-full')
+    this.modalTarget.classList.remove("hidden")
+    setTimeout(() => {
+      this.modal_contentTarget.classList.remove('opacity-0')
+      this.modal_contentTarget.classList.remove('translate-y-full')
+      this.modal_contentTarget.classList.remove('scale-150')
+    }, 100);
+    this.modalTarget.classList.add("flex")
+  }
+
   close_modal() {
     this.input_detailTarget.value = ""
     this.add_buttonTarget.classList.remove("hidden")
@@ -32,7 +57,15 @@ export default class extends Controller {
     this.modal_contentTarget.classList.add('translate-y-full')
     setTimeout(() => {
       this.modal_contentTarget.classList.add('opacity-0')
-      // this.modal_contentTarget.classList.add('scale-150')
+    }, 100);
+    setTimeout(() => this.modalTarget.classList.add('hidden'), 300);
+  }
+
+  submit_form() {
+    this.add_buttonTarget.classList.remove("hidden")
+    this.modal_contentTarget.classList.add('translate-y-full')
+    setTimeout(() => {
+      this.modal_contentTarget.classList.add('opacity-0')
     }, 100);
     setTimeout(() => this.modalTarget.classList.add('hidden'), 300);
   }
@@ -88,19 +121,35 @@ export default class extends Controller {
     this.backgroundTarget.classList.remove("blur-background")
   }
 
+  // submit() {
+  //   this.close_confirm_modal()
+  //   this.success_childTarget.classList.remove("hidden")
+  //   this.success_childTarget.classList.add("flex")
+  //   this.successTarget.classList.remove("translate-x-full", "opacity-0")
+  //   setTimeout(() => {
+  //     this.successTarget.classList.add("translate-x-full", "opacity-0")
+  //   }, 500)
+  //   setTimeout(() => {
+  //     this.successTarget.classList.add("hidden")
+  //     this.formTarget.submit()
+  //     this.success_childTarget.classList.remove("flex")
+  //     this.success_childTarget.classList.add("hidden")
+  //   }, 1000)
+  // }
+
   submit() {
-    this.close_confirm_modal()
+    this.submit_form()
     this.success_childTarget.classList.remove("hidden")
     this.success_childTarget.classList.add("flex")
     this.successTarget.classList.remove("translate-x-full", "opacity-0")
     setTimeout(() => {
       this.successTarget.classList.add("translate-x-full", "opacity-0")
-    }, 500)
+    }, 3000)
     setTimeout(() => {
       this.successTarget.classList.add("hidden")
       this.formTarget.submit()
       this.success_childTarget.classList.remove("flex")
       this.success_childTarget.classList.add("hidden")
-    }, 1000)
+    }, 3000)
   }
 }

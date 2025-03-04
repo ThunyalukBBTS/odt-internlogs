@@ -80,13 +80,16 @@
                       <%= task.detail %>
                     </span>
                     <span data-controller="tooltip">
-                    <button class="hover:bg-[#ece6f5] px-2 py-2 rounded edit-task-btn cursor-pointer"
-                      data-id="<%= task.id %>"
-                      data-date="<%= task.date %>"
-                      data-hours="<%= task.hours %>"
-                      data-mins="<%= task.mins %>"
-                      data-detail="<%= task.detail %>"
-                      data-turbo="false">
+                    <button
+                      data-action="click->newdailymodal#show_edit_modal" 
+                      data-newdailymodal-target="edit_button"
+                      class="hover:bg-[#ece6f5] px-2 py-2 rounded cursor-pointer"
+                          data-id="<%= task.id %>"
+                          data-date="<%= task.date %>"
+                          data-hours="<%= task.hours %>"
+                          data-mins="<%= task.mins %>"
+                          data-detail="<%= task.detail %>"
+                          data-turbo="false">
                       <%= image_tag 'edit-3-svgrepo-com-copy-5.svg', width: 10, height: 10 ,class:"min-w-[20px]" %>
                     </button>
                     <span data-tooltip-target="editTooltip" class="hidden bg-black/70 text-white px-1.5 py-0.5 rounded text-xs absolute mt-1">edit</span>
@@ -100,7 +103,7 @@
       </div>
     </div>
     <%= render "successModal"%>
-    <%= render "addDaily" %>
+    <%= render "addDaily", task: @task %>
     <%= render "confirmDaily" %>
     <%= render "edit" %>
   </div>

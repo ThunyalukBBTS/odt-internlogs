@@ -18,16 +18,16 @@ class HomeController < ApplicationController
 
 def create
   @user = Current.session.user
-  
+
   @task = DailyTask.new(task_params)
-  
-  @task.user_id = @user.id  
+
+  @task.user_id = @user.id
 
   if @task.save
       @tasks = DailyTask.find_by(user_id: @user.id)
       redirect_to root_path
   else
-    @tasks = DailyTask.find_by(user_id: @user.id)  
+    @tasks = DailyTask.find_by(user_id: @user.id)
     @show_new_modal = true
       render :index  # Re-render index instead of redirecting
   end

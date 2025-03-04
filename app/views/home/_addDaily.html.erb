@@ -26,14 +26,20 @@
       </div>
       <!-- Form Area -->
       <div class="w-4/6 text-base pt-10 px-14 text-left">
-        <h1 class="text-lg sm:text-xl font-bold mt-[8px] mb-4 text-[#0056a9]">Add New Daily Task</h1>
+        <h1 class="text-lg sm:text-xl font-bold mt-[8px] mb-4 text-[#0056a9]"><%= task.persisted? ? "Edit Daily Task" : "Add New Daily Task" %></h1>
         <div class="bg-white rounded-lg w-full text-base">
-          <%= form_with model: @task, url: home_create_task_path, local: true , data: { turbo_method: :post,controller: "form-validator", "newdailymodal-target":"form" }  do |f| %>
-            <div class="mb-2 flex flex-col gap-2">
-              <div class="flex flex-row gap-3 items-center align-middle">
-                <label class="">Date</label>
-              </div>
-              <%= f.date_field :date, value: (@task.date || Date.today).strftime('%Y-%m-%d'), 
+          <%= form_with model: task, 
+          url: task.persisted? ? home_update_path : home_create_task_path, 
+          turbo_method: task.persisted? ? :patch : :post, 
+          id: "form",
+          data: { turbo_method: task.persisted? ? :patch : :post, 
+                  controller: "form-validator", 
+                  "newdailymodal-target": "form" } do |f| %>            
+                  <div class="mb-2 flex flex-col gap-2">
+                    <div class="flex flex-row gap-3 items-center align-middle">
+                      <label class="">Date</label>
+                          </div>
+              <%= f.date_field :date, value: (task.date || Date.today).strftime('%Y-%m-%d'), 
                 max:Date.today.strftime('%Y-%m-%d'),
                 class: "border border-neutral-400 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:border-[#7d58bf] focus:ring-[#7d58bf]",
                 data: { "form-validator-target": "date", action: "change->form-validator#validateForm", "newdailymodal-target":"input_date" } %>
@@ -82,12 +88,12 @@
               <button data-action="click->newdailymodal#close_modal"
                 class="bg-white text-gray-400 border-gray-400 border-1 w-32 px-4 py-2 rounded-lg cursor-pointer"
                 onclick="event.preventDefault();">Cancel</button>
-              <%= button_tag "Continue",
+              <%= button_tag task.persisted? ? "Update Task" : "Create Task",
                                         class: "bg-gray-400 text-white w-32 px-4 py-2 rounded-lg cursor-not-allowed",
                                         id: "continue-button",
                                         disabled: true,
                                         data: {
-                                          action: "click->newdailymodal#confirm",
+                                          action: "click->newdailymodal#submit",
                                           "form-validator-target": "continueButton"
                                         },
                                         onclick:"event.preventDefault();"
