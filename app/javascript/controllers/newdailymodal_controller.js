@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="newdailymodal"
 export default class extends Controller {
-  static targets = ["background", "length_output", "add_button", "edit_button", "modal_content", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time", "output_detail", "form", "success", "success_child"]
+  static targets = ["background", "modal_header", "date_error", "length_output", "add_button", "edit_button", "modal_content", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time", "output_detail", "form", "success", "success_child"]
 
   connect() {
     this.length_outputTarget.textContent = this.input_detailTarget.value.length
@@ -13,10 +13,15 @@ export default class extends Controller {
   }
   //  <%= @show_new_modal ? 'flex' : 'hidden' %>
   show_modal() {
+    this.modal_headerTarget.textContent = "Add Daily Task"
     this.modal_contentTarget.classList.remove('translate-y-full')
     this.modal_contentTarget.classList.add('translate-y-full')
     this.add_buttonTarget.classList.add("hidden")
     this.modalTarget.classList.remove("hidden")
+    this.check_date();
+    this.length_outputTarget.textContent = this.input_detailTarget.value.length
+    this.input_dateTarget.disabled = false;
+
     setTimeout(() => {
       this.modal_contentTarget.classList.remove('opacity-0')
       this.modal_contentTarget.classList.remove('translate-y-full')
@@ -25,7 +30,30 @@ export default class extends Controller {
     this.modalTarget.classList.add("flex")
   }
 
+  check_date() {
+    let now_input = this.input_dateTarget.value
+    let ctr = false
+    Array.from(document.querySelectorAll(".task-date")).some(td => {
+      let parts = td.innerText.split("/");
+      let formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`; // YYYY-MM-DD
+      if (now_input === formattedDate) {
+        ctr = true
+      }
+    })
+    if (ctr) {
+      this.date_errorTarget.classList.remove("hidden")
+      this.date_errorTarget.classList.add("grid")
+    } else {
+      this.date_errorTarget.classList.add("hidden")
+      this.date_errorTarget.classList.remove("grid")
+    }
+    return ctr
+  }
+
   show_edit_modal(event) {
+    this.modal_headerTarget.textContent = "Edit Daily Task"
+    this.date_errorTarget.classList.add("hidden")
+    this.input_dateTarget.disabled = true;
     const form = document.getElementById("form");
     const button = event.currentTarget;
     const taskId = button.dataset.id;
@@ -42,6 +70,7 @@ export default class extends Controller {
     this.modal_contentTarget.classList.remove('translate-y-full')
     this.modal_contentTarget.classList.add('translate-y-full')
     this.modalTarget.classList.remove("hidden")
+    this.length_outputTarget.textContent = this.input_detailTarget.value.length
     setTimeout(() => {
       this.modal_contentTarget.classList.remove('opacity-0')
       this.modal_contentTarget.classList.remove('translate-y-full')
