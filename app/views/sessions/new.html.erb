@@ -1,8 +1,8 @@
-<div class="min-[501px]:bg-[#FFFFFF] h-screen flex items-center justify-center">
-  <div class="min-[501px]:grid min-[501px]:w-screen  grid-cols-6 w-screen h-screen gap-0 shadow-lg overflow-hidden ">
+<div class="min-[500px]:bg-[#FFFFFF] h-screen flex items-center justify-center">
+  <div class="min-[500px]:grid min-[500px]:w-screen  grid-cols-6 w-screen h-screen gap-0 shadow-lg overflow-hidden ">
     
     <!-- Mobile Header with Logo Overlay -->
-    <div class="relative w-screen min-[501px]:hidden">
+    <div class="relative w-screen min-[500px]:hidden">
       <!-- Heading Background -->
       <%= image_tag "heading_MB_login.png", alt: "Heading", class: "z-0 w-full" %>
       
@@ -13,18 +13,18 @@
     </div>
 
     <!-- Left Column: Login Form -->
-    <div class="pt-5 min-[501px]:bg-[#FFFFFF] flex flex-col col-span-2 justify-start h-full px-6 ">
+    <div class="pt-5 min-[500px]:bg-[#FFFFFF] flex flex-col col-span-2 justify-start h-full px-6 ">
       
       <!-- Desktop Logo -->
-      <div class="hidden min-[501px]:block text-center pt-5 pb-10">
+      <div class="hidden min-[500px]:block text-center pt-5 pb-10">
         <%= image_tag "logo_odt_login.svg", alt: "Logo", class: "mx-auto h-16 w-auto" %>
       </div>
 
-      <div class="text-center mt-0 min-[501px]:pb-4">
-        <h3 class="text-3xl pt-0 min-[501px]:text-5xl text-[#000000] pb-4">Intern - Log</h3>
+      <div class="text-center mt-0 min-[500px]:pb-4">
+        <h3 class="text-3xl pt-0 min-[500px]:text-5xl text-[#000000] pb-4">Intern - Log</h3>
       </div>
 
-      <div class="min-[501px]:text-center pb-6">
+      <div class="min-[500px]:text-center pb-6">
         <hr class="text-[#E2DEDE] mt-2">
       </div>
 
@@ -64,14 +64,14 @@
       <% end %>
 
       <hr class="text-[#E2DEDE] pb-2">
-      <p class="text-sm text-center min-[501px]:mt-4 text-[#929292]">
+      <p class="text-sm text-center min-[500px]:mt-4 text-[#929292]">
         Don’t have an account yet?
         <%= link_to "Register", "/register", class: "text-[#0056A9] hover:underline" %>
       </p>
     </div>
 
     <!-- Right Column: Image Slider -->
-    <div class="hidden min-[501px]:flex col-span-4 items-center justify-center">
+    <div class="hidden min-[500px]:flex col-span-4 items-center justify-center">
       <div data-controller="slideshow"
           data-slideshow-images="<%= (1..8).map { |i| asset_path("login_slideshow/login_slideshow#{i}.png") }.to_json %>"
           class="relative overflow-hidden shadow-lg">
