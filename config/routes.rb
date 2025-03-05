@@ -17,7 +17,7 @@
     get "home/:id/edit", to: "home#edit", as: "edit_home"
     resources :home, only: [ :edit, :update ]
     resources :daily_tasks, only: [ :create, :update, :edit ]
-    post "/", to: "home#create", as: "home_create_task"
+    patch "/", to: "home#create", as: "home_create_task"
     get "/login", to: "login#index"
     get "/register", to: "register#index"
     resources :member, only: [ :index, :show ]
