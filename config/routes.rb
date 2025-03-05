@@ -13,8 +13,8 @@
     # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
     # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
     root "home#index"
-    get "home/:id/edit", to: "home#edit", as: "edit_home"
     patch "home/:id", to: "home#update", as: "home_update"
+    get "home/:id/edit", to: "home#edit", as: "edit_home"
     resources :home, only: [ :edit, :update ]
     resources :daily_tasks, only: [ :create, :update, :edit ]
     post "/", to: "home#create", as: "home_create_task"

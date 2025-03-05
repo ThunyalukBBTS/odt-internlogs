@@ -12,8 +12,7 @@ class HomeController < ApplicationController
   sort_direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   @tasks = DailyTask.where(user_id: @user.id).order(Arel.sql("#{sort_column} #{sort_direction}"))
 
-  @show_new_modal = params[:show_new_modal] == "true"
-    @task = DailyTask.new # Initialize new task for form
+  @task = DailyTask.new # Initialize new task for form
   end
 
 def create

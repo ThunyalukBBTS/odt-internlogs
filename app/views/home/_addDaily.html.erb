@@ -28,9 +28,7 @@
       <div class="w-4/6 text-base pt-10 px-14 text-left" data-controller="form-validator">
         <h1 data-newdailymodal-target="modal_header" data-form-validator-target="header" class="text-lg sm:text-xl font-bold mt-[8px] mb-4 text-[#0056a9]">Add New Daily Task</h1>
         <div class="bg-white rounded-lg w-full text-base">
-          <%= form_with model: task, 
-          url: task.persisted? ? home_update_path : home_create_task_path, 
-          turbo_method: task.persisted? ? :patch : :post, 
+          <%= form_with model: task, url: task.persisted? ? home_update_path(task) : home_create_task_path, method: :patch,
           id: "form",
           data: { turbo_method: task.persisted? ? :patch : :post, 
                   "newdailymodal-target": "form" } do |f| %>
