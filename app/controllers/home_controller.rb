@@ -3,6 +3,7 @@ class HomeController < ApplicationController
 
   def index
     @user = Current.session.user
+    @task = DailyTask.where(user_id: @user.id).order(created_at: :desc).first
     @tasks = DailyTask.find_by(user_id: @user.id)
   # กำหนดคอลัมน์ที่อนุญาตให้ใช้เรียงลำดับได้
   sortable_columns = [ "date", "title", "priority" ] # แก้ให้ตรงกับ Model
@@ -16,23 +17,33 @@ class HomeController < ApplicationController
   puts @tasks.to_json
 
   end
-
-def create
-  @user = Current.session.user
-
-  @task = DailyTask.new(task_params)
-
-  @task.user_id = @user.id
-
-  if @task.save
-      @tasks = DailyTask.find_by(user_id: @user.id)
-      redirect_to root_path
-  else
-    @tasks = DailyTask.find_by(user_id: @user.id)
-    @show_new_modal = true
-      render :index  # Re-render index instead of redirecting
+  def history
+    @task = DailyTask.find_by(id: params[:id])
+    if @task.present?
+      @versions = @task.versions.order(created_at: :asc).to_a  # 👉 เวอร์ชันแรกสุดมาอยู่ต้นลิสต์
+      @versions << @task  # 👉 เอา Task ปัจจุบันเป็นเวอร์ชันล่าสุด
+    else
+      @versions = []
+    end
   end
-end
+
+
+  def create
+    @user = Current.session.user
+    @task = DailyTask.new(task_params)
+    @task.user_id = @user.id
+
+    if @task.save
+      # ✅ บังคับให้ Task ใหม่ถูกเก็บเป็น Version 1
+      @task.touch # อัปเดต updated_at เพื่อให้ PaperTrail บันทึก
+
+      redirect_to root_path, notice: "Task สร้างเรียบร้อย!"
+    else
+      @tasks = DailyTask.find_by(user_id: @user.id)
+      @show_new_modal = true
+      render :index
+    end
+  end
 
   def edit
     # ตรวจสอบว่ามีค่า @task หรือไม่
@@ -40,12 +51,15 @@ end
   end
 
   def update
+    @task = DailyTask.find(params[:id]) # ค้นหา Task ที่จะแก้ไข
+
     if @task.update(task_params)
-      redirect_to root_path, notice: "อัปเดตงานสำเร็จ!"
+      redirect_to root_path
     else
       render :edit
     end
   end
+
 
   def new_modal
     redirect_to root_path(show_new_modal: "true")

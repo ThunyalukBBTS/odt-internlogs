@@ -1,0 +1,48 @@
+<h2 class="text-2xl font-bold text-gray-800">Task Edit History</h2>
+
+<!-- ✅ แสดงข้อมูลเวอร์ชันปัจจุบันที่อยู่นอกตาราง -->
+<div class="bg-gray-100 p-4 rounded-md shadow-md mb-4">
+  <h3 class="text-lg font-semibold">Current Task Version</h3>
+  <p><strong>Date:</strong> <%= @task.date.strftime('%Y-%m-%d') rescue "N/A" %></p>
+  <p><strong>Work Time:</strong> <%= @task.hours.to_i %>h <%= @task.mins.to_i %>m</p>
+  <p><strong>Details:</strong> <%= @task.detail.present? ? @task.detail : "No details provided" %></p>
+  <p><strong>Updated At:</strong> <%= @task.updated_at.strftime('%Y-%m-%d %H:%M:%S') rescue "N/A" %></p>
+</div>
+
+<!-- ✅ ตารางแสดงเวอร์ชันเก่า -->
+<table class="w-full border-collapse border border-gray-300 mt-4">
+  <thead>
+    <tr class="bg-gray-200">
+      <th class="border border-gray-300 p-2">Version</th>
+      <th class="border border-gray-300 p-2">Date</th>
+      <th class="border border-gray-300 p-2">Work Time</th>
+      <th class="border border-gray-300 p-2">Details</th>
+      <th class="border border-gray-300 p-2">Updated At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% versions_list = @task.versions.order(created_at: :asc) %> <%# ✅ เรียงตาม created_at %>
+
+    <% versions_list.each_with_index do |version, index| %>
+      <% version_data = version.reify || @task %> <%# ✅ ใช้ reify ถ้ามีข้อมูลเก่า %>
+
+      <tr class="text-center">
+        <td class="border border-gray-300 p-2"><%= index + 1 %></td>
+        <td class="border border-gray-300 p-2">
+          <%= version_data.date.present? ? version_data.date.strftime('%Y-%m-%d') : "N/A" %>
+        </td>
+        <td class="border border-gray-300 p-2">
+          <%= version_data.hours.to_i %>h <%= version_data.mins.to_i %>m
+        </td>
+        <td class="border border-gray-300 p-2">
+          <%= version_data.detail.present? ? version_data.detail : "No details provided" %>
+        </td>
+        <td class="border border-gray-300 p-2">
+          <%= version.created_at.strftime('%Y-%m-%d %H:%M:%S') rescue "N/A" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<a href="/" class="mt-4 inline-block bg-gray-500 text-white px-4 py-2 rounded">Back</a>

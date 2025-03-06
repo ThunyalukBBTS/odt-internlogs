@@ -18,6 +18,12 @@
     resources :home, only: [ :edit, :update ]
     resources :daily_tasks, only: [ :create, :update, :edit ]
     patch "/", to: "home#create", as: "home_create_task"
+    resources :home, only: [ :edit, :update, :update ] do
+      member do
+        get "history"  # เส้นทาง home/:id/history
+      end
+    end
+    get "/:id/history", to: "home#history", as: "task_history"
     get "/login", to: "login#index"
     get "/register", to: "register#index"
     post "/register", to: "register#create", as: "create_register"
