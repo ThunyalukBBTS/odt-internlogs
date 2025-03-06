@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="newdailymodal"
 export default class extends Controller {
-  static targets = ["background", "modal_header", "date_error", "length_output", "add_button", "edit_button", "modal_content", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time", "output_detail", "form", "success", "success_child"]
+  static targets = ["background", "modal_header", "date_error", "length_output", "add_button", "edit_button", "modal_content", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time","output_hour","output_min" , "output_detail", "form", "success", "success_child"]
 
   connect() {
     this.length_outputTarget.textContent = this.input_detailTarget.value.length
@@ -104,11 +104,23 @@ export default class extends Controller {
     this.modalTarget.classList.remove("flex")
     this.modalTarget.classList.add("hidden")
     let objectDate = new Date(this.input_dateTarget.value)
-    let date = objectDate.getDate()
-    let month = objectDate.getMonth() + 1
+    let date
+    if (objectDate.getDate() < 10)
+      date = `0${objectDate.getDate()}`
+    else(
+      date = objectDate.getDate()
+    )
+    let month
+    if (objectDate.getMonth() < 9)
+      month = `0${objectDate.getMonth() + 1}`
+    else(
+      month = objectDate.getMonth() + 1
+    )
     let year = objectDate.getFullYear()
     this.output_dateTarget.textContent = `${date}/${month}/${year}`
     let out_str = ""
+    let out_hour = ""
+    let out_min = ""
     // format work hours
     let minutes = parseInt(this.input_minsTarget.value)
     let hours = parseInt(this.input_hoursTarget.value)
@@ -116,22 +128,28 @@ export default class extends Controller {
       out_str = ""
     }
     else if (hours === 0) {
-      out_str = `${this.input_minsTarget.value} minutes`
+      out_str = `00 hour/${this.input_minsTarget.value} minutes`
     }
     else if (hours === 1 && minutes === 0) {
-      out_str = `${this.input_hoursTarget.value} hour`
+      out_str = `0${this.input_hoursTarget.value} hour/00 minutes`
     } else if (hours === 1) {
-      out_str = `${this.input_hoursTarget.value} hour ${this.input_minsTarget.value} minutes`
+      out_str = `0${this.input_hoursTarget.value} hour /${this.input_minsTarget.value} minutes`
     } else if (hours >= 2 && minutes === 0) {
-      out_str = `${this.input_hoursTarget.value} hours`
+      out_str = `0${this.input_hoursTarget.value} hours/00 minutes`
     } else {
-      out_str = `${this.input_hoursTarget.value} hours ${this.input_minsTarget.value} minutes`
+      out_str = `0${this.input_hoursTarget.value} hours /${this.input_minsTarget.value} minutes`
     }
-    this.output_timeTarget.textContent = out_str
+    let parts = out_str.split("/");
+    out_hour = parts[0]?.trim() || "";
+    out_min = parts[1]?.trim() || "";
+    this.output_hourTarget.textContent = out_hour
+    this.output_minTarget.textContent = out_min
+    // this.output_timeTarget.textContent = out_str
     this.output_detailTarget.textContent = `${this.input_detailTarget.value}`
     // show confirm modal
     this.confirm_modalTarget.classList.remove("hidden")
     this.confirm_modalTarget.classList.add("flex")
+    console.log("open confirm")
   }
 
   back_to_edit() {
@@ -170,6 +188,8 @@ export default class extends Controller {
     this.submit_form()
     this.success_childTarget.classList.remove("hidden")
     this.success_childTarget.classList.add("flex")
+    this.confirm_modalTarget.classList.remove("flex")
+    this.confirm_modalTarget.classList.add("hidden")
     this.successTarget.classList.remove("translate-x-full", "opacity-0")
     setTimeout(() => {
       this.successTarget.classList.add("translate-x-full", "opacity-0")

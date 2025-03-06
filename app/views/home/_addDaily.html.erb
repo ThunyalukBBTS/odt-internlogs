@@ -38,7 +38,7 @@
               </div>
               <%= f.date_field :date, value: (task.date || Date.today).strftime('%Y-%m-%d'), 
                 max:Date.today.strftime('%Y-%m-%d'),
-                class: "border border-neutral-400 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:border-[#7d58bf] focus:ring-[#7d58bf]",
+                class: "border border-neutral-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:border-[#7d58bf] focus:ring-[#7d58bf]",
                 data: { "form-validator-target": "date", action: "change->form-validator#validateForm", "newdailymodal-target":"input_date" } %>
               <div data-form-validator-target="date_error" data-newdailymodal-target="date_error" class="hidden">
                 <div class=" items-center rounded-md text-center p-0 flex">
@@ -78,12 +78,12 @@
                 <label class="">Detail</label>
                 <div class= "text-gray-500 text-sm content-end">
                   <span data-newdailymodal-target="length_output">0</span>
-                  <span>/250</span>
+                  <span>/255</span>
                 </div>
               </div>
-              <%= f.text_area :detail,placeholder: "Input your daily task detail",
+              <%= f.text_area :detail,placeholder: "Describe what you worked on today",
                 :maxlength => 255,
-                class: "border rounded-lg px-3 py-2 min-h-28 border-neutral-400 sm:min-h-36 w-full px-2 col-span-8 focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]",
+                class: "border rounded-lg px-4 py-2 min-h-28 border-neutral-400 sm:min-h-36 w-full focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]",
                 data: { "form-validator-target": "detail", action: "input->form-validator#validateForm input->newdailymodal#update_length","newdailymodal-target":"input_detail" } %>
             </div>
             <div class="flex justify-end space-x-4 mt-3 mb-7">
@@ -95,7 +95,7 @@
                                         id: "continue-button",
                                         disabled: true,
                                         data: {
-                                          action: "click->newdailymodal#submit",
+                                          action: "click->newdailymodal#confirm",
                                           "form-validator-target": "continueButton"
                                         },
                                         onclick:"event.preventDefault();"
