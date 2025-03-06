@@ -197,12 +197,9 @@ export default class extends Controller {
     this.confirm_modalTarget.classList.remove("flex")
     this.confirm_modalTarget.classList.add("hidden")
     this.successTarget.classList.remove("translate-x-full", "opacity-0")
+    this.formTarget.submit()
     setTimeout(() => {
-      this.successTarget.classList.add("translate-x-full", "opacity-0")
-    }, 3000)
-    setTimeout(() => {
-      this.successTarget.classList.add("hidden")
-      this.formTarget.submit()
+      this.successTarget.classList.add("translate-x-full", "opacity-0", "hidden")
       this.success_childTarget.classList.remove("flex")
       this.success_childTarget.classList.add("hidden")
     }, 3000)
