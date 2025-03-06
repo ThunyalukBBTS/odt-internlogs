@@ -1,104 +1,104 @@
-<div class="relative flex min-h-screen bg-gray-100">
+<div class="relative flex min-h-screen bg-gray-100" data-controller="register">
   <!-- Video Background -->
   <%= video_tag "bg.mp4" , autoplay: true, loop: true, muted: true, playsinline: true,
     class: "absolute top-0 left-0 w-full h-full object-cover z-0" %>
-    <!-- Content Area -->
-    <div class="w-2/6 p-8 flex flex-col justify-between mt-6 ml-4 shadow-md z-10">
-      <div>
-        <div class="flex items-center mb-4">
-          <%= image_tag "ODT-Logo.svg" , class:"h-12 mr-2"%>
+  <!-- Content Area -->
+  <div class="w-2/6 p-8 flex flex-col justify-between mt-6 ml-4 shadow-md z-10">
+    <div>
+      <div class="flex items-center mb-4">
+        <%= image_tag "ODT-Logo.svg" , class:"h-12 mr-2"%>
+      </div>
+      <h1 class="text-lg text-gray-400">Getting started on Intern-Log</h1>
+      <div class="stepper mt-8">
+        <div class="flex items-center mb-8">
+          <div 
+          class="w-6 h-6 mr-2 rounded-full bg-[#0056A9] text-white flex items-center justify-center">1</div>
+          <span class="font-semibold">Personal Information</span>
         </div>
-        <h1 class="text-lg text-gray-400">Getting started on Intern-Log</h1>
-        <div class="stepper mt-8">
-          <div class="flex items-center mb-8">
-            <div class="w-6 h-6 mr-2 rounded-full bg-[#0056A9] text-white flex items-center justify-center">1</div>
-            <span class="font-semibold">Personal Information</span>
-          </div>
-          <div class="flex items-center">
-            <div
+        <div class="flex items-center">
+          <div data-register-target="step"
               class="w-6 h-6 mr-2 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-400">
-              2</div>
-            <span class="text-gray-400">Banking Information</span>
-          </div>
+            2</div>
+          <span class="text-gray-400" data-register-target="step_name">Banking Information</span>
         </div>
       </div>
     </div>
-    <!-- Personal Form Area -->
-    <div class="hidden w-4/6 bg-purple-50 p-12 pt-16 justify-center items-start z-10">
-      <div class="w-full max-w-2xl">
+  </div>
+  <!-- Personal Form Area -->
+  <div class="w-4/6 bg-purple-50 flex p-12 pt-16 justify-center items-start z-10">
+    <%= form_with model: @reg, url: create_register_path, method: :post, class: "space-y-4 pb-6" do |form| %>
+      <div class="w-full max-w-2xl" data-register-target="personal">
         <h2 class="text-4xl font-bold text-[#0056A9] mb-6">Register</h2>
-        <%= form_with url: session_url, class: "space-y-4 pb-6" do |form| %>
-          <div class="flex justify-stretch mt-10">
-            <%= form.label :email_address, "First Name", class: "block text-[#000000] pb-2" %>
-            <%= form.label :email_address, "Last Name", class: "block text-[#000000] pb-2" %>
-          </div>
-          <div class="flex justify-stretch pb-4">
-            <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username",
+        <div class="flex justify-stretch mt-10">
+          <%= form.label :first_name, "Name", class: "block text-[#000000] pb-2" %>
+        </div>
+        <div class="flex justify-stretch pb-4">
+          <%= form.text_field :first_name, required: true, autofocus: true, autocomplete: "username",
                 placeholder: "First Name", value: params[:email_address],
-                class: "w-1/2 px-4 py-2 border border-[#B0AEAE] rounded-lg focus:ring-[#7D58BF] placeholder-[#929292]" %>
-            <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username",
+                class: "w-1/2 px-4 py-2 border border-[#B0AEAE] rounded-lg focus:ring-[#7D58BF] placeholder-[#929292] mr-2" %>
+          <%= form.text_field :last_name, required: true, autofocus: true, autocomplete: "username",
                 placeholder: "Last Name", value: params[:email_address],
-                class: "w-1/2 px-4 py-2 border border-[#B0AEAE] rounded-lg focus:ring-[#7D58BF] placeholder-[#929292]" %>
-          </div>
-          <div class="pb-4">
-            <%= form.label :email_address, "Email", class: "block text-[#000000] pb-2" %>
-            <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username",
+                class: "w-1/2 px-4 py-2 border border-[#B0AEAE] rounded-lg focus:ring-[#7D58BF] placeholder-[#929292] ml-2" %>
+        </div>
+        <div class="pb-4">
+          <%= form.label :email, "Email", class: "block text-[#000000] pb-2" %>
+          <%= form.email_field :email, required: true, autofocus: true, autocomplete: "username",
                 placeholder: "Example@gmail.com", value: params[:email_address],
                 class: "w-full px-4 py-2 border border-[#B0AEAE] rounded-lg focus:ring-[#7D58BF] placeholder-[#929292]" %>
-          </div>
-          <div class="pb-6">
-            <%= form.label :password, "Password", class: "block text-[#000000] pb-2" %>
-            <%= form.password_field :password, required: true, autocomplete: "current-password",
-                placeholder: "Enter your password", maxlength: 72,
-                class: "w-full px-4 py-2 border border-[#B0AEAE] rounded-lg focus:ring-[#7D58BF] placeholder-[#929292]" %>
-          </div>
-          <div class="pb-6">
-            <%= form.label :password, "Confirm Password", class: "block text-[#000000] pb-2" %>
-            <%= form.password_field :password, required: true, autocomplete: "current-password",
-                placeholder: "Enter your comfirm password", maxlength: 72,
-                class: "w-full px-4 py-2 border border-[#B0AEAE] rounded-lg focus:ring-[#7D58BF] placeholder-[#929292]" %>
-          </div>
-          <!-- Submit Button -->
-          <div class="flex justify-between pb-4">
-            <p class="text-sm text-center md:mt-4 text-[#929292]">
-              Already have an account?
-              <%= link_to "Login", "/session/new", class: "text-[#0056A9] hover:underline" %>
-            </p>
-            <%= form.submit "Next Step", class: "w-60 bg-[#7D58BF] text-[#FFFFFF] py-3 rounded-lg hover:bg-[#5c3e90] font-medium cursor-pointer" %>
-          </div>
-        <% end %>
+        </div>
+        <div class="pb-6">
+          <%= form.label :password, "Password", class: "block text-[#000000] pb-2" %>
+          <%= form.password_field :password, required: true, autocomplete: "current-password",
+        placeholder: "Enter your password", maxlength: 72,
+        class: "w-full px-4 py-2 border border-[#B0AEAE] rounded-lg focus:ring-[#7D58BF] placeholder-[#929292]" %>
+        </div>
+        <div class="pb-6">
+          <%= form.label :password_confirmation, "Repeat Password", class: "block text-[#000000] pb-2" %>
+          <%= form.password_field :password_confirmation, required: true, autocomplete: "current-password",
+        placeholder: "Enter your repeat password", maxlength: 72,
+        class: "w-full px-4 py-2 border border-[#B0AEAE] rounded-lg focus:ring-[#7D58BF] placeholder-[#929292]" %>
+        </div>
+        <!-- Submit Button -->
+        <div class="flex justify-between pb-4">
+          <p class="text-sm text-center md:mt-4 text-[#929292]">
+            Already have an account?
+            <%= link_to "Login", "/session/new", class: "text-[#0056A9] hover:underline" %>
+          </p>
+        </div>
+        <button onclick="event.preventDefault();" class="w-60 bg-[#7D58BF] text-[#FFFFFF] py-3 rounded-lg hover:bg-[#5c3e90] font-medium cursor-pointer" data-action="click->register#go_bank">
+          Next Step
+        </button>
       </div>
-    </div>
-
-    <!-- Banking Form Area -->
-    <div class="w-4/6 bg-purple-50 p-12 pt-16 flex justify-center items-start z-10">
-      <div class="w-full max-w-2xl">
+      <!-- Banking Form Area -->
+      <div class="hidden w-full max-w-2xl" data-register-target="bank">
         <h2 class="text-4xl font-bold text-[#0056A9] mb-6">Register</h2>
         <p class="text-gray-400 mb-12">Please fill your bank account for receive your salary.</p>
-        <%= form_with url: session_url, class: "space-y-4 pb-6" do |form| %>
-          <div class="pb-10">
-            <%= form.label :email_address, "Bank", class: "block text-[#000000] pb-2" %>
-            <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username",
+        <div class="pb-10">
+          <%= form.label :bank_name, "Bank", class: "block text-[#000000] pb-2" %>
+          <%= form.text_field :bank_name, required: true, autofocus: true, autocomplete: "username",
                 placeholder: "Example@gmail.com", value: params[:email_address],
                 class: "w-full px-4 py-2 border border-[#B0AEAE] rounded-lg focus:ring-[#7D58BF] placeholder-[#929292]" %>
-          </div>
-          <div class="pb-10">
-            <%= form.label :password, "Account Bank", class: "block text-[#000000] pb-2" %>
-            <%= form.password_field :password, required: true, autocomplete: "current-password",
+        </div>
+        <div class="pb-10">
+          <%= form.label :account_name, "Bank account name", class: "block text-[#000000] pb-2" %>
+          <%= form.text_field :account_name, required: true, autocomplete: "current-password",
                 placeholder: "Enter your password", maxlength: 72,
                 class: "w-full px-4 py-2 border border-[#B0AEAE] rounded-lg focus:ring-[#7D58BF] placeholder-[#929292]" %>
-          </div>
-          <div class="pb-10">
-            <%= form.label :password, "Account Number", class: "block text-[#000000] pb-2" %>
-            <%= form.password_field :password, required: true, autocomplete: "current-password",
+        </div>
+        <div class="pb-10">
+          <%= form.label :account_number, "Account Number", class: "block text-[#000000] pb-2" %>
+          <%= form.text_field :account_number, required: true, autocomplete: "current-password",
                 placeholder: "Enter your comfirm password", maxlength: 72,
                 class: "w-full px-4 py-2 border border-[#B0AEAE] rounded-lg focus:ring-[#7D58BF] placeholder-[#929292]" %>
-          </div>
-          <!-- Submit Button -->
-          <div class="flex justify-center pb-4">
-            <%= form.submit "Register", class: "w-60 bg-[#7D58BF] text-[#FFFFFF] py-3 rounded-lg hover:bg-[#5c3e90] font-medium cursor-pointer" %>
-          </div>
-        <% end %>
+        </div>
+        <!-- Submit Button -->
+        <div class="flex justify-between pb-4">
+          <button onclick="event.preventDefault();" class=" text-gray-400 border-gray-400 border-1 w-32 px-4 py-2 rounded-lg cursor-pointer" data-action="click->register#go_personal">
+            Back
+          </button>
+          <%= form.submit "Register", class: "w-60 bg-[#7D58BF] text-[#FFFFFF] py-3 rounded-lg hover:bg-[#5c3e90] font-medium cursor-pointer" %>
+        </div>
       </div>
-    </div>
+    <% end %>
+  </div>
 </div>
