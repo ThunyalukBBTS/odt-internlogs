@@ -80,14 +80,20 @@ export default class extends Controller {
   }
 
   close_modal() {
-    this.input_detailTarget.value = ""
     this.add_buttonTarget.classList.remove("hidden")
 
     this.modal_contentTarget.classList.add('translate-y-full')
     setTimeout(() => {
       this.modal_contentTarget.classList.add('opacity-0')
     }, 100);
-    setTimeout(() => this.modalTarget.classList.add('hidden'), 300);
+    setTimeout(() => {
+      const today = new Date().toISOString().split('T')[0]
+      this.input_dateTarget.value = today
+      this.input_hoursTarget.value = 0
+      this.input_minsTarget.value = 0
+      this.input_detailTarget.value = ""
+      this.modalTarget.classList.add('hidden')
+    }, 300);
   }
 
   submit_form() {
@@ -131,7 +137,7 @@ export default class extends Controller {
       out_str = `00 hour/${this.input_minsTarget.value} minutes`
     }
     else if (hours === 1 && minutes === 0) {
-      out_str = `0${this.input_hoursTarget.value} hour/00 minutes`
+      out_str = `0${this.input_hoursTarget.value} hour/00 minute`
     } else if (hours === 1) {
       out_str = `0${this.input_hoursTarget.value} hour /${this.input_minsTarget.value} minutes`
     } else if (hours >= 2 && minutes === 0) {

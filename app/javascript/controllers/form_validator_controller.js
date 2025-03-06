@@ -8,6 +8,7 @@ export default class extends Controller {
   }
 
   validateForm() {
+    this.max_hour();
     const dateFilled = this.dateTarget.value.trim() !== "";
     const hoursFilled = this.hoursTarget.value.trim() !== "";
     const minsFilled = this.minsTarget.value.trim() !== "";
@@ -52,4 +53,12 @@ export default class extends Controller {
     }
   }
 
+  max_hour() {
+    if (this.hoursTarget.value == 8) {
+      this.minsTarget.value = 0;
+      this.minsTarget.disabled = true;
+    } else {
+      this.minsTarget.disabled = false;
+    }
+  }
 }
