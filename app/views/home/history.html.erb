@@ -3,10 +3,10 @@
 <!-- ✅ แสดงข้อมูลเวอร์ชันปัจจุบันที่อยู่นอกตาราง -->
 <div class="bg-gray-100 p-4 rounded-md shadow-md mb-4">
   <h3 class="text-lg font-semibold">Current Task Version</h3>
-  <p><strong>Date:</strong> <%= @task.date.strftime('%Y-%m-%d') rescue "N/A" %></p>
+  <p><strong>Date:</strong> <%= @task.date.strftime('%d/%m/%Y') rescue "N/A" %></p>
   <p><strong>Work Time:</strong> <%= @task.hours.to_i %>h <%= @task.mins.to_i %>m</p>
   <p><strong>Details:</strong> <%= @task.detail.present? ? @task.detail : "No details provided" %></p>
-  <p><strong>Updated At:</strong> <%= @task.updated_at.strftime('%Y-%m-%d %H:%M:%S') rescue "N/A" %></p>
+  <p><strong>Updated At:</strong> <%= @task.updated_at.strftime('%d/%m/%Y %H:%M:%S') rescue "N/A" %></p>
 </div>
 
 <!-- ✅ ตารางแสดงเวอร์ชันเก่า -->
@@ -29,7 +29,7 @@
       <tr class="text-center">
         <td class="border border-gray-300 p-2"><%= index + 1 %></td>
         <td class="border border-gray-300 p-2">
-          <%= version_data.date.present? ? version_data.date.strftime('%Y-%m-%d') : "N/A" %>
+          <%= version_data.date.present? ? version_data.date.strftime('%d/%m/%Y') : "N/A" %>
         </td>
         <td class="border border-gray-300 p-2">
           <%= version_data.hours.to_i %>h <%= version_data.mins.to_i %>m
@@ -38,7 +38,7 @@
           <%= version_data.detail.present? ? version_data.detail : "No details provided" %>
         </td>
         <td class="border border-gray-300 p-2">
-          <%= version.created_at.strftime('%Y-%m-%d %H:%M:%S') rescue "N/A" %>
+          <%= version.created_at.strftime('%d/%m/%Y %H:%M:%S') rescue "N/A" %>
         </td>
       </tr>
     <% end %>
