@@ -155,7 +155,6 @@ export default class extends Controller {
     // show confirm modal
     this.confirm_modalTarget.classList.remove("hidden")
     this.confirm_modalTarget.classList.add("flex")
-    console.log("open confirm")
   }
 
   back_to_edit() {
