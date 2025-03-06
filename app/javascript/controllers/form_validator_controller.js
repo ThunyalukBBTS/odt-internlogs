@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["date", "hours", "mins", "detail", "continueButton", "date_error", "header"];
+  static targets = ["date", "tasks", "hours", "mins", "detail", "continueButton", "date_error", "header"];
 
   connect() {
     this.validateForm()
@@ -14,7 +14,6 @@ export default class extends Controller {
     // const detailFilled = this.detailTarget.value.trim() !== "";
     const isZeroZero = this.hoursTarget.value.trim() == 0 && this.minsTarget.value.trim() == 0;
     const dateNotDuplicate = this.check_date();
-
     if (dateFilled && hoursFilled && minsFilled && !isZeroZero && !dateNotDuplicate) {
       this.continueButtonTarget.disabled = false;
       this.continueButtonTarget.classList.remove("bg-gray-400", "cursor-not-allowed");
@@ -28,24 +27,29 @@ export default class extends Controller {
   }
 
   check_date() {
+    let rawData = this.tasksTarget.dataset.tasks;
+    let jsonData;
+
+    try {
+      jsonData = JSON.parse(rawData);
+    } catch {
+      console.log("JSON parse error: Daily tasks");
+      return false;
+    }
+
     if (this.headerTarget.textContent !== "Edit Daily Task") {
-      let now_input = this.dateTarget.value
-      let ctr = false
-      Array.from(document.querySelectorAll(".task-date")).some(td => {
-        let parts = td.innerText.split("/");
-        let formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`; // YYYY-MM-DD
-        if (now_input === formattedDate) {
-          ctr = true
-        }
-      })
-      if (ctr) {
-        this.date_errorTarget.classList.remove("hidden")
-        this.date_errorTarget.classList.add("grid")
+      let now_input = this.dateTarget.value; // Selected input date
+      let duplicate = jsonData.some(each => each.date === now_input);
+
+      if (duplicate) {
+        this.date_errorTarget.classList.remove("hidden");
+        this.date_errorTarget.classList.add("grid");
       } else {
-        this.date_errorTarget.classList.add("hidden")
-        this.date_errorTarget.classList.remove("grid")
+        this.date_errorTarget.classList.add("hidden");
+        this.date_errorTarget.classList.remove("grid");
       }
-      return ctr
+      return duplicate;
     }
   }
+
 }

@@ -13,6 +13,8 @@ class HomeController < ApplicationController
   @tasks = DailyTask.where(user_id: @user.id).order(Arel.sql("#{sort_column} #{sort_direction}"))
 
   @task = DailyTask.new # Initialize new task for form
+  puts @tasks.to_json
+
   end
 
 def create

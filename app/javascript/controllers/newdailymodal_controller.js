@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="newdailymodal"
 export default class extends Controller {
-  static targets = ["background", "modal_header", "date_error", "length_output", "add_button", "edit_button", "modal_content", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time","output_hour","output_min" , "output_detail", "form", "success", "success_child"]
+  static targets = ["background", "modal_header", "date_error", "length_output", "add_button", "edit_button", "modal_content", "modal", "confirm_modal", "input_date", "input_hours", "input_mins", "input_detail", "output_date", "output_time", "output_hour", "output_min", "output_detail", "form", "success", "success_child"]
 
   connect() {
     this.length_outputTarget.textContent = this.input_detailTarget.value.length
@@ -107,13 +107,13 @@ export default class extends Controller {
     let date
     if (objectDate.getDate() < 10)
       date = `0${objectDate.getDate()}`
-    else(
+    else (
       date = objectDate.getDate()
     )
     let month
     if (objectDate.getMonth() < 9)
       month = `0${objectDate.getMonth() + 1}`
-    else(
+    else (
       month = objectDate.getMonth() + 1
     )
     let year = objectDate.getFullYear()
