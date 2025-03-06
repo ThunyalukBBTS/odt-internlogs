@@ -83,8 +83,14 @@
                       <%= task.detail %>
                     </span>
                     <span data-controller="tooltip">
-                      <a href="<%= task.id %>/history",
-                            class: "bg-white/20 text-white px-4 py-2 rounded-full font-medium" >History</a>
+                      <a href="<%= task.id %>/history" >
+                      <button 
+                        class="hover:bg-[#ece6f5] px-2 py-2 rounded cursor-pointer">
+                        <%= image_tag 'history.svg', width: 10, height: 10 ,class:"min-w-[22px]" %>
+                      </button></a>
+                        <span data-tooltip-target="editTooltip" class="hidden bg-black/70 text-white px-1.5 py-0.5 rounded text-xs absolute mt-1">history</span>
+                    </span>
+                    <span data-controller="tooltip">
                       <button
                       data-action="click->newdailymodal#show_edit_modal" 
                         data-newdailymodal-target="edit_button"
