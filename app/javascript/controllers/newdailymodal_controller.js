@@ -141,7 +141,7 @@ export default class extends Controller {
     } else if (hours === 1) {
       out_str = `0${this.input_hoursTarget.value} hour /${this.input_minsTarget.value} minutes`
     } else if (hours >= 2 && minutes === 0) {
-      out_str = `0${this.input_hoursTarget.value} hours/00 minutes`
+      out_str = `0${this.input_hoursTarget.value} hours/00 minute`
     } else {
       out_str = `0${this.input_hoursTarget.value} hours /${this.input_minsTarget.value} minutes`
     }
