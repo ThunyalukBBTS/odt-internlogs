@@ -1,9 +1,11 @@
 <%= render "layouts/navbar", user: @user %>
 <div class="mt-30 mx-auto max-w-screen-md md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
-  <a href="/" class="mt-4 mb-2 inline-block bg-gray-400 text-white px-4 py-2 rounded">Back</a>
-  <h2 class="text-2xl font-bold text-gray-800 ">Task Edit History</h2>
+  <div class="flex justify-start">
+    <h2 class="text-2xl font-bold text-[#4400bb]">Task Edit History</h2>
+  </div>
+
   <!-- ✅ แสดงข้อมูลเวอร์ชันปัจจุบันที่อยู่นอกตาราง -->
-  <div class="bg-gray-100  p-4 rounded-md mb-4 mt-4">
+  <div style="background-color: #EDEAF2;" class="p-4 rounded-xl mb-4 mt-4">
     <h3 class="text-lg font-semibold">Current Task Version</h3>
     <p><strong>Date:</strong> <%= @task.date.strftime('%d/%m/%Y') rescue "N/A" %></p>
     <p><strong>Work Time:</strong> <%= @task.hours.to_i %>h <%= @task.mins.to_i %>m</p>
@@ -11,8 +13,10 @@
     <p><strong>Updated At:</strong> <%= @task.updated_at.strftime('%d/%m/%Y %H:%M:%S') rescue "N/A" %></p>
   </div>
   <table class="bg-white w-full mt-6 rounded-lg overflow-hidden">
+  <table class="bg-white  rounded-lg overflow-hidden w-full">
     <thead>
       <tr class="text-gray-700 text-left rounded-tr-lg border-b border-gray-400">
+      <tr class="bg-white text-gray-700 text-left border-b border-gray-400  ">
         <th class="px-6 py-3 text-lg font-bold">Version</th>
         <th class="px-6 py-3 text-lg font-bold">Date</th>
         <th class="px-6 py-3 text-lg w-[12ch] font-bold">Work Time</th>
@@ -25,6 +29,7 @@
       <% versions_list.each_with_index do |version, index| %>
         <% version_data = version.reify || @task %>
         <tr class="bg-white border-b border-gray-200 hover:bg-[#f8f7fb] transition duration-100 ease-in-out">
+        <tr class="bg-white border-b border-gray-200 hover:bg-[#f8f7fb] transition duration-100 ease-in-out ">
           <td class="px-6 py-3 text-gray-700 font-medium"><%= index + 1 %></td>
           <td class="px-6 py-3 text-gray-600">
             <%= version_data.date.present? ? version_data.date.strftime('%Y-%m-%d') : "N/A" %>
@@ -42,4 +47,13 @@
       <% end %>
     </tbody>
   </table>
+
+  <div class="mt-6">
+    <a href="/" class="bg-[#7D58BF] text-white px-6 py-2 rounded-md shadow-sm transition duration-200">
+        Back
+    </a>
+  </div>
+
+
 </div>
+
