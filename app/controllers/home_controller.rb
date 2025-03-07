@@ -37,7 +37,7 @@ class HomeController < ApplicationController
       # ✅ บังคับให้ Task ใหม่ถูกเก็บเป็น Version 1
       @task.touch # อัปเดต updated_at เพื่อให้ PaperTrail บันทึก
 
-      redirect_to root_path, notice: "Task สร้างเรียบร้อย!"
+      redirect_to root_path
     else
       @tasks = DailyTask.where(user_id: @user.id)
       @show_new_modal = true
