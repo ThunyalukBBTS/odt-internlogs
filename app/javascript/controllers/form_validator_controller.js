@@ -5,6 +5,7 @@ export default class extends Controller {
 
   connect() {
     this.validateForm()
+    this.max_hour()
   }
 
   validateForm() {

@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   def index
     @user = Current.session.user
     @task = DailyTask.where(user_id: @user.id).order(created_at: :desc).first
-    @tasks = DailyTask.find_by(user_id: @user.id)
+    @tasks = DailyTask.where(user_id: @user.id)
   # กำหนดคอลัมน์ที่อนุญาตให้ใช้เรียงลำดับได้
   sortable_columns = [ "date", "title", "priority" ] # แก้ให้ตรงกับ Model
 
@@ -12,7 +12,6 @@ class HomeController < ApplicationController
   sort_column = sortable_columns.include?(params[:sort]) ? params[:sort] : "date"
   sort_direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   @tasks = DailyTask.where(user_id: @user.id).order(Arel.sql("#{sort_column} #{sort_direction}"))
-
   @task = DailyTask.new # Initialize new task for form
 
   end
@@ -31,14 +30,16 @@ class HomeController < ApplicationController
     @user = Current.session.user
     @task = DailyTask.new(task_params)
     @task.user_id = @user.id
-
+    if Integer(task_params[:hours]) == 8
+      @task.mins = 0
+    end
     if @task.save
       # ✅ บังคับให้ Task ใหม่ถูกเก็บเป็น Version 1
       @task.touch # อัปเดต updated_at เพื่อให้ PaperTrail บันทึก
 
       redirect_to root_path, notice: "Task สร้างเรียบร้อย!"
     else
-      @tasks = DailyTask.find_by(user_id: @user.id)
+      @tasks = DailyTask.where(user_id: @user.id)
       @show_new_modal = true
       render :index
     end
@@ -49,15 +50,20 @@ class HomeController < ApplicationController
     puts "Editing Task: #{@task.inspect}"
   end
 
-  def update
-    @task = DailyTask.find(params[:id]) # ค้นหา Task ที่จะแก้ไข
+def update
+  @task = DailyTask.find(params[:id]) 
 
-    if @task.update(task_params)
-      redirect_to root_path
-    else
-      render :edit
-    end
+  updated_params = task_params.to_h 
+  updated_params[:mins] = 0 if Integer(updated_params[:hours]) == 8 
+  puts updated_params
+
+  if @task.update(updated_params)
+    redirect_to root_path
+  else
+    render :edit
   end
+end
+
 
 
   def new_modal
