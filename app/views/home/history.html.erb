@@ -1,7 +1,13 @@
 <%= render "layouts/navbar", user: @user %>
 <div class="mt-30 mx-auto max-w-screen-md md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
-  <div class="flex justify-start">
-    <h2 class="text-2xl font-bold text-[#4400bb]">Task Edit History</h2>
+  <div class="flex justify-between">
+    <a href="/" class="bg-[#7D58BF] text-white px-6 py-2 rounded-md shadow-sm transition duration-200">
+        Back
+    </a>
+    <div class="flex justify-center">
+      <h2 class="text-2xl font-bold text-[#4400bb]">Task Edit History</h2>
+    </div>
+    <div class=" w-24"></div>
   </div>
 
   <!-- ✅ แสดงข้อมูลเวอร์ชันปัจจุบันที่อยู่นอกตาราง -->
@@ -48,11 +54,7 @@
     </tbody>
   </table>
 
-  <div class="mt-6">
-    <a href="/" class="bg-[#7D58BF] text-white px-6 py-2 rounded-md shadow-sm transition duration-200">
-        Back
-    </a>
-  </div>
+
 
 
 </div>
