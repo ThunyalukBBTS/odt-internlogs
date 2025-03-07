@@ -10,12 +10,12 @@
     <p><strong>Details:</strong> <%= @task.detail.present? ? @task.detail : "No details provided" %></p>
     <p><strong>Updated At:</strong> <%= @task.updated_at.strftime('%d/%m/%Y %H:%M:%S') rescue "N/A" %></p>
   </div>
-  <table class="bg-white border border-gray-300 w-full mt-6 rounded-lg overflow-hidden">
+  <table class="bg-white w-full mt-6 rounded-lg overflow-hidden">
     <thead>
-      <tr class="bg-gray-100 text-gray-700 text-left border-b border-gray-300">
+      <tr class="text-gray-700 text-left rounded-tr-lg border-b border-gray-400">
         <th class="px-6 py-3 text-lg font-bold">Version</th>
         <th class="px-6 py-3 text-lg font-bold">Date</th>
-        <th class="px-6 py-3 text-lg font-bold">Work Time</th>
+        <th class="px-6 py-3 text-lg w-[12ch] font-bold">Work Time</th>
         <th class="px-6 py-3 text-lg font-bold">Details</th>
         <th class="px-6 py-3 text-lg font-bold">Updated At</th>
       </tr>
@@ -24,16 +24,16 @@
       <% versions_list = @task.versions.order(created_at: :asc) %>
       <% versions_list.each_with_index do |version, index| %>
         <% version_data = version.reify || @task %>
-        <tr class="bg-white border-b border-gray-200 hover:bg-gray-50 transition duration-100 ease-in-out">
+        <tr class="bg-white border-b border-gray-200 hover:bg-[#f8f7fb] transition duration-100 ease-in-out">
           <td class="px-6 py-3 text-gray-700 font-medium"><%= index + 1 %></td>
           <td class="px-6 py-3 text-gray-600">
             <%= version_data.date.present? ? version_data.date.strftime('%Y-%m-%d') : "N/A" %>
           </td>
           <td class="px-6 py-3 text-gray-600">
-            <%= version_data.hours.to_i %>h <%= version_data.mins.to_i %>m
+            <%= version_data.hours.to_i %>h <%= version_data.mins.to_i == 0 ? "00" : version_data.mins.to_i %>m
           </td>
           <td class="px-6 py-3 text-gray-600">
-            <%= version_data.detail.present? ? version_data.detail : "No details provided" %>
+            <%= version_data.detail.present? ? version_data.detail : "-" %>
           </td>
           <td class="px-6 py-3 text-gray-600">
             <%= version.created_at.strftime('%Y-%m-%d %H:%M:%S') rescue "N/A" %>
