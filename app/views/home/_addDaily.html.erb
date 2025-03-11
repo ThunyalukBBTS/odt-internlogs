@@ -1,0 +1,113 @@
+<div data-newdailymodal-target="modal" class="fixed z-30 inset-0 bg-black/40 items-center justify-center hidden">
+  <div data-newdailymodal-target="modal_content" class="bg-white opacity-0 translate-y-full rounded-xl w-[90%] max-w-4xl text-center transform transition-all duration-300">
+    <div class="relative flex rounded-lg">
+      <!-- Side Image -->
+      <div class="hidden w-2/6 md:flex flex-col justify-between z-10 bg-[#f7f4ff] rounded-l-xl">
+        <div class="px-6 py-10">
+          <div class="flex items-center mb-4">
+            <%= image_tag "ODT-Logo.svg", class:"h-8 mr-2"%>
+          </div>
+          <h1 class="text-sm mb-4 text-gray-500 ">Software Development should be joyful</h1>
+          <div class="stepper">
+            <div class="flex items-center mb-1">
+              <div class="w-6 h-6 mr-2  rounded-full bg-[#0056a9] text-white flex items-center justify-center">1</div>
+              <span class="font-semibold text-base">Daily Information</span>
+            </div>
+            <div class="h-8 ml-[11px] w-[2px] mb-1 bg-gray-400"></div>
+            <div class="flex items-center">
+              <div class="w-6 h-6 mr-2 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-400">2</div>
+              <span class="text-gray-400 text-base">Confirming</span>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-0 mt-8 rounded-bl-xl">
+          <%= image_tag "addwave.svg", class:"w-full rounded-bl-xl"%>
+        </div>
+      </div>
+      <!-- Form Area -->
+      <div class="w-full md:w-4/6 text-base  pt-3 px-6 md:pt-10 md:px-14 text-left">
+        <div data-form-validator-target="tasks"
+     data-tasks="<%=@tasks.to_json %>">
+        </div>
+        <h1 data-newdailymodal-target="modal_header" data-form-validator-target="header" class="text-xl font-bold mt-[8px] mb-4 text-[#0056a9]">Add New Daily Task</h1>
+        <div class="bg-white rounded-lg w-full text-base">
+          <%= form_with model: task, url: task.persisted? ? home_update_path(task) : home_create_task_path, method: :patch,
+          id: "form",
+          data: { turbo_method: task.persisted? ? :patch : :post, 
+                  "newdailymodal-target": "form" } do |f| %>
+            <div class="mb-2 flex flex-col gap-2">
+              <div class="flex flex-row gap-3 items-center align-middle">
+                <label class="">Date</label>
+              </div>
+              <%= f.date_field :date, value: (task.date || Date.today).strftime('%Y-%m-%d'), 
+                max:Date.today.strftime('%Y-%m-%d'),
+                class: "border border-neutral-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:border-[#7d58bf] focus:ring-[#7d58bf]",
+                data: { "form-validator-target": "date", action: "change->form-validator#validateForm", "newdailymodal-target":"input_date" } %>
+              <div data-form-validator-target="date_error" data-newdailymodal-target="date_error" class="hidden">
+                <div class=" items-center rounded-md text-center p-0 flex">
+                  <%= image_tag 'error.svg', width: 20, height: 20 ,class:"min-w-[16px] me-2" %>
+                  <h1 class="text-red-400 text-base "> This date already exists in daily tasks</h1>
+                </div>
+              </div>
+            </div>
+            <div class="mb-2 flex flex-col gap-2" data-controller="worktime">
+              <label class="block">Work time</label>
+              <div class="flex flex-row items-center align-middle">
+                <!-- ✅ Hours Select -->
+                <%= f.select :hours, 
+                options_for_select((0..8).map { |h| ["#{h.to_s.rjust(2, '0')} #{h == 1 || h == 0 ? 'hour' : 'hours'}", h] }, f.object.hours),{},
+                      class: "border flex w-1/2 rounded-l-lg px-3 py-2 border-neutral-400 cursor-pointer bg-white focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]",
+                      data: { 
+                        "form-validator-target": "hours", 
+                        action: "form-validator#validateForm",
+                        "newdailymodal-target":"input_hours"
+                      }
+                    %>
+                <%= f.select :mins, 
+                    options_for_select([["00 minute", 0], ["30 minutes", 30]], f.object.mins),{},
+                      class: "border flex w-1/2 rounded-r-lg px-3 py-2 border-neutral-400 cursor-pointer bg-white focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]",
+                      id: "worktime-minutes",
+                      data: { 
+                        "form-validator-target": "mins", 
+                        action: "change->form-validator#validateForm" ,
+                        "newdailymodal-target":"input_mins"
+                      }
+                %>
+              </div>
+            </div>
+            <div class="mb-4 flex flex-col gap-2">
+              <div class="flex flex-row justify-between ">
+                <label class="">Details</label>
+                <div class= "text-gray-500 text-sm content-end">
+                  <span data-newdailymodal-target="length_output">0</span>
+                  <span>/255</span>
+                </div>
+              </div>
+              <%= f.text_area :detail,placeholder: "Describe what you worked on today",
+                :maxlength => 255,
+                class: "border rounded-lg px-4 py-2 min-h-28 border-neutral-400 sm:min-h-36 w-full focus:border-[#7d58bf] focus:outline-none focus:ring-2 focus:ring-[#7d58bf]",
+                data: { "form-validator-target": "detail", action: "input->form-validator#validateForm input->newdailymodal#update_length","newdailymodal-target":"input_detail" } %>
+            </div>
+            <div class="flex justify-end space-x-4 mt-3 mb-7">
+              <button data-action="click->newdailymodal#close_modal"
+                class="bg-white text-gray-400 border-gray-400 border-1 w-32 px-4 py-2 rounded-lg cursor-pointer"
+                onclick="event.preventDefault();">Cancel</button>
+              <%= button_tag "Continue",
+                                        class: "bg-gray-400 text-white w-32 px-4 py-2 rounded-lg cursor-not-allowed",
+                                        id: "continue-button",
+                                        disabled: true,
+                                        data: {
+                                          action: "click->newdailymodal#confirm",
+                                          "form-validator-target": "continueButton"
+                                        },
+                                        onclick:"event.preventDefault();"
+                                    %>
+              <!-- <%= f.submit "Continue" , class: "bg-blue-400 text-white px-4 py-2 rounded" %> --->
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

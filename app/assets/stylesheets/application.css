@@ -8,3 +8,32 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+@font-face {
+  font-family: "K2D";
+  src: url("K2D-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "K2D";
+  src: url("K2D-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "K2D";
+  src: url("K2D-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+.blur-background {
+  filter: blur(8px);
+  transition: filter 0.3s ease;
+}
+
+body {
+  font-family: "K2D", sans-serif;
+}
