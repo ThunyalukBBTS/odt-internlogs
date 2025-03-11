@@ -64,57 +64,57 @@
                        data-icon-down="<%= asset_path('arrow_drop_down.svg') %>"
              src="<%= asset_path('arrow_drop_up.svg') %>" 
              alt="Sort Icon" class="inline-block w-6 h-6">
-                </th>
-                <th class="px-4 w-1/4 text-lg font-bold">Work time</th>
-                <th class="px-4 w-2/4 text-lg font-bold">Details</th>
-              </tr>
-            </thead>
-            <tbody data-sort-date-target="tbody">
-              <% @tasks.each do |task| %>
-                <tr class="task-row bg-white border-b border-gray-200 hover:bg-[#f8f7fb] transition duration-100 ease-in-out ">
-                  <td class="px-4 py-1 task-date text-gray-600 w-max">
-                    <%= task.date.strftime("%d/%m/%Y") %>
-                  </td>
-                  <td class="px-4 py-1 break-words text-gray-600">
-                    <%= [task.hours > 0 ? "#{task.hours} hours" : nil, task.mins > 0 ? "#{task.mins} minutes" : nil].compact.join(" ") %>
-                  </td>
-                  <td class="px-4 py-1 flex justify-between items-center text-gray-600">
-                    <span class="w-[16ch] sm:w-[20ch] md:w-[40ch] lg:w-[60ch] break-words mr-10">
-                      <%= task.detail %>
-                    </span>
-                    <span data-controller="tooltip">
-                      <a href="<%= task.id %>/history" >
-                      <button 
+                          </th>
+                          <th class="px-4 w-1/4 text-lg font-bold">Work time</th>
+                          <th class="px-4 w-2/4 text-lg font-bold">Details</th>
+                        </tr>
+                      </thead>
+                      <tbody data-sort-date-target="tbody">
+                        <% @tasks.each do |task| %>
+                          <tr class="task-row bg-white border-b border-gray-200 hover:bg-[#f8f7fb] transition duration-100 ease-in-out ">
+                            <td class="px-4 py-1 task-date text-gray-600 w-max">
+                              <%= task.date.strftime("%d/%m/%Y") %>
+                            </td>
+                            <td class="px-4 py-1 break-words text-gray-600">
+                              <%= [task.hours > 0 ? "#{task.hours} h" : nil, task.mins > 0 ? "#{task.mins} m" : nil].compact.join(" ") %>
+                            </td>
+                            <td class="px-4 py-1 flex justify-between items-center text-gray-600">
+                              <span class="w-[16ch] sm:w-[20ch] md:w-[40ch] lg:w-[60ch] break-words mr-10">
+                                <%= task.detail %>
+                              </span>
+                              <span data-controller="tooltip">
+                                <a href="<%= task.id %>/history" >
+                                  <button 
                         class="hover:bg-[#ece6f5] px-2 py-2 rounded cursor-pointer">
-                        <%= image_tag 'history.svg', width: 10, height: 10 ,class:"min-w-[22px]" %>
-                      </button></a>
-                        <span data-tooltip-target="editTooltip" class="hidden bg-black/70 text-white px-1.5 py-0.5 rounded text-xs absolute mt-1">history</span>
-                    </span>
-                    <span data-controller="tooltip">
-                      <button
+                                    <%= image_tag 'history.svg', width: 10, height: 10 ,class:"min-w-[22px]" %>
+                                  </button></a>
+                                <span data-tooltip-target="editTooltip" class="hidden bg-black/70 text-white px-1.5 py-0.5 rounded text-xs absolute mt-1">history</span>
+                              </span>
+                              <span data-controller="tooltip">
+                                <button
                       data-action="click->newdailymodal#show_edit_modal" 
-                        data-newdailymodal-target="edit_button"
-                        class="hover:bg-[#ece6f5] px-2 py-2 rounded cursor-pointer"
-                        data-id="<%= task.id %>"
-                        data-date="<%= task.date %>"
-                        data-hours="<%= task.hours %>"
-                        data-mins="<%= task.mins %>"
-                        data-detail="<%= task.detail %>"
-                        data-turbo="false">
-                        <%= image_tag 'edit-3-svgrepo-com-copy-5.svg', width: 10, height: 10 ,class:"min-w-[20px]" %>
-                      </button>
-                      <span data-tooltip-target="editTooltip" class="hidden bg-black/70 text-white px-1.5 py-0.5 rounded text-xs absolute mt-1">edit</span>
-                    </span>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <%= render "successModal"%>
-    <%= render "addDaily", task: @task %>
-    <%= render "confirmDaily" %>
-    <%= render "edit" %>
-  </div>
+                                  data-newdailymodal-target="edit_button"
+                                  class="hover:bg-[#ece6f5] px-2 py-2 rounded cursor-pointer"
+                                  data-id="<%= task.id %>"
+                                  data-date="<%= task.date %>"
+                                  data-hours="<%= task.hours %>"
+                                  data-mins="<%= task.mins %>"
+                                  data-detail="<%= task.detail %>"
+                                  data-turbo="false">
+                                  <%= image_tag 'edit-3-svgrepo-com-copy-5.svg', width: 10, height: 10 ,class:"min-w-[20px]" %>
+                                </button>
+                                <span data-tooltip-target="editTooltip" class="hidden bg-black/70 text-white px-1.5 py-0.5 rounded text-xs absolute mt-1">edit</span>
+                              </span>
+                            </td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <%= render "successModal"%>
+              <%= render "addDaily", task: @task %>
+              <%= render "confirmDaily" %>
+              <%= render "edit" %>
+            </div>
